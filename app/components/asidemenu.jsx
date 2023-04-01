@@ -9,6 +9,7 @@ import "../../styles/SideMenu.css";
 const links = [
   { to: "/", icon: homeIcon },
   { to: "/about", icon: taskIcon },
+  { to: "/proyectos", icon: taskIcon },
 ];
 
 // Logo component
