@@ -7,9 +7,9 @@ import userLogo from "../../assets/img/user.png";
 import "../../styles/SideMenu.css";
 
 const links = [
-  { to: "/", icon: homeIcon },
-  { to: "/about", icon: taskIcon },
-  { to: "/proyectos", icon: taskIcon },
+  { to: "/", icon: homeIcon, label: "Home" },
+  { to: "/about", icon: taskIcon , label: "About"},
+  { to: "/proyectos", icon: taskIcon , label: "Proyectos"},
 ];
 
 // Logo component
@@ -22,12 +22,13 @@ function Logo() {
 }
 
 // navigation component
-function NavigationItem({ to, icon }) {
+function NavigationItem({ to, icon , label}) {
   return (
     <div className="nav-options-item">
       <Link href={to}>
         <Image
           src={icon}
+          alt={label}
         />
       </Link>
     </div>
@@ -38,8 +39,8 @@ function Navigation() {
   return (
     <nav id="pages-options-menu" className="nav-options-container">
       <div className="nav-options-list">
-        {links.map(({ to, icon }) => (
-          <NavigationItem key={to} to={to} icon={icon} />
+        {links.map(({ to, icon, label }) => (
+          <NavigationItem key={to} to={to} icon={icon} label={label} />
         ))}
       </div>
     </nav>
