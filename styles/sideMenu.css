@@ -50,6 +50,10 @@ aside img {
   transition: background-color 0.3s;
   color: var(--fontcolor-1);
 }
+.nav-options-item > a > img{
+  width: 70%;
+  height: auto;
+}
 .nav-options-item > a:hover {
   background-color: rgb(var(--opbackcolor-1) / 0.1);
 }

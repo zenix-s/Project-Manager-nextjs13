@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model asignaciones {
+  id          Int       @id @default(autoincrement())
+  id_proyecto Int
+  id_usuario  Int
+  rol         String    @db.VarChar(50)
+  users       users     @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "asignaciones_ibfk_1")
+  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "asignaciones_ibfk_2")
+
+  @@index([id_proyecto], map: "id_proyecto")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model estados {
+  id          Int       @id @default(autoincrement())
+  id_proyecto Int
+  nombre      String    @db.VarChar(50)
+  color       Int
+  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "estados_ibfk_1")
+  tareas      tareas[]
+
+  @@index([id_proyecto], map: "id_proyecto")
+}
+
+model proyectos {
+  id           Int            @id @default(autoincrement())
+  name         String         @db.VarChar(50)
+  description  String         @db.VarChar(255)
+  creationDate DateTime       @db.DateTime(0)
+  endDate      DateTime       @db.DateTime(0)
+  asignaciones asignaciones[]
+  estados      estados[]
+  tareas       tareas[]
+}
+
+model tareas {
+  id          Int       @id @default(autoincrement())
+  nombre      Int
+  description Int
+  endDate     DateTime  @db.DateTime(0)
+  id_proyecto Int
+  id_usuario  Int
+  id_estado   Int
+  users       users     @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_1")
+  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_2")
+  estados     estados   @relation(fields: [id_estado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_3")
+
+  @@index([id_estado], map: "id_estado")
+  @@index([id_proyecto], map: "id_proyecto")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model users {
+  id           Int            @id @default(autoincrement())
+  username     String         @db.VarChar(50)
+  email        String         @unique(map: "email") @db.VarChar(100)
+  password     String         @db.VarChar(100)
+  asignaciones asignaciones[]
+  tareas       tareas[]
+}
