@@ -1,16 +1,17 @@
 import Link from "next/link";
 
+import { useState } from "react";
 
 
 
 
 export default function Page() {
 
-  // fetch the list of projects from the api proyectos.php in api folder 
-  const projects = fetch("http://localhost:3001/api/proyectos.php")
+  const [projects, setProjects] = useState([]);
+  const projects = fetch("http://localhost:3000/api/proyectos.php")
     .then((res) => res.json())
     .then((data) => {
-      return data;
+      
     });
   return (
     <div>
