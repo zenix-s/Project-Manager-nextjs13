@@ -1,4 +1,4 @@
-import { getProyectos } from "@/app/lib/get-proyectos";
+import { getProyectos } from "@/lib/get-proyectos";
 
 
 export default async function Page() {

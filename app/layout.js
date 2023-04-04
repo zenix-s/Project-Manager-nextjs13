@@ -1,5 +1,5 @@
 import '../styles/general.css'
-import SideMenu from "./components/asidemenu"
+import AsideBar from '@/components/asidebar'
 
 
 export const metadata = {
@@ -19,8 +19,10 @@ export default function RootLayout({ children }) {
         <title>{metadata.title}</title>
       </head>
       <body>
-        <SideMenu />
-        {children}
+        <AsideBar />
+        <main>
+          {children}
+        </main>
       </body>
     </html>
   )

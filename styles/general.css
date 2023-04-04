@@ -1,10 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300&family=Roboto:wght@100;300;400;700&display=swap");
 :root {
-  --backcolor-1: rgb(13, 17, 23);
+  --backcolor-1: #f5f7f8;
   --backcolor-2: rgb(22, 27, 34);
+
+  --aside-color-1: #2c3940;
 
   --opbackcolor-1: 255 255 255;
 
   --fontcolor-1: #ffffff;
+
+  --white: 255 255 255;
 }
 * {
   margin: 0;
@@ -13,6 +18,22 @@
 }
 body {
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--backcolor-1);
+}
+
+main {
+  outline: 1px solid red;
+  height: 100vh;
+  width: 100vw;
+  padding: 1em;
+}
+
+@media screen and (min-width: 1150px) {
+  main {
+    width: calc(100vw - 20em);
+    transform: translatex(20em);
+  }
 }
