@@ -1,15 +1,32 @@
+import "../styles/navbar-route.css";
 
+function HeaderRouteItem(ruta) {
+  if (ruta.actual) {
+    return (
+      <>
+        <span> / {ruta.name}</span>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <span> / </span>
+        <a href={ruta.path} className="route-anchor">{ruta.name}</a>
+      </>
+    );
+  }
+}
 
 export default function Header({ ruta }) {
   return (
-    <header>
+    <nav className="navbar-route">
       <div>
-        <a href="/">dashboard</a>
-        <span> / </span>
-        <a href={ ruta.path }>
-          { ruta.name }
-        </a>
+        <a href="/">Dashboard</a>
+
+        {ruta.map((ruta, index) => (
+          <HeaderRouteItem key={index} {...ruta} />
+        ))}
       </div>
-    </header>
-  )
+    </nav>
+  );
 }

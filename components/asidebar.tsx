@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../assets/svg/logonobg.svg";
@@ -66,35 +66,33 @@ function Logo() {
 
 function SessionOptions() {
   return (
-    <div className="nav-container">
-      <SessionButton 
+    <div className="nav-container session-options">
+      <SessionButton
         label="Iniciar Sesión"
-        onClick={
-          () => {
-            console.log("Iniciar Sesión");
-          }
-        }
+        onClick={() => {
+          console.log("Iniciar Sesión");
+        }}
         icon={loginicon}
       />
-      <SessionButton 
+      <SessionButton
         label="Registrarse"
-        onClick={
-          () => {
-            console.log("Registrarse");
-          }
-        }
+        onClick={() => {
+          console.log("Registrarse");
+        }}
         icon={registericon}
       />
     </div>
   );
 }
 
-export default function AsideBar(){
+export default function AsideBar() {
   return (
     <aside>
       <div className="aside-container">
-        <Logo />
-        <Nav />
+        <div>
+          <Logo />
+          <Nav />
+        </div>
         <SessionOptions />
       </div>
     </aside>

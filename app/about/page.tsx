@@ -3,10 +3,13 @@ export default function Page() {
   return (
     <>
       <Header
-        ruta={{
-          name: "About",
-          path: "/about",
-        }}
+        ruta={[
+          {
+            name: "About",
+            path: "/about",
+            actual: true,
+          },
+        ]}
       />
       <section>
         <h1>About</h1>

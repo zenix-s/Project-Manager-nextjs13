@@ -14,6 +14,7 @@ aside{
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .logo{
@@ -73,4 +74,8 @@ aside{
 .nav-item > a:hover,
 .nav-item > button:hover{
   background-color: rgb(var(--white) / 0.2);
+}
+
+.session-options{
+  border-top: 1px solid rgb(var(--white) / 0.5);
 }

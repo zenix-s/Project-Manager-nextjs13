@@ -10,10 +10,13 @@ export default async function Page() {
       
       <Header 
         ruta={
-          {
-            name: "Proyectos",
-            path: "/proyectos"
-          }
+          [
+            {
+              path: "/proyectos",
+              name: "Proyectos",
+              actual: true
+            }
+          ]
         }
       />
       <div className="lista-proyectos-container">

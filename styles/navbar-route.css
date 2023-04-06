@@ -1,0 +1,6 @@
+.navbar-route{
+  padding: 0.8em 0.5em;
+}
+.route-anchor:hover{
+  border-bottom: 1px solid red;
+}
