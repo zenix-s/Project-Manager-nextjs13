@@ -12,7 +12,7 @@ export default function Page() {
       <Header
         ruta={[
           {
-            name: "",
+            name: "Dashboard",
             path: "/",
             actual : true
           }

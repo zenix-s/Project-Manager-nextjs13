@@ -1,14 +1,22 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../assets/svg/logonobg.svg";
-import homeicon from "../assets/svg/home.svg";
-import tasksicon from "../assets/svg/task.svg";
-import proyectoicon from "../assets/svg/proyecto.svg";
-import loginicon from "../assets/svg/login.svg";
-import registericon from "../assets/svg/registro.svg";
+import Logo from "./logo";
+import homeicon from "../../assets/svg/home.svg";
+import tasksicon from "../../assets/svg/task.svg";
+import proyectoicon from "../../assets/svg/proyecto.svg";
+import loginicon from "../../assets/svg/login.svg";
+import registericon from "../../assets/svg/registro.svg";
 import SessionButton from "./sessionbutton";
-import "../styles/asidebar.css";
+import SidebarActionButton from "../sidebar-action-button";
+import { BiArrowFromRight } from "react-icons/bi";
+import { BiColumns } from "react-icons/bi";
+import {BiLogOut } from "react-icons/bi";
+import {CiUser } from "react-icons/ci";
+import { SlClose } from "react-icons/sl";
+import "../../styles/asidebar.css";
+import UserSectionButton from "./usersection";
+import { useState } from "react";
 const links = [
   {
     name: "Home",
@@ -53,17 +61,6 @@ function Nav() {
   );
 }
 
-function Logo() {
-  return (
-    <div className="logo">
-      <div className="logo-img">
-        <Image src={logo} alt="Logo" width={50} height={50} />
-      </div>
-      <h1>Varbas</h1>
-    </div>
-  );
-}
-
 function SessionOptions() {
   return (
     <div className="nav-container session-options">
@@ -85,15 +82,44 @@ function SessionOptions() {
   );
 }
 
-export default function AsideBar() {
+function LoggedOptions() {
   return (
-    <aside>
+    <div className="nav-container session-options">
+      <UserSectionButton
+        name="Perfil"
+        icon={CiUser}
+        onclick={() => {
+          console.log("Perfil");
+        }}
+      />
+      <UserSectionButton
+        name="Cerrar Sesión"
+        icon={BiLogOut}
+        onclick={() => {
+          console.log("Cerrar Sesión");
+        }}
+      />
+    </div>
+  );
+}
+
+export default function AsideBar() {
+  const [isLogged, setIsLogged] = useState(false);
+  return (
+    <aside id="sidebar">
+      <SidebarActionButton
+        icon={SlClose}
+        onClick={() => {
+          const sidebar = document.getElementById("sidebar");
+          sidebar.classList.toggle("show-aside");
+        }}
+      />
       <div className="aside-container">
         <div>
           <Logo />
           <Nav />
         </div>
-        <SessionOptions />
+        {isLogged ? <LoggedOptions /> : <SessionOptions />}
       </div>
     </aside>
   );

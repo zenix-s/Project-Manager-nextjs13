@@ -1,4 +1,3 @@
-
 export default function CardProyecto({ proyecto }) {
   return (
     <a className="card-proyecto" href="#">

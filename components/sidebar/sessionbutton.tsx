@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 
 interface optionProps {
@@ -6,7 +7,11 @@ interface optionProps {
   icon?: string;
 }
 
-const SessionButton = ({ label, onClick, icon }: optionProps) => {
+const SessionButton: React.FC<optionProps> = ({ 
+  label, 
+  onClick, 
+  icon 
+}) => {
   return (
     <div className="nav-item">
       <button onClick={onClick}>
