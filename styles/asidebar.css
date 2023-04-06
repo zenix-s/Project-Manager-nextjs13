@@ -39,7 +39,15 @@ aside{
   padding: 1em;
 }
 
-.nav-item > a{
+.nav-item > button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.nav-item > a,
+.nav-item > button{
   display: flex;
   align-items: center;
   padding: 15px;
@@ -47,19 +55,22 @@ aside{
   text-decoration: none;
   transition: background-color 0.1s ease-in-out;
 }
-.nav-item > a > img{
+.nav-item > a > img,
+.nav-item > button > img{
   height: 100%;
   width: 1.5em;
   aspect-ratio: 1/1;
   margin-right: 10px;
 }
-.nav-item > a > span{
+.nav-item > a > span,
+.nav-item > button > span{
   color: rgb(var(--white) / 0.8);
   font-size: 1.2em;
   font-weight: 300;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.nav-item > a:hover{
+.nav-item > a:hover,
+.nav-item > button:hover{
   background-color: rgb(var(--white) / 0.2);
 }

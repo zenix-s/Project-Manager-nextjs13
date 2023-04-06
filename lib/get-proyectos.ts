@@ -1,6 +1,3 @@
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
-
 
 export async function getProyectos() {
   const res = await fetch("http://localhost:3000/api/proyectos")

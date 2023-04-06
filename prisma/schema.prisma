@@ -23,7 +23,7 @@ model estados {
   id          Int       @id @default(autoincrement())
   id_proyecto Int
   nombre      String    @db.VarChar(50)
-  color       Int
+  color       String    @db.VarChar(6)
   proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "estados_ibfk_1")
   tareas      tareas[]
 

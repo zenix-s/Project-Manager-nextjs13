@@ -1,5 +1,6 @@
 import '../styles/general.css'
-import AsideBar from '@/components/asidebar'
+import AsideBar from '../components/asidebar'
+
 
 
 export const metadata = {

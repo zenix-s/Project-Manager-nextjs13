@@ -1,5 +1,5 @@
 import Image from "next/image"
-import loadingLogo from "@/assets/svg/loading.svg";
+import loadingLogo from "../../assets/svg/loading.svg";
 export default function Loading() {
   return (
     <div>
