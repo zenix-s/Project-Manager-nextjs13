@@ -1,14 +1,12 @@
-import LoginForm from "../../../components/forms/loginform"
+'use client'
+import LoginForm from "../../../components/forms/loginform";
 
 function LoginPage() {
   return (
     <>
-      <LoginForm
-        onClose={() => {}}
-        onSubmit={() => {}}
-        title="Login"
-        actionlabel="Login"
-      />
+      <LoginForm />
     </>
   );
 }
+
+export default LoginPage;

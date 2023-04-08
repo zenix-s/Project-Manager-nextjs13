@@ -1,32 +1,58 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { FormContainer } from "./formcontainer";
 
-interface FormModalProps {
-  onClose: () => void;
-  onSubmit: () => void;
-  title?: string;
-  actionlabel?: string;
-}
 
-const LoginForm: React.FC<FormModalProps> = ({
-  onClose,
-  onSubmit,
-  title,
-  actionlabel,
-}) => {
-  return (
-    <section>
-      <div>
-        <div>
-          <h1>{title}</h1>
-        </div>
-        <form>
-          <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" />
-          </div>
-        </form>
+const LoginForm: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleEmailChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value);
+  }
+
+  function handlePasswordChange (e: React.ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value);
+  }
+
+  function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    console.log("submitting");
+  }
+
+
+  const body = (
+    <>
+      <div className="form-group">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          value={email}
+          onChange={handleEmailChange}
+        />
       </div>
-    </section>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+      </div>
+    </>
+  );
+
+
+  return (
+    <FormContainer
+      title="Login"
+      body={body}
+      actionlabel="Login"
+      onSubmit={handleSubmit}
+    />
   );
 };
 
