@@ -17,6 +17,9 @@ import { SlClose } from "react-icons/sl";
 import "../../styles/asidebar.css";
 import UserSectionButton from "./usersection";
 import { useState } from "react";
+
+import { signIn, signOut, useSession } from "next-auth/react";
+
 const links = [
   {
     name: "Home",
@@ -67,14 +70,14 @@ function SessionOptions() {
       <SessionButton
         label="Iniciar Sesión"
         onClick={() => {
-          console.log("Iniciar Sesión");
+          signIn();
         }}
         icon={loginicon}
       />
       <SessionButton
         label="Registrarse"
         onClick={() => {
-          console.log("Registrarse");
+          signOut();
         }}
         icon={registericon}
       />
@@ -111,7 +114,7 @@ export default function AsideBar() {
         icon={SlClose}
         onClick={() => {
           const sidebar = document.getElementById("sidebar");
-          sidebar.classList.toggle("show-aside");
+          sidebar?.classList.toggle("show-aside");
         }}
       />
       <div className="aside-container">

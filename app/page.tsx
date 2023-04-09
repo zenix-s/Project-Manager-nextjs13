@@ -1,12 +1,13 @@
 import Header from "../components/header"
-interface Props {
-  ruta: {
-    name: string
-    path: string
-    actual?: boolean
-  }[]
-}
-export default function Page() {
+import getCurrentUser from "../actions/getCurrentUser";
+ 
+
+
+export default async function Page() {
+  const id = await getCurrentUser();
+  console.log(id);
+
+
   return (
     <section>
       <Header
@@ -20,6 +21,7 @@ export default function Page() {
       />
       <h1>Page</h1>
       <p>Main</p>
+      { id ? <p>Logged id {id}</p> : <></>}
     </section>
   )
 }
