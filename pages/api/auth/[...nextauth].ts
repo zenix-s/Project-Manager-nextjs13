@@ -27,8 +27,14 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
-        const id = String(userna?.id);
+        if (!userna) {
+          return null;
+        }
 
+        
+
+        
+        const id = String(userna?.id);
         const user = { id: id, name: userna?.username, email: userna?.email};
         return user;
       },

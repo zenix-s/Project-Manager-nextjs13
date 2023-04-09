@@ -5,7 +5,6 @@ import getCurrentUser from "../actions/getCurrentUser";
 
 export default async function Page() {
   const id = await getCurrentUser();
-  console.log(id);
 
 
   return (
