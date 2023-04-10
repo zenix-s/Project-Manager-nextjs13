@@ -1,21 +1,27 @@
-import { getProyectos } from "../../lib/get-proyectos";
-import CardProyecto from "../../components/cardproyecto";
+import { getProyectos } from "../../actions/getProyectos";
+import CardProyecto from "../../components/proyectos/cardproyecto";
+import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
 import Header from "../../components/header";
-import "../../styles/proyectos.css";
 import getCurrentUser from "../../actions/getCurrentUser";
 import { redirect } from "next/navigation";
+
 
 export default async function Page() {
   const id = await getCurrentUser();
 
   if (!id) {
     redirect("/");
-    return null;
   }
 
   const proyectos = await getProyectos();
+  
   return (
-    <section className="proyectos-container">
+    <>
+    <section className="
+      flex
+      flex-col
+      h-full
+    ">
       <Header
         ruta={[
           {
@@ -30,11 +36,29 @@ export default async function Page() {
           },
         ]}
       />
-      <div className="lista-proyectos-container">
+      <div className="
+        
+      ">
+       <NewProjectForm visible={false} />
+      </div>
+      <div className="
+        flex
+        justify-start
+        items-start
+        flex-wrap
+        
+        p-2
+        overflow-y-scroll
+      ">
         {proyectos.map((proyecto) => (
-          <CardProyecto key={proyecto.id} proyecto={proyecto} />
+          <CardProyecto key={proyecto.id} 
+            name={proyecto.name}
+            description={proyecto.description}
+            endDate={proyecto.endDate.toLocaleDateString()}
+          />
         ))}
       </div>
     </section>
+    </>
   );
 }

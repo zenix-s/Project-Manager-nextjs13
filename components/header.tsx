@@ -34,7 +34,7 @@ export default function Header({ ruta }) {
           className="sidebar-action-button"
           onClick={() => {
             const sidebar = document.getElementById("sidebar");
-            sidebar.classList.toggle("show-aside");
+            if (sidebar) sidebar.classList.toggle("show-aside");
           }}
         >
           <SlMenu />

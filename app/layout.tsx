@@ -1,6 +1,6 @@
 import '../styles/general.css'
 import AsideBar from '../components/sidebar/asidebar'
-
+import getCurrentUser from '../actions/getCurrentUser'
 
 
 export const metadata = {
@@ -8,7 +8,8 @@ export const metadata = {
   description: 'Esto es de Sergio Fernández',
 }
  
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const iduser = await getCurrentUser()
  return (
     <html lang="en">
       <head>
@@ -16,7 +17,9 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body>
-        <AsideBar />
+        <AsideBar 
+          id={iduser ? iduser : undefined}
+        />
         <main>
           {children}
         </main>

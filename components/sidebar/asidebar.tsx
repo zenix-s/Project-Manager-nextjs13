@@ -5,20 +5,16 @@ import Logo from "./logo";
 import homeicon from "../../assets/svg/home.svg";
 import tasksicon from "../../assets/svg/task.svg";
 import proyectoicon from "../../assets/svg/proyecto.svg";
-import loginicon from "../../assets/svg/login.svg";
-import registericon from "../../assets/svg/registro.svg";
-import SessionButton from "./sessionbutton";
 import SidebarActionButton from "../sidebar-action-button";
-import { BiArrowFromRight } from "react-icons/bi";
-import { BiColumns } from "react-icons/bi";
-import {BiLogOut } from "react-icons/bi";
-import {CiUser } from "react-icons/ci";
 import { SlClose } from "react-icons/sl";
 import "../../styles/asidebar.css";
-import UserSectionButton from "./usersection";
-import { useState } from "react";
 
-import { signIn, signOut, useSession } from "next-auth/react";
+import LogSection from "./logsection";
+
+
+interface AsideBarProps {
+  id?: string;
+}
 
 const links = [
   {
@@ -64,50 +60,7 @@ function Nav() {
   );
 }
 
-function SessionOptions() {
-  return (
-    <div className="nav-container session-options">
-      <SessionButton
-        label="Iniciar Sesión"
-        onClick={() => {
-          signIn();
-        }}
-        icon={loginicon}
-      />
-      <SessionButton
-        label="Registrarse"
-        onClick={() => {
-          signOut();
-        }}
-        icon={registericon}
-      />
-    </div>
-  );
-}
-
-function LoggedOptions() {
-  return (
-    <div className="nav-container session-options">
-      <UserSectionButton
-        name="Perfil"
-        icon={CiUser}
-        onclick={() => {
-          console.log("Perfil");
-        }}
-      />
-      <UserSectionButton
-        name="Cerrar Sesión"
-        icon={BiLogOut}
-        onclick={() => {
-          console.log("Cerrar Sesión");
-        }}
-      />
-    </div>
-  );
-}
-
-export default function AsideBar() {
-  const [isLogged, setIsLogged] = useState(false);
+export default function AsideBar({ id }: AsideBarProps) {
   return (
     <aside id="sidebar">
       <SidebarActionButton
@@ -122,7 +75,9 @@ export default function AsideBar() {
           <Logo />
           <Nav />
         </div>
-        {isLogged ? <LoggedOptions /> : <SessionOptions />}
+        <LogSection 
+          id = {id ? id : undefined}
+        />
       </div>
     </aside>
   );

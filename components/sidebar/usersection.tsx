@@ -19,7 +19,8 @@ const UserSectionButton: React.FC<UserSectionButtonProps> = ({
         w-full
       "
     >
-      <button onClick={onclick}
+      <button
+        onClick={onclick}
         className="
           flex
           items-center
@@ -32,25 +33,25 @@ const UserSectionButton: React.FC<UserSectionButtonProps> = ({
           uppercase
         "
       >
-        {
-          Icon && (
-            <Icon 
-              className="
+        {Icon && (
+          <Icon
+            className="
                 mr-2
                 text-gray-300
                 text-2xl
               "
-              height={24}
-              width={24}
-            />
-          )
-        }
+            height={24}
+            width={24}
+          />
+        )}
         <span
           className="
             text-xl
             text-gray-300
           "
-        >{name}</span>
+        >
+          {name}
+        </span>
       </button>
     </div>
   );
