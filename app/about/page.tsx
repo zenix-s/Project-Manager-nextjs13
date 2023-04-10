@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Header from "../../components/header";
 export default function Page() {
   return (
@@ -20,12 +20,14 @@ export default function Page() {
       <section>
         <h1
           className="
-            text-red-300
+            text-center
             text-4xl
             font-bold
-            text-center
+            text-red-300
           "
-        >About</h1>
+        >
+          About
+        </h1>
         <p>Essta es la pagina del about</p>
       </section>
     </>

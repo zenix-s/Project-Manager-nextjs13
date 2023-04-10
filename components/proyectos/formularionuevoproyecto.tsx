@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
-import prisma from "../../lib/prismadb";
+import Button from "../button";
 import axios from "axios";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -31,6 +31,7 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
       .then(() => {
         console.log("Proyecto creado");
         setVisibility(false);
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -48,36 +49,32 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
         p-4
       "
       >
-        <button
-          onClick={() => setVisibility(true)}
-          className="border-2 border-red-950 "
-        >
-          <span>Nuevo Proyecto</span>
-        </button>
+        <Button onClick={() => setVisibility(true)} theme="light" text="Nuevo Proyecto" />
       </div>
       <div
         className={`
       absolute
-      top-0
       left-0
-      w-full
+      top-0
       h-full
+      w-full
       ${visibility ? "flex" : "hidden"}
-      justify-center
       items-center
+      justify-center
+      z-20
     `}
       >
         <div
           className="
-        w-full
+        relative
         h-full
-        md:w-1/3
-        md:h-3/4
-        bg-neutral-800
+        w-full
         rounded-xl
+        bg-neutral-800
         p-6
         shadow-xl
-        relative
+        md:h-3/4
+        md:w-1/3
       "
         >
           <button

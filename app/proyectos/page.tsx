@@ -5,7 +5,6 @@ import Header from "../../components/header";
 import getCurrentUser from "../../actions/getCurrentUser";
 import { redirect } from "next/navigation";
 
-
 export default async function Page() {
   const id = await getCurrentUser();
 
@@ -14,51 +13,58 @@ export default async function Page() {
   }
 
   const proyectos = await getProyectos();
-  
+
   return (
     <>
-    <section className="
+      <section
+        className="
       flex
-      flex-col
       h-full
-    ">
-      <Header
-        ruta={[
-          {
-            path: "/",
-            name: "Dashboard",
-            actual: false,
-          },
-          {
-            path: "/proyectos",
-            name: "Proyectos",
-            actual: true,
-          },
-        ]}
-      />
-      <div className="
+      flex-col
+    "
+      >
+        <Header
+          ruta={[
+            {
+              path: "/",
+              name: "Dashboard",
+              actual: false,
+            },
+            {
+              path: "/proyectos",
+              name: "Proyectos",
+              actual: true,
+            },
+          ]}
+        />
+        <div
+          className="
         
-      ">
-       <NewProjectForm visible={false} />
-      </div>
-      <div className="
+      "
+        >
+          <NewProjectForm visible={false} />
+        </div>
+        <div
+          className="
         flex
-        justify-start
-        items-start
         flex-wrap
-        
-        p-2
+        items-start
+        justify-start 
         overflow-y-scroll
-      ">
-        {proyectos.map((proyecto) => (
-          <CardProyecto key={proyecto.id} 
-            name={proyecto.name}
-            description={proyecto.description}
-            endDate={proyecto.endDate.toLocaleDateString()}
-          />
-        ))}
-      </div>
-    </section>
+        p-2
+      "
+        >
+          {proyectos.map((proyecto) => (
+            <CardProyecto
+              key={proyecto.id}
+              name={proyecto.name}
+              description={proyecto.description}
+              endDate={proyecto.endDate.toLocaleDateString()}
+              idProyecto={proyecto.id.toString()}
+            />
+          ))}
+        </div>
+      </section>
     </>
   );
 }

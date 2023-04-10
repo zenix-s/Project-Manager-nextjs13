@@ -44,3 +44,39 @@ export async function POST(
 }
 
 
+export async function DELETE(
+  request: Request
+){
+
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return NextResponse.error();
+  }
+  
+  const body = await request.json();
+
+  const {
+    idProyecto,
+  } = body;
+
+  // TODO: check if user is admin of the project
+
+  const deleteAsignaciones = await prisma.asignaciones.deleteMany({
+    where: {
+      id_proyecto: parseInt(idProyecto),
+    },
+  })
+
+  const deleteProyecto = await prisma.proyectos.delete({
+    where: {
+      id: parseInt(idProyecto),
+    },
+  })
+
+
+
+  return NextResponse.json({
+    message: "ok",
+  });
+}
