@@ -4,7 +4,7 @@ import Image from "next/image";
 interface optionProps {
   label: string;
   onClick: () => void;
-  icon?: string;
+  icon: string;
 }
 
 const SessionButton: React.FC<optionProps> = ({ 
