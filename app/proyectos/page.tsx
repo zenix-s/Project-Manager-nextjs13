@@ -61,6 +61,7 @@ export default async function Page() {
               description={proyecto.description}
               endDate={proyecto.endDate.toLocaleDateString()}
               idProyecto={proyecto.id.toString()}
+              rol={proyecto.asignaciones[0].rol}
             />
           ))}
         </div>

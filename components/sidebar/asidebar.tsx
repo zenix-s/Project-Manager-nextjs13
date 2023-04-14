@@ -45,7 +45,7 @@ function NavItem({ name, href, icon }) {
   );
 }
 
-function Nav() {
+function Nav()  {
   return (
     <nav className="nav-container">
       {links.map((link, index) => (

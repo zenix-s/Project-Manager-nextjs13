@@ -3,11 +3,14 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../button";
 import axios from "axios";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface CardProyectoProps {
   name: String;
   description: String;
   idProyecto: String;
+  rol: String;
   endDate?: String;
 }
 
@@ -15,6 +18,7 @@ const CardProyecto = ({
   name,
   description,
   endDate,
+  rol,
   idProyecto,
 }: CardProyectoProps) => {
   const [visible, setVisible] = useState(false);
@@ -43,7 +47,7 @@ const CardProyecto = ({
   };
 
   return (
-    <a
+    <Link href={`/proyectos/${idProyecto}`}
       className="
       relative
       m-2
@@ -52,6 +56,7 @@ const CardProyecto = ({
       w-full
       max-w-md
       flex-col
+      items-start
       justify-between
       overflow-hidden
       rounded-xl
@@ -59,7 +64,6 @@ const CardProyecto = ({
       p-4
       shadow-md
     "
-      href="#"
     >
       <button
         className="
@@ -88,18 +92,23 @@ const CardProyecto = ({
       `}
       >
         <Button text="Editar" onClick={() => {}} theme="dark" />
-        <Button text="Eliminar" onClick={() => {
-          deleteProject();
-        }} theme="dark" />
+        <Button
+          text="Eliminar"
+          onClick={() => {
+            deleteProject();
+          }}
+          theme="dark"
+        />
       </div>
       <div className="">
         <h3>{name}</h3>
         <p>{description}</p>
+        <p>{rol}</p>
       </div>
       <div className="">
         <p>Fecha de finalización: {endDate}</p>
       </div>
-    </a>
+    </Link>
   );
 };
 
