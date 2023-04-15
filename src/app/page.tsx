@@ -1,5 +1,5 @@
 import Header from "../components/header"
-import getCurrentUser from "../actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
  
 
 

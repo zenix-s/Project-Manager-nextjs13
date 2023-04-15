@@ -7,7 +7,7 @@ import tasksicon from "../../assets/svg/task.svg";
 import proyectoicon from "../../assets/svg/proyecto.svg";
 import SidebarActionButton from "../sidebar-action-button";
 import { SlClose } from "react-icons/sl";
-import "../../styles/asidebar.css";
+import "@/styles/asidebar.css";
 
 import LogSection from "./logsection";
 
@@ -34,7 +34,7 @@ const links = [
   },
 ];
 
-const NavItem = ({ name, href, icon }) => {
+const NavItem = ({ name, href, icon }: any) => {
   return (
     <div className="nav-item">
       <Link href={href}>

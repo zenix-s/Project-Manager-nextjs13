@@ -1,8 +1,13 @@
 "use client";
 import Link from "next/link";
-import "../styles/navbar-route.css";
+import "@/styles/navbar-route.css";
 import { SlMenu } from "react-icons/sl";
-const HeaderRouteItem = (ruta) => {
+
+const HeaderRouteItem = (ruta: {
+  name: string;
+  path: string;
+  actual: boolean;
+}) => {
   if (ruta.actual) {
     return (
       <>
@@ -19,13 +24,13 @@ const HeaderRouteItem = (ruta) => {
       </>
     );
   }
-}
+};
 
-const Header = ({ ruta }) => {
+const Header = ({ ruta }: { ruta: any }) => {
   return (
     <nav className="navbar-route">
       <div>
-        {ruta.map((ruta, index) => (
+        {ruta.map((ruta: any, index: number) => (
           <HeaderRouteItem key={index} {...ruta} />
         ))}
       </div>
@@ -42,6 +47,6 @@ const Header = ({ ruta }) => {
       </div>
     </nav>
   );
-}
+};
 
 export default Header;
