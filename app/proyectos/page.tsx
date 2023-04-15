@@ -1,11 +1,11 @@
-import { getProyectos } from "../../actions/getProyectos";
+import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
 import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
 import Header from "../../components/header";
 import getCurrentUser from "../../actions/getCurrentUser";
 import { redirect } from "next/navigation";
 
-export default async function Page() {
+const Page = async () => {
   const id = await getCurrentUser();
 
   if (!id) {
@@ -69,3 +69,5 @@ export default async function Page() {
     </>
   );
 }
+
+export default Page;

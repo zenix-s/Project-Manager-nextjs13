@@ -3,7 +3,7 @@ import getCurrentUser from "../actions/getCurrentUser";
  
 
 
-export default async function Page() {
+const Page = async () => {
   const id = await getCurrentUser();
 
 
@@ -24,3 +24,5 @@ export default async function Page() {
     </section>
   )
 }
+
+export default Page

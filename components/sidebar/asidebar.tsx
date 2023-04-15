@@ -34,7 +34,7 @@ const links = [
   },
 ];
 
-function NavItem({ name, href, icon }) {
+const NavItem = ({ name, href, icon }) => {
   return (
     <div className="nav-item">
       <Link href={href}>
@@ -45,7 +45,7 @@ function NavItem({ name, href, icon }) {
   );
 }
 
-function Nav()  {
+const Nav = () =>  {
   return (
     <nav className="nav-container">
       {links.map((link, index) => (
@@ -60,7 +60,7 @@ function Nav()  {
   );
 }
 
-export default function AsideBar({ id }: AsideBarProps) {
+const AsideBar = ({ id }: AsideBarProps) => {
   return (
     <aside id="sidebar">
       <SidebarActionButton
@@ -82,3 +82,5 @@ export default function AsideBar({ id }: AsideBarProps) {
     </aside>
   );
 }
+
+export default AsideBar;

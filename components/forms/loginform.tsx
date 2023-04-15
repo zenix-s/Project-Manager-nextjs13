@@ -6,18 +6,18 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleEmailChange (e: React.ChangeEvent<HTMLInputElement>) {
+  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-  }
+  }, []);
 
-  function handlePasswordChange (e: React.ChangeEvent<HTMLInputElement>) {
+  const handlePasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  }
+  }, []);
 
-  function handleSubmit (e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("submitting");
-  }
+  };
 
 
   const body = (

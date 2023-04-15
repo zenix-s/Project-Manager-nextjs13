@@ -8,12 +8,16 @@ interface UserProps {
   email: string;
 }
 
-export async function getSession() {
+
+
+const getSession = async () => {
   const session = await getServerSession(authOptions);
   return session;
-}
+};
 
-export default async function getCurrentUser() {
+
+
+const getCurrentUser = async () => {
   const session = await getSession();
   if (!session) return null;
   const user = session?.user as UserProps;
@@ -21,4 +25,6 @@ export default async function getCurrentUser() {
   if (!user.id) return null;
 
   return user.id;
-}
+};
+
+export default getCurrentUser;

@@ -49,7 +49,11 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
         p-4
       "
       >
-        <Button onClick={() => setVisibility(true)} theme="light" text="Nuevo Proyecto" />
+        <Button
+          onClick={() => setVisibility(true)}
+          theme="light"
+          text="Nuevo Proyecto"
+        />
       </div>
       <div
         className={`
@@ -59,10 +63,17 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
       h-full
       w-full
       ${visibility ? "flex" : "hidden"}
+      general-form-container
+      z-20
       items-center
       justify-center
-      z-20
     `}
+        // onclick if if the user clicks outside the form, it closes
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setVisibility(false);
+          }
+        }}
       >
         <div
           className="

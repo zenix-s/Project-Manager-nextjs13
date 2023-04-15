@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import Header from "../../../components/header";
 
-export default function Page() {
+const Page = () => {
 
   const params = useParams();
 
@@ -35,3 +35,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page;

@@ -1,6 +1,7 @@
 import getCurrentUser from "./getCurrentUser";
 import prisma from "../lib/prismadb";
-export async function getProyectos() {
+
+const getProyectos = async () => {
   const iduser = await getCurrentUser();
 
   if (iduser == null) {
@@ -26,3 +27,5 @@ export async function getProyectos() {
 
   return proyectos;
 }
+
+export default getProyectos;

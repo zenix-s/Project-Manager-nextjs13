@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import SessionButton from "./sessionbutton";
 import UserSectionButton from "./usersection";
 
@@ -15,8 +15,7 @@ interface logSessionProps {
   id?: string;
 }
 
-
-function SessionOptions() {
+const SessionOptions = () => {
   return (
     <div className="nav-container session-options">
       <SessionButton
@@ -35,9 +34,9 @@ function SessionOptions() {
       />
     </div>
   );
-}
+};
 
-function LoggedOptions() {
+const LoggedOptions = () => {
   return (
     <div className="nav-container session-options">
       <UserSectionButton
@@ -56,15 +55,11 @@ function LoggedOptions() {
       />
     </div>
   );
-}
+};
 
 const LogSection: React.FC<logSessionProps> = ({ id }) => {
   const [user, setUser] = useState(id);
-  return (
-    <>
-      {user ? <LoggedOptions /> : <SessionOptions />}
-    </>
-  );
+  return <>{user ? <LoggedOptions /> : <SessionOptions />}</>;
 };
 
 export default LogSection;

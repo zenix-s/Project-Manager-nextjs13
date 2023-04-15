@@ -3,7 +3,7 @@ import Image from "next/image";
 import logo from "../../assets/svg/logonobg.svg";
 
 
-function Logo() {
+const Logo = () => {
   return (
     <div className="logo">
       <div className="logo-img">

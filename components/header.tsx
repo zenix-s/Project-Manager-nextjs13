@@ -2,7 +2,7 @@
 import Link from "next/link";
 import "../styles/navbar-route.css";
 import { SlMenu } from "react-icons/sl";
-function HeaderRouteItem(ruta) {
+const HeaderRouteItem = (ruta) => {
   if (ruta.actual) {
     return (
       <>
@@ -21,7 +21,7 @@ function HeaderRouteItem(ruta) {
   }
 }
 
-export default function Header({ ruta }) {
+const Header = ({ ruta }) => {
   return (
     <nav className="navbar-route">
       <div>
@@ -43,3 +43,5 @@ export default function Header({ ruta }) {
     </nav>
   );
 }
+
+export default Header;

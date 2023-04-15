@@ -1,6 +1,6 @@
 "use client";
 import Header from "../../components/header";
-export default function Page() {
+const Page = () => {
   return (
     <>
       <Header
@@ -32,4 +32,6 @@ export default function Page() {
       </section>
     </>
   );
-}
+};
+
+export default Page;
