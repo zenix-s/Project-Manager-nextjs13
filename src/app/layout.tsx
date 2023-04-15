@@ -12,7 +12,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const iduser = await getCurrentUser();
+  const user = await getCurrentUser();
+  const iduser = user ? user.id : null;
   return (
     <html lang="en">
       <body>

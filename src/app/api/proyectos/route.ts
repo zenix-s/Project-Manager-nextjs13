@@ -8,7 +8,7 @@ export async function POST(
 
   const user = await getCurrentUser();
 
-  if (!user) {
+  if (!user?.id) {
     return NextResponse.error();
   }
   
@@ -34,7 +34,7 @@ export async function POST(
   const newProjectUser = await prisma.asignaciones.create({
     data: {
       id_proyecto: newProject.id,
-      id_usuario: parseInt(user),
+      id_usuario: parseInt(user.id),
       rol: "admin",
     },
   });

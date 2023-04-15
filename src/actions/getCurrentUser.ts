@@ -24,7 +24,7 @@ const getCurrentUser = async () => {
 
   if (!user.id) return null;
 
-  return user.id;
+  return user;
 };
 
 export default getCurrentUser;

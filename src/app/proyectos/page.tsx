@@ -2,15 +2,8 @@ import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
 import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
 import Header from "../../components/header";
-import getCurrentUser from "../../actions/getCurrentUser";
-import { redirect } from "next/navigation";
 
 const Page = async () => {
-  const id = await getCurrentUser();
-
-  if (!id) {
-    redirect("/");
-  }
 
   const proyectos = await getProyectos();
 

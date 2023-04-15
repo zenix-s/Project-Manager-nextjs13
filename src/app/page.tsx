@@ -4,7 +4,8 @@ import getCurrentUser from "@/actions/getCurrentUser";
 
 
 const Page = async () => {
-  const id = await getCurrentUser();
+  const user = await getCurrentUser();
+  const id = user ? user.id : null;
 
 
   return (
