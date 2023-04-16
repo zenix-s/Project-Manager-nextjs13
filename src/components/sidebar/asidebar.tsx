@@ -11,7 +11,6 @@ import "@/styles/asidebar.css";
 
 import LogSection from "./logsection";
 
-
 interface AsideBarProps {
   id?: string;
 }
@@ -43,9 +42,9 @@ const NavItem = ({ name, href, icon }: any) => {
       </Link>
     </div>
   );
-}
+};
 
-const Nav = () =>  {
+const Nav = () => {
   return (
     <nav className="nav-container">
       {links.map((link, index) => (
@@ -58,11 +57,19 @@ const Nav = () =>  {
       ))}
     </nav>
   );
-}
+};
 
 const AsideBar = ({ id }: AsideBarProps) => {
+  const shown = false;
+
   return (
-    <aside id="sidebar">
+    <aside
+      className={`
+      fixed left-0 top-0 h-full w-full bg-transparent p-4 transition-transform duration-200 ease-in-out sm:w-80
+      ${shown ? "translate-x-0 transform" : "-translate-x-full transform"}
+      xl:translate-x-0 
+    `}
+    >
       <SidebarActionButton
         icon={SlClose}
         onClick={() => {
@@ -75,12 +82,10 @@ const AsideBar = ({ id }: AsideBarProps) => {
           <Logo />
           <Nav />
         </div>
-        <LogSection 
-          id = {id ? id : undefined}
-        />
+        <LogSection id={id ? id : undefined} />
       </div>
     </aside>
   );
-}
+};
 
 export default AsideBar;

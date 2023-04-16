@@ -1,15 +1,11 @@
 "use client";
-import SessionButton from "./sessionbutton";
-import UserSectionButton from "./usersection";
 
 import { signIn, signOut } from "next-auth/react";
 
-import loginicon from "../../assets/svg/login.svg";
-import registericon from "../../assets/svg/registro.svg";
-import { BiLogOut } from "react-icons/bi";
-import { CiUser } from "react-icons/ci";
-
 import { useState } from "react";
+import { CiLogin, CiLogout, CiEdit, CiUser } from "react-icons/ci";
+
+import Button from "../button";
 
 interface logSessionProps {
   id?: string;
@@ -17,49 +13,61 @@ interface logSessionProps {
 
 const SessionOptions = () => {
   return (
-    <div className="nav-container session-options">
-      <SessionButton
+    <>
+      <Button
         label="Iniciar Sesión"
+        theme="light"
+        trasparent={true}
         onClick={() => {
           signIn();
         }}
-        icon={loginicon}
+        icon={CiLogin}
       />
-      <SessionButton
+      <Button
         label="Registrarse"
+        theme="light"
+        trasparent={true}
         onClick={() => {
           console.log("Registrarse");
         }}
-        icon={registericon}
+        icon={CiEdit}
       />
-    </div>
+    </>
   );
 };
 
 const LoggedOptions = () => {
   return (
-    <div className="nav-container session-options">
-      <UserSectionButton
-        name="Perfil"
+    <>
+      <Button
+        label="Perfil"
+        theme="light"
+        trasparent={true}
         icon={CiUser}
-        onclick={() => {
+        onClick={() => {
           console.log("Perfil");
         }}
       />
-      <UserSectionButton
-        name="Cerrar Sesión"
-        icon={BiLogOut}
-        onclick={() => {
+      <Button
+        label="Cerrar Sesión"
+        theme="light"
+        trasparent={true}
+        icon={CiLogout}
+        onClick={() => {
           signOut();
         }}
       />
-    </div>
+    </>
   );
 };
 
 const LogSection: React.FC<logSessionProps> = ({ id }) => {
   const [user, setUser] = useState(id);
-  return <>{user ? <LoggedOptions /> : <SessionOptions />}</>;
+  return (
+    <div className="flex flex-col gap-1 border-t border-white/50 p-4">
+      {user ? <LoggedOptions /> : <SessionOptions />}
+    </div>
+  );
 };
 
 export default LogSection;
