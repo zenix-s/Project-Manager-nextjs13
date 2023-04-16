@@ -28,7 +28,7 @@ const BreadCrumbItem = (ruta: RouteProps) => {
 };
 
 const BreadCrumbs = () => {
-  const actualRoute = () => {
+  const useActualRoute = () => {
     const pathname = usePathname();
     const pathArray = pathname?.split("/");
 
@@ -50,7 +50,7 @@ const BreadCrumbs = () => {
     return actualRoute;
   };
 
-  const actualRouteArray = actualRoute();
+  const actualRouteArray = useActualRoute();
 
   return (
     <div>
