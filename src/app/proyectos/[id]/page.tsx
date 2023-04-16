@@ -12,25 +12,7 @@ const Page = () => {
   return (
     <>
     <section className="flex flex-col h-full">
-      <Header
-        ruta={[
-          {
-            path: "/",
-            name: "Dashboard",
-            actual: false,
-          },
-          {
-            path: "/proyectos",
-            name: "Proyectos",
-            actual: false,
-          },
-          {
-            path: `/proyectos/${id}`,
-            name: id,
-            actual: true,
-          },
-        ]}
-      />
+      <Header />
       </section>
     </>
   );

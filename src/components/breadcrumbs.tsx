@@ -12,7 +12,7 @@ const BreadCrumbItem = (ruta: RouteProps) => {
   if (ruta.actual) {
     return (
       <>
-        <span className="text-neutral-600 cursor-default"> / {ruta.name}</span>
+        <span className="cursor-default text-neutral-600"> / {ruta.name}</span>
       </>
     );
   } else {
