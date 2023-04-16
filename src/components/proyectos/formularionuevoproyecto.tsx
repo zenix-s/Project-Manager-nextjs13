@@ -52,7 +52,8 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
         <Button
           onClick={() => setVisibility(true)}
           theme="light"
-          text="Nuevo Proyecto"
+          label="Nuevo Proyecto"
+          shadow={true}
         />
       </div>
       <div
