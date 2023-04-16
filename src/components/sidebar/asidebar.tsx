@@ -1,15 +1,12 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import Logo from "./logo";
-import homeicon from "../../assets/svg/home.svg";
-import tasksicon from "../../assets/svg/task.svg";
-import proyectoicon from "../../assets/svg/proyecto.svg";
-import SidebarActionButton from "../sidebar-action-button";
-import { SlClose } from "react-icons/sl";
-import "@/styles/asidebar.css";
 
-import LogSection from "./logsection";
+import { SlClose } from "react-icons/sl";
+import {CiHome,CiCircleInfo, CiAlignTop } from "react-icons/ci";
+
+import SessionSection from "./sessionSection";
+import LinkComponent from "../link";
+
 
 interface AsideBarProps {
   id?: string;
@@ -19,41 +16,36 @@ const links = [
   {
     name: "Home",
     href: "/",
-    icon: homeicon,
+    icon: CiHome,
   },
   {
     name: "About",
     href: "/about",
-    icon: tasksicon,
+    icon: CiCircleInfo,
   },
   {
     name: "Proyectos",
     href: "/proyectos",
-    icon: proyectoicon,
+    icon: CiAlignTop,
   },
 ];
 
-const NavItem = ({ name, href, icon }: any) => {
-  return (
-    <div className="nav-item">
-      <Link href={href}>
-        <Image src={icon} alt={name} width={20} height={20} />
-        <span>{name}</span>
-      </Link>
-    </div>
-  );
-};
+
 
 const Nav = () => {
   return (
-    <nav className="nav-container">
+    <nav className="flex flex-col gap-1.5 p-4">
       {links.map((link, index) => (
-        <NavItem
+        <LinkComponent
           key={index}
-          name={link.name}
+          label={link.name}
+          theme="light"
           href={link.href}
           icon={link.icon}
+          trasparent={true}
+          uppercase={true}
         />
+
       ))}
     </nav>
   );
@@ -70,19 +62,12 @@ const AsideBar = ({ id }: AsideBarProps) => {
       xl:translate-x-0 
     `}
     >
-      <SidebarActionButton
-        icon={SlClose}
-        onClick={() => {
-          const sidebar = document.getElementById("sidebar");
-          sidebar?.classList.toggle("show-aside");
-        }}
-      />
-      <div className="aside-container">
+      <div className="bg-slate-700 w-full h-full rounded-xl flex flex-col justify-between overflow-scroll">
         <div>
           <Logo />
           <Nav />
         </div>
-        <LogSection id={id ? id : undefined} />
+        <SessionSection id={id ? id : undefined} />
       </div>
     </aside>
   );

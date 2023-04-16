@@ -8,6 +8,8 @@ interface ButtonProps {
   icon?: IconType;
   shadow?: boolean;
   center?: boolean;
+  padding?: boolean;
+  uppercase?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,20 +20,22 @@ const Button: React.FC<ButtonProps> = ({
   icon: Icon,
   shadow = false,
   center = false,
+  padding = true,
+  uppercase = false,
 }) => {
   const InnerButton = () => {
     if (Icon) {
       return (
-        <div className="flex w-full items-center justify-start ">
-          <Icon className="text-xl" />
-          <span className="ml-2 text-xl">{label}</span>
-        </div>
+        <>
+          <Icon className="" />
+          <span className="ml-4">{label}</span>
+        </>
       );
     } else {
       return (
-        <div className="flex w-full items-center justify-start ">
-          <span className="text-xl">{label}</span>
-        </div>
+        <>
+          <span className="">{label}</span>
+        </>
       );
     }
   };
@@ -44,13 +48,22 @@ const Button: React.FC<ButtonProps> = ({
         ${theme === "light" ? "text-white" : "text-black"}
         ${shadow ? "shadow-lg" : ""}
         rounded-md
-        p-4
+        ${padding ? "p-4" : ""}
         ${trasparent ? "hover:bg-white/20" : "hover:bg-neutral-700"}
         hover:text-white
+        ${uppercase ? "uppercase" : ""}
+        font-thin
+        tracking-wide
+        text-xl
       `}
       onClick={onClick}
     >
-      <InnerButton />
+      <div
+        className={`flex w-full items-center 
+        ${center ? "justify-center" : "justify-start"}`}
+      >
+        <InnerButton />
+      </div>
     </button>
   );
 };

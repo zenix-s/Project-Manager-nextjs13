@@ -22,6 +22,7 @@ const SessionOptions = () => {
           signIn();
         }}
         icon={CiLogin}
+        uppercase={true}
       />
       <Button
         label="Registrarse"
@@ -31,6 +32,7 @@ const SessionOptions = () => {
           console.log("Registrarse");
         }}
         icon={CiEdit}
+        uppercase={true}
       />
     </>
   );
@@ -47,6 +49,7 @@ const LoggedOptions = () => {
         onClick={() => {
           console.log("Perfil");
         }}
+        uppercase={true}
       />
       <Button
         label="Cerrar Sesión"
@@ -56,18 +59,19 @@ const LoggedOptions = () => {
         onClick={() => {
           signOut();
         }}
+        uppercase={true}
       />
     </>
   );
 };
 
-const LogSection: React.FC<logSessionProps> = ({ id }) => {
+const SessionSection: React.FC<logSessionProps> = ({ id }) => {
   const [user, setUser] = useState(id);
   return (
-    <div className="flex flex-col gap-1 border-t border-white/50 p-4">
+    <div className="flex flex-col gap-1.5 border-t border-white/50 p-4">
       {user ? <LoggedOptions /> : <SessionOptions />}
     </div>
   );
 };
 
-export default LogSection;
+export default SessionSection;
