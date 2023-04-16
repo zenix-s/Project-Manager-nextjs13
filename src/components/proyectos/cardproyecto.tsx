@@ -91,9 +91,9 @@ const CardProyecto = ({
       p-4
       `}
       >
-        <Button text="Editar" onClick={() => {}} theme="dark" />
+        <Button label="Editar" onClick={() => {}} theme="dark" />
         <Button
-          text="Eliminar"
+          label="Eliminar"
           onClick={() => {
             deleteProject();
           }}
