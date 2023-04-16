@@ -1,4 +1,4 @@
-import Header from "../components/header"
+import Header from "../components/header/header"
 import getCurrentUser from "@/actions/getCurrentUser";
  
 
@@ -10,15 +10,7 @@ const Page = async () => {
 
   return (
     <section>
-      <Header
-        ruta={[
-          {
-            name: "Dashboard",
-            path: "/",
-            actual : true
-          }
-        ]}
-      />
+      <Header />
       <h1>Page</h1>
       <p>Main</p>
       { id ? <p>Logged id {id}</p> : <></>}

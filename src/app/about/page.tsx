@@ -1,22 +1,9 @@
 "use client";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 const Page = () => {
   return (
     <>
-      <Header
-        ruta={[
-          {
-            name: "Dashboard",
-            path: "/",
-            actual: false,
-          },
-          {
-            name: "About",
-            path: "/about",
-            actual: true,
-          },
-        ]}
-      />
+      <Header />
       <section>
         <h1
           className="

@@ -1,7 +1,7 @@
 import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
 import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
-import Header from "../../components/header";
+import Header from "../../components/header/header";
 
 const Page = async () => {
 
@@ -16,20 +16,7 @@ const Page = async () => {
       flex-col
     "
       >
-        <Header
-          ruta={[
-            {
-              path: "/",
-              name: "Dashboard",
-              actual: false,
-            },
-            {
-              path: "/proyectos",
-              name: "Proyectos",
-              actual: true,
-            },
-          ]}
-        />
+        <Header />
         <div
           className="
         
