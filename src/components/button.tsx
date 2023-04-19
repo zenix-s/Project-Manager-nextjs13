@@ -24,7 +24,13 @@ const Button: React.FC<ButtonProps> = ({
   uppercase = false,
 }) => {
   const InnerButton = () => {
-    if (Icon) {
+    if (Icon && label === "") {
+      return (
+        <>
+          <Icon className="" />
+        </>
+      );
+    } else if (Icon) {
       return (
         <>
           <Icon className="" />
@@ -52,9 +58,9 @@ const Button: React.FC<ButtonProps> = ({
         ${trasparent ? "hover:bg-white/20" : "hover:bg-neutral-700"}
         hover:text-white
         ${uppercase ? "uppercase" : ""}
+        text-xl
         font-thin
         tracking-wide
-        text-xl
       `}
       onClick={onClick}
     >

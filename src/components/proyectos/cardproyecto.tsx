@@ -3,7 +3,7 @@ import { FiMenu } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../button";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface CardProyectoProps {
@@ -39,6 +39,7 @@ const CardProyecto = ({
         window.location.reload();
       })
       .catch((error) => {
+        console.log("error");
         console.log(error);
       })
       .finally(() => {
@@ -47,7 +48,7 @@ const CardProyecto = ({
   };
 
   return (
-    <Link href={`/proyectos/${idProyecto}`}
+    <div
       className="
       relative
       m-2
@@ -64,6 +65,11 @@ const CardProyecto = ({
       p-4
       shadow-md
     "
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !visible) {
+          console.log("click");
+        }
+      }}
     >
       <button
         className="
@@ -108,7 +114,7 @@ const CardProyecto = ({
       <div className="">
         <p>Fecha de finalización: {endDate}</p>
       </div>
-    </Link>
+    </div>
   );
 };
 

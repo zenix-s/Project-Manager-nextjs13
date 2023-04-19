@@ -8,7 +8,9 @@ const Logo = () => {
       <div className="">
         <Image src={logo} alt="Logo" width={50} height={50} />
       </div>
-      <h1 className="text-white ml-2 text-3xl font-normal tracking-wider uppercase">Varbas</h1>
+      <h1 className="ml-2 text-3xl font-normal uppercase tracking-wider text-white">
+        Varbas
+      </h1>
     </div>
   );
 };
