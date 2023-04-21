@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import AsideBar from "@/components/sidebar/asidebar";
 import getCurrentUser from "@/actions/getCurrentUser";
+import Header from "@/components/header/header";
 
 export const metadata = {
   title: "Varbas",
@@ -18,7 +19,10 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <AsideBar id={iduser ? iduser : undefined} />
-        <main>{children}</main>
+        <main className="h-screen max-w-screen translate-x-80">
+          <Header />
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -10,7 +10,6 @@ const Page = async () => {
 
   return (
     <section>
-      <Header />
       <h1>Page</h1>
       <p>Main</p>
       { id ? <p>Logged id {id}</p> : <></>}

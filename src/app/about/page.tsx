@@ -3,7 +3,6 @@ import Header from "@/components/header/header";
 const Page = () => {
   return (
     <>
-      <Header />
       <section>
         <h1
           className="

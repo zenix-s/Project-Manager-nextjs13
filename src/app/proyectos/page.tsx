@@ -16,7 +16,6 @@ const Page = async () => {
       flex-col
     "
       >
-        <Header />
         <div
           className="
         
