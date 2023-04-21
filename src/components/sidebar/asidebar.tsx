@@ -52,14 +52,8 @@ const AsideBar = ({ id }: AsideBarProps) => {
   const shown = false;
 
   return (
-    <aside
-      className={`
-      fixed left-0 top-0 h-full w-full bg-transparent p-4 transition-transform duration-200 ease-in-out sm:w-80
-      ${shown ? "translate-x-0 transform" : "-translate-x-full transform"}
-      md:translate-x-0
-    `}
-    >
-      <div className="flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700 relative">
+    <div className=" h-full w-full p-4">
+      <div className="relative flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700">
         <div>
           <Logo />
           <Nav />
@@ -78,7 +72,7 @@ const AsideBar = ({ id }: AsideBarProps) => {
           />
         </div>
       </div>
-    </aside>
+    </div>
   );
 };
 

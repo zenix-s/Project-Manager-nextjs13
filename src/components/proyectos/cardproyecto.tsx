@@ -1,10 +1,9 @@
 "use client";
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiExternalLink } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 interface CardProyectoProps {
   name: String;
@@ -25,6 +24,12 @@ const CardProyecto = ({
 
   const toogleVisible = () => {
     setVisible(!visible);
+  };
+
+  const router = useRouter();
+
+  const openProject = () => {
+    router.push(`/proyectos/${idProyecto}`);
   };
 
   const deleteProject = async () => {
@@ -48,40 +53,25 @@ const CardProyecto = ({
   };
 
   return (
-    <div
-      className="
-      relative
-      m-2
-      flex
-      h-52
-      w-full
-      max-w-md
-      flex-col
-      items-start
-      justify-between
-      overflow-hidden
-      rounded-xl
-      bg-white
-      p-4
-      shadow-md
-    "
-      onClick={(e) => {
-        if (e.target === e.currentTarget && !visible) {
-          console.log("click");
-        }
-      }}
-    >
+    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between overflow-hidden rounded-xl bg-white p-4 shadow-md">
       <button
-        className="
-        absolute
-        right-4
-        top-4
-        z-10
-      "
+        className=" absolute right-4 top-4 z-10"
         onClick={() => toogleVisible()}
       >
         <FiMenu size={24} color={visible ? "white" : "black"} />
       </button>
+
+      <div className="absolute bottom-0 right-0">
+        <Button
+          label=""
+          theme="dark"
+          trasparent
+          onClick={() => openProject()}
+          icon={FiExternalLink}
+          center
+        />
+      </div>
+
       <div
         className={`
       ${visible ? "flex" : "hidden"}
@@ -97,13 +87,21 @@ const CardProyecto = ({
       p-4
       `}
       >
-        <Button label="Editar" onClick={() => {}} theme="dark" />
+        <Button
+          label="Editar"
+          onClick={() => {}}
+          theme="light"
+          trasparent
+          center
+        />
         <Button
           label="Eliminar"
           onClick={() => {
             deleteProject();
           }}
-          theme="dark"
+          theme="light"
+          trasparent
+          center
         />
       </div>
       <div className="">
@@ -112,7 +110,7 @@ const CardProyecto = ({
         <p>{rol}</p>
       </div>
       <div className="">
-        <p>Fecha de finalización: {endDate}</p>
+        <p>End Date: {endDate}</p>
       </div>
     </div>
   );
