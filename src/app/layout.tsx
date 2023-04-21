@@ -19,7 +19,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <AsideBar id={iduser ? iduser : undefined} />
-        <main className="h-screen max-w-screen translate-x-80">
+        <main className="h-screen w-full translate-x-80">
           <Header />
           {children}
         </main>

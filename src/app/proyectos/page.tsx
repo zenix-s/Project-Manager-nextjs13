@@ -1,7 +1,6 @@
 import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
 import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
-import Header from "../../components/header/header";
 
 const Page = async () => {
 
