@@ -2,6 +2,34 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prismadb";
 import getCurrentUser from "../../../actions/getCurrentUser";
 
+export async function GET(request: Request) {
+  const user = await getCurrentUser();
+  const iduser = user?.id;
+
+  if (iduser == null) {
+    return [];
+  }
+
+  const proyectos = await prisma.proyectos.findMany({
+    where: {
+      asignaciones: {
+        some: {
+          id_usuario: parseInt(iduser),
+        },
+      },
+    },
+    include: {
+      asignaciones: {
+        where: {
+          id_usuario: parseInt(iduser),
+        },
+      },
+    },
+  });
+
+  return NextResponse.json(proyectos);
+}
+
 export async function POST(request: Request) {
   const user = await getCurrentUser();
 
