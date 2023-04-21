@@ -1,32 +1,31 @@
 import getCurrentUser from "./getCurrentUser";
-import prisma from "../lib/prismadb";
 
 const getProyectos = async () => {
   const user = await getCurrentUser();
-  const iduser = user?.id;
 
-  if (iduser == null) {
+  if (!user?.id) {
     return [];
   }
 
-  const proyectos = await prisma.proyectos.findMany({
-    where: {
-      asignaciones: {
-        some: {
-          id_usuario: parseInt(iduser),
-        },
+  try {
+    const response = await fetch("http://localhost:3000/api/proyectos", {
+      method: "GET",
+      headers: {
+        "user-id": "1",
       },
-    },
-    include: {
-      asignaciones: {
-        where: {
-          id_usuario: parseInt(iduser),
-        },
-      },
-    },
-  });
+    });
 
-  return proyectos;
-}
+    if (response.ok) {
+      const data = await response.json();
+      console.log("data");
+      console.log(data);
+      return data;
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  return [];
+};
 
 export default getProyectos;

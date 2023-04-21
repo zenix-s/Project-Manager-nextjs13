@@ -3,10 +3,11 @@ import prisma from "../../../lib/prismadb";
 import getCurrentUser from "../../../actions/getCurrentUser";
 
 export async function GET(request: Request) {
-  const user = await getCurrentUser();
-  const iduser = user?.id;
 
-  if (iduser == null) {
+
+  const idUser = request.headers.get("user-id");
+
+  if (!idUser) {
     return [];
   }
 
@@ -14,14 +15,14 @@ export async function GET(request: Request) {
     where: {
       asignaciones: {
         some: {
-          id_usuario: parseInt(iduser),
+          id_usuario: parseInt(idUser),
         },
       },
     },
     include: {
       asignaciones: {
         where: {
-          id_usuario: parseInt(iduser),
+          id_usuario: parseInt(idUser),
         },
       },
     },
