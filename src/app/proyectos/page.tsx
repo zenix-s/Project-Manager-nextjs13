@@ -1,18 +1,7 @@
 import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
-import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
-
-// array de proyectos example:
-// [
-//   {
-//     id: 1,
-//     name: 'Proyecto 1',
-//     description: 'Esta es la descripción del proyecto 1',
-//     creationDate: '2023-03-31T19:11:23.000Z',
-//     endDate: '2023-03-31T19:11:23.000Z',
-//     asignaciones: [ [Object] ]
-//   },
-//   {
+// import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
+import NewProjectForm from "@/components/modals/newProjectModal";
 
 interface ProyectoProps {
   id: number;
@@ -40,9 +29,10 @@ const Page = async () => {
       overflow-hidden
     "
     >
-      <div className="">
+      <NewProjectForm />
+      {/* <div className="">
         <NewProjectForm visible={false} />
-      </div>
+      </div> */}
       <div className="grid w-full grid-cols-1 gap-4 overflow-y-scroll p-2 md:grid-cols-2 xl:grid-cols-3">
         {proyectos.map((proyecto: ProyectoProps) => (
           <CardProyecto
