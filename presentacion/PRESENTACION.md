@@ -41,7 +41,8 @@ Varbas es una aplicación web que ayuda a equipos de trabajo a gestionar proyect
 ---
 <!-- _class: lead -->
 
-  #  Tecnologías
+  # <!--fit-->  Tecnologías
+
 
   - **Frontend**: Next.js, React, Tailwind CSS
   - **Backend**: Prisma, Node.js, TypeScript
@@ -81,6 +82,11 @@ En el desarrollo de Varbas se han utilizado las siguientes tecnologías frontend
 - **MySQL**: Sistema de gestión de bases de datos relacional de código abierto.
 
 </div>
+
+---
+
+![bg fit](img/BD.png)
+
 
 ---
 
