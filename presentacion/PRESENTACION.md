@@ -39,6 +39,21 @@ Varbas es una aplicación web que ayuda a equipos de trabajo a gestionar proyect
 </div>
 
 ---
+
+# Características principales de Varbas
+
+<div class="body-center">
+
+
+Permite crear, organizar y rastrear tareas de manera efectiva.
+
+Posibilidad de asignar tareas a diferentes miembros del equipo.
+
+Establecer fechas límite y hacer seguimiento del progreso en tiempo real.
+
+</div>
+
+---
 <!-- _class: lead -->
 
   # <!--fit-->  Tecnologías
@@ -85,7 +100,7 @@ En el desarrollo de Varbas se han utilizado las siguientes tecnologías frontend
 
 ---
 
-![bg fit](img/BD.png)
+![bg fit bottom](img/BD.png)
 
 
 ---
@@ -102,17 +117,3 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 
 
 
----
-
-# Características principales de Varbas
-
-<div class="body-center">
-
-
-Permite crear, organizar y rastrear tareas de manera efectiva.
-
-Posibilidad de asignar tareas a diferentes miembros del equipo.
-
-Establecer fechas límite y hacer seguimiento del progreso en tiempo real.
-
-</div>
