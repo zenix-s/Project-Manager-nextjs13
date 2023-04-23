@@ -41,7 +41,13 @@ Varbas es una aplicación web que ayuda a equipos de trabajo a gestionar proyect
 ---
 <!-- _class: lead -->
 
-  # <!--fit-->  Tecnologías
+  #  Tecnologías
+
+  - **Frontend**: Next.js, React, Tailwind CSS
+  - **Backend**: Prisma, Node.js, TypeScript
+  - **Base de datos**: MySQL
+  - **Hosting y despliegue**: Vercel
+
 
 ---
 
@@ -80,9 +86,13 @@ En el desarrollo de Varbas se han utilizado las siguientes tecnologías frontend
 
 ## Hosting y despliegue
 
+<div class="body-center">
+
 En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el hosting y despliegue de la aplicación:
 
 - **Vercel**: Plataforma de hosting y despliegue de aplicaciones web que permite un despliegue rápido y sencillo de la aplicación.
+
+</div>
 
 
 
@@ -90,8 +100,13 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 
 # Características principales de Varbas
 
+<div class="body-center">
+
+
 Permite crear, organizar y rastrear tareas de manera efectiva.
 
 Posibilidad de asignar tareas a diferentes miembros del equipo.
 
 Establecer fechas límite y hacer seguimiento del progreso en tiempo real.
+
+</div>
