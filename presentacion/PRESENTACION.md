@@ -124,3 +124,8 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 ![bg fit](img/side-bar-logged.png)
 
 ![bg fit](img/side-bar-not-logged.png)
+
+---
+
+![bg fit](img/grid-proyectos.png)
+
