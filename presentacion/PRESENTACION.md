@@ -120,6 +120,6 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 # <!--fit--> Interfaz de usuario
 
 ---
-## Side bar
 
 ![bg fit bottom](img/side-bar-logged.png)
+![bg fit bottom](img/side-bar-not-logged.png)
