@@ -7,6 +7,7 @@ interface paramsProps {
 
 export async function GET(request: Request, { params }: { params: paramsProps }) {
   const idUser = request.headers.get("user-id");
+  const idProyecto = request.headers.get("id-proyecto");
   const { id } = params;
 
 
