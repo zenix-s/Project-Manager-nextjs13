@@ -43,8 +43,8 @@ model proyectos {
 
 model tareas {
   id          Int       @id @default(autoincrement())
-  nombre      Int
-  description Int
+  nombre      String    @db.VarChar(50)
+  description String    @db.VarChar(255)
   endDate     DateTime  @db.DateTime(0)
   id_proyecto Int
   id_usuario  Int
