@@ -116,4 +116,10 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 </div>
 
 
+---
+# <!--fit--> Interfaz de usuario
 
+---
+## Inicio
+
+![bg fit bottom](img/Inicio.png)
