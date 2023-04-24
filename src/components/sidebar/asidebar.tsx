@@ -1,12 +1,12 @@
 "use client";
 import Logo from "./logo";
-
-import { SlClose } from "react-icons/sl";
-import { CiHome, CiCircleInfo, CiAlignTop } from "react-icons/ci";
+import {VscGraphLine} from "react-icons/vsc";
+import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
 
 import SessionSection from "./sessionSection";
 import Button from "../button";
 import LinkComponent from "../link";
+
 
 interface AsideBarProps {
   id?: string;
@@ -26,7 +26,7 @@ const links = [
   {
     name: "Estidisticas",
     href: "/about",
-    icon: CiCircleInfo,
+    icon: VscGraphLine,
   },
 ];
 
@@ -63,7 +63,7 @@ const AsideBar = ({ id }: AsideBarProps) => {
           <Button
             label=""
             theme="light"
-            icon={SlClose}
+            icon={CiCircleRemove}
             onClick={() => {
               console.log("click");
             }}
