@@ -19,14 +19,14 @@ const links = [
     icon: CiHome,
   },
   {
-    name: "About",
-    href: "/about",
-    icon: CiCircleInfo,
-  },
-  {
     name: "Proyectos",
     href: "/proyectos",
     icon: CiAlignTop,
+  },
+  {
+    name: "Estidisticas",
+    href: "/about",
+    icon: CiCircleInfo,
   },
 ];
 
@@ -59,7 +59,7 @@ const AsideBar = ({ id }: AsideBarProps) => {
           <Nav />
         </div>
         <SessionSection id={id ? id : undefined} />
-        <div className="hidden absolute right-0 top-0">
+        <div className="absolute right-0 top-0 hidden">
           <Button
             label=""
             theme="light"
