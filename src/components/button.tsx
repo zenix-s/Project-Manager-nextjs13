@@ -56,7 +56,6 @@ const Button: React.FC<ButtonProps> = ({
         rounded-md
         ${padding ? "p-4" : ""}
         ${trasparent ? "hover:bg-white/20" : "hover:bg-neutral-700"}
-        hover:text-white
         ${uppercase ? "uppercase" : ""}
         text-xl
         font-thin
