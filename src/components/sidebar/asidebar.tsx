@@ -59,7 +59,7 @@ const AsideBar = ({ id }: AsideBarProps) => {
           <Nav />
         </div>
         <SessionSection id={id ? id : undefined} />
-        <div className="absolute right-0 top-0">
+        <div className="hidden absolute right-0 top-0">
           <Button
             label=""
             theme="light"
