@@ -1,6 +1,5 @@
 import CardTarea from "./cardTarea";
 const Tareas = ({ tareas }: any) => {
-  console.log(tareas);
 
   return (
     <div>

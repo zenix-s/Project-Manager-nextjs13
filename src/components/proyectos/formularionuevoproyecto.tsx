@@ -38,7 +38,6 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
       })
       .finally(() => {
         console.log("Finalizado");
-        console.log(data);
       });
   };
 

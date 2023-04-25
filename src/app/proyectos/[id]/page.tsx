@@ -3,7 +3,6 @@ import getTareas from "@/actions/getTareas";
 const Page = async () => {
 
   const tareas = await getTareas(1);
-  console.log(tareas);
   return (
     <>
       <section className="flex h-full flex-col">
