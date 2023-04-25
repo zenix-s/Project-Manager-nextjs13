@@ -11,7 +11,7 @@ const getProyectos = async () => {
     const response = await fetch("http://localhost:3000/api/proyectos", {
       method: "GET",
       headers: {
-        "user-id": "1",
+        "user-id": user.id,
       },
     });
 
