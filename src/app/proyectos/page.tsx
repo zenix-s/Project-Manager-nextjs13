@@ -1,8 +1,7 @@
+import Button from "@/components/button";
 import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
-// import NewProjectForm from "../../components/proyectos/formularionuevoproyecto";
-import NewProjectForm from "@/components/modals/newProjectModal";
-
+import HeaderProjects from "@/components/proyectos/headerProjects";
 interface ProyectoProps {
   id: number;
   name: string;
@@ -29,10 +28,11 @@ const Page = async () => {
       overflow-hidden
     "
     >
-      {/* <NewProjectForm /> */}
+      
       {/* <div className="">
         <NewProjectForm visible={false} />
       </div> */}
+      <HeaderProjects />
       <div className="grid w-full grid-cols-1 gap-4 overflow-y-scroll p-2 md:grid-cols-2 xl:grid-cols-3">
         {proyectos.map((proyecto: ProyectoProps) => (
           <CardProyecto

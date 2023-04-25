@@ -24,16 +24,19 @@ const Button: React.FC<ButtonProps> = ({
   uppercase = false,
 }) => {
   const InnerButton = () => {
+    const color = theme === "light" ? "white" : "black";
+
+
     if (Icon && label === "") {
       return (
         <>
-          <Icon className="" />
+          <Icon className="" color={color} />
         </>
       );
     } else if (Icon) {
       return (
         <>
-          <Icon className="" />
+          <Icon className="" color={color} />
           <span className="ml-4">{label}</span>
         </>
       );
