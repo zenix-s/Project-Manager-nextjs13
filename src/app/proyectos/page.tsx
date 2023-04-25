@@ -2,6 +2,7 @@ import Button from "@/components/button";
 import getProyectos from "../../actions/getProyectos";
 import CardProyecto from "../../components/proyectos/cardproyecto";
 import HeaderProjects from "@/components/proyectos/headerProjects";
+import NewProjectForm from "@/components/modals/newProjectModal";
 interface ProyectoProps {
   id: number;
   name: string;
@@ -33,6 +34,7 @@ const Page = async () => {
         <NewProjectForm visible={false} />
       </div> */}
       <HeaderProjects />
+      <NewProjectForm />
       <div className="grid w-full grid-cols-1 gap-4 overflow-y-scroll p-2 md:grid-cols-2 xl:grid-cols-3">
         {proyectos.map((proyecto: ProyectoProps) => (
           <CardProyecto

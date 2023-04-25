@@ -1,23 +1,23 @@
 "use client";
 import ModalContainer from "./modalcontainer";
+import useProjectsModal from "@/hooks/useProjectsModal";
 
-interface NewProjectFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const NewProjectForm: React.FC<NewProjectFormProps> = ({
-  isOpen,
-  onClose,
-}) => {
+
+const NewProjectForm = () => {
+  const ProjectsModal = useProjectsModal();
   return (
     <ModalContainer
       title="Nuevo Proyecto"
       body={<h1>hola</h1>}
       actionlabel="Crear"
       onSubmit={() => {}}
-      visible={isOpen}
-      onClose={onClose}
+      visible={
+        ProjectsModal.isOpen
+      }
+      onClose={
+        ProjectsModal.onClose
+      }
     />
   );
 };

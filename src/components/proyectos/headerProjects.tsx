@@ -1,24 +1,23 @@
-'use client';
+"use client";
 import NewProjectForm from "../modals/newProjectModal";
-import { useModal } from "@/hooks/useModal";
+import useProjectsModal from "@/hooks/useProjectsModal";
 import Button from "@/components/button";
 const HeaderProjects = () => {
-  const { isShowing, onOpen, onClose } = useModal();
-  return(
+  const ProjectModal = useProjectsModal();
+  return (
     <>
-    <NewProjectForm isOpen={isShowing} onClose={onClose} />
       <div className="flex items-center justify-between p-4">
         <Button
           label="Nuevo Proyecto"
           theme="light"
-          onClick={onOpen}
+          onClick={ProjectModal.onOpen}
           center
           shadow
           uppercase
         />
       </div>
     </>
-  )
-}
+  );
+};
 
 export default HeaderProjects;
