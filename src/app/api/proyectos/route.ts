@@ -63,17 +63,12 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const user = await getCurrentUser();
 
-  if (!user) {
+  const idProyecto = request.headers.get("id-proyecto");
+
+  if (!idProyecto) {
     return NextResponse.error();
   }
-
-  const body = await request.json();
-
-  const { idProyecto } = body;
-
-  // TODO: check if user is admin of the project
 
   const deleteAsignaciones = await prisma.asignaciones.deleteMany({
     where: {
@@ -89,5 +84,6 @@ export async function DELETE(request: Request) {
 
   return NextResponse.json({
     message: "ok",
+    idProyecto,
   });
 }
