@@ -1,16 +1,15 @@
-"use client";
+import Tareas from "@/components/tareas/tareas";
+import getTareas from "@/actions/getTareas";
+const Page = async () => {
 
-import { useParams } from "next/navigation";
-
-const Page = () => {
-  const params = useParams();
-
-  const id = params?.id;
-
+  const tareas = await getTareas(1);
+  console.log(tareas);
   return (
     <>
       <section className="flex h-full flex-col">
-        Proyecto
+        <Tareas
+          tareas={tareas}
+        />
       </section>
     </>
   );
