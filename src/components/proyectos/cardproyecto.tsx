@@ -2,7 +2,6 @@
 import { FiMenu, FiExternalLink } from "react-icons/fi";
 import { useState } from "react";
 import Button from "../button";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 
 interface CardProyectoProps {
@@ -33,23 +32,23 @@ const CardProyecto = ({
   };
 
   const deleteProject = async () => {
-    const res = await axios
-      .delete(`/api/proyectos`, {
-        data: {
-          idProyecto: idProyecto,
-        },
-      })
-      .then(() => {
-        console.log("Proyecto eliminado");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log("error");
-        console.log(error);
-      })
-      .finally(() => {
-        console.log("Finalizado");
+    const IdProyecto = idProyecto as string;
+    try {
+      const response = await fetch("http://localhost:3000/api/proyectos", {
+        method: 'DELETE',
+        headers: {
+          'id-proyecto': IdProyecto,
+        }
       });
+    
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        router.refresh();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
