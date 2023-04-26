@@ -10,10 +10,10 @@ interface TareaProps {
 
 const CardTarea = ({ tarea }: { tarea: TareaProps }) => {
   return (
-    <div className="flex flex-col gap-3">
-      <div>{tarea.id}</div>
-      <div>{tarea.nombre}</div>
-      <div>{tarea.description}</div>
+    <div className="bg-white rounded-md p-4 shadow">
+      <h3 className="font-bold">{tarea.nombre}</h3>
+      <p className="text-gray-600 mb-2">{tarea.description}</p>
+      <p className="text-gray-600 text-right">{tarea.description}</p>
     </div>
   );
 };
