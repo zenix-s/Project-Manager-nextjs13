@@ -63,7 +63,7 @@ const CardProyecto = ({
       <div className="absolute bottom-0 right-0">
         <Button
           label=""
-          theme="dark"
+          theme="light"
           trasparent
           onClick={() => openProject()}
           icon={FiExternalLink}
