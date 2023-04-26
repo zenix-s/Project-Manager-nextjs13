@@ -1,9 +1,10 @@
 import CardTarea from "./cardTarea";
 import ColEstado from "./colEstado";
+import NewCol from "./newCol";
 const Kanban = ({ tareas, estados }: any) => {
   return (
     <div className="h-full">
-      <div className="flex h-full gap-4">
+      <div className="flex h-full gap-4 p-4 overflow-scroll">
         {estados.map((estado: any) => {
           return (
             <ColEstado
@@ -16,6 +17,7 @@ const Kanban = ({ tareas, estados }: any) => {
           );
         })
         }
+        <NewCol />
       </div>
     </div>
   );
