@@ -129,3 +129,18 @@ En el desarrollo de Varbas se ha utilizado la siguiente tecnología para el host
 
 ![bg fit](img/grid-proyectos.png)
 
+---
+
+# Futuras mejoras:
+- Añadir un buscador de proyectos.
+- Tablero tipo Kanban para cada proyecto.
+  - Mostrar las tareas según su estado.
+  - Añadir nuevas tareas.
+  - Alterar el estado de las tareas.
+- Estadísticas de cada proyecto.
+  - Progreso de las tareas.
+  - Actividad de los miembros del equipo.
+  - Fechas límite.
+- Estadisticas Individuales
+  - Progreso de las tareas.
+  - Fechas límite.
