@@ -1,12 +1,13 @@
 "use client";
 import Logo from "./logo";
-import {VscGraphLine} from "react-icons/vsc";
+import { VscGraphLine } from "react-icons/vsc";
 import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
 
 import SessionSection from "./sessionSection";
 import Button from "../button";
 import LinkComponent from "../link";
 
+import useAside from "@/hooks/useAside";
 
 interface AsideBarProps {
   id?: string;
@@ -49,30 +50,32 @@ const Nav = () => {
 };
 
 const AsideBar = ({ id }: AsideBarProps) => {
-  const shown = false;
+  const aside = useAside();
 
   return (
-    <div className=" h-full w-full p-4">
-      <div className="relative flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700">
-        <div>
-          <Logo />
-          <Nav />
-        </div>
-        <SessionSection id={id ? id : undefined} />
-        <div className="absolute right-0 top-0 hidden">
-          <Button
-            label=""
-            theme="light"
-            icon={CiCircleRemove}
-            onClick={() => {
-              console.log("click");
-            }}
-            trasparent={true}
-            center={true}
-          />
+    <aside className={`z-50 ${aside.isOpen ? "absolute" : "hidden"} h-screen w-screen lg:relative  lg:flex lg:w-1/2 lg:min-w-[330px] lg:max-w-[400px] xl:w-1/4`}>
+      <div className=" h-full w-full p-4">
+        <div className="relative flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700">
+          <div>
+            <Logo />
+            <Nav />
+          </div>
+          <SessionSection id={id ? id : undefined} />
+          <div className={`absolute right-0 top-0 flex lg:hidden  `}>
+            <Button
+              label=""
+              theme="dark"
+              icon={CiCircleRemove}
+              onClick={() => {
+                aside.onClose();
+              }}
+              trasparent
+              center
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };
 
