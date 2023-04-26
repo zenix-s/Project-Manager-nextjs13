@@ -10,6 +10,7 @@ interface ButtonProps {
   center?: boolean;
   padding?: boolean;
   uppercase?: boolean;
+  fullWidth?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -22,10 +23,10 @@ const Button: React.FC<ButtonProps> = ({
   center = false,
   padding = true,
   uppercase = false,
+  fullWidth = false,
 }) => {
   const InnerButton = () => {
-    const color = theme === "light" ? "white" : "black";
-
+    const color = theme === "light" ? "black" : "white";
 
     if (Icon && label === "") {
       return (
@@ -52,22 +53,27 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={`
-        ${theme === "light" ? "bg-neutral-800" : "bg-gray-100"}
-        ${trasparent ? "bg-transparent" : ""}
-        ${theme === "light" ? "text-white" : "text-black"}
-        ${shadow ? "shadow-lg" : ""}
-        rounded-md
-        ${padding ? "p-4" : ""}
-        ${trasparent ? "hover:bg-white/20" : "hover:bg-neutral-700"}
-        ${
-          theme === "light"
-            ? "hover:text-neutral-200"
-            : "hover:text-neutral-600"
-        }
-        ${uppercase ? "uppercase" : ""}
-        text-xl
-        font-thin
-        tracking-wide
+      ${theme === "light" ? "bg-gray-100" : "bg-neutral-800"}
+      ${
+        theme === "light" && !trasparent
+          ? "hover:bg-gray-200"
+          : "hover:bg-neutral-700"
+      }
+      ${theme === "light" ? "text-black" : "text-white"}
+      ${trasparent ? "bg-transparent" : ""}
+      ${
+        trasparent && theme === "light"
+          ? "hover:bg-white/20"
+          : "hover:bg-black/20"
+      }
+      ${shadow ? "shadow-lg" : ""}
+      rounded-md
+      ${padding ? "p-4" : ""}
+      ${uppercase ? "uppercase" : ""}
+      text-xl
+      font-light
+      tracking-wide
+      ${fullWidth ? "w-full" : ""}
       `}
       onClick={onClick}
     >

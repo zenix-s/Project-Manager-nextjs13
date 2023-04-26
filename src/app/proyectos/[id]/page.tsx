@@ -14,8 +14,6 @@ const Page = async ({params}: {params: paramsProps}) => {
   const tareas = await getTareas(id);
   const estados = await getEstados(id);
 
-  console.log(estados);
-
   return (
     <>
       <section className="flex h-full flex-col">

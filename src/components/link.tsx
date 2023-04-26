@@ -11,6 +11,7 @@ interface LinkProps {
   padding?: boolean;
   trasparent?: boolean;
   uppercase?: boolean;
+  fullWidth?: boolean;
 }
 
 const LinkComponent: React.FC<LinkProps> = ({
@@ -23,6 +24,7 @@ const LinkComponent: React.FC<LinkProps> = ({
   center = false,
   padding = true,
   uppercase = false,
+  fullWidth = false,
 }) => {
   const InnerLink = () => {
     if (Icon) {
@@ -41,25 +43,31 @@ const LinkComponent: React.FC<LinkProps> = ({
     }
   };
 
-  return (  
-    <Link href={href} className={`
-      ${theme === "light" ? "bg-neutral-800" : "bg-gray-100"}
-      ${trasparent ? "bg-transparent" : ""}
-      ${theme === "light" ? "text-white" : "text-black"}
-      ${shadow ? "shadow-lg" : ""}
-      rounded-md
-      ${padding ? "p-4" : ""}
-      ${trasparent ? "hover:bg-white/20" : "hover:bg-neutral-700"}
-      hover:text-white
-      font-thin
-      tracking-wide
-      text-xl
-      ${uppercase ? "uppercase" : ""}
-    `}>
-      <div className={`
+  return (
+    <Link
+      href={href}
+      className={`
+    ${theme === "light" ? "bg-gray-100" : "bg-neutral-800"}
+    ${theme === "light" && !trasparent ? "hover:bg-gray-200" : "hover:bg-neutral-700"}
+    ${theme === "light" ? "text-black" : "text-white"}
+    ${trasparent ? "bg-transparent" : ""}
+    ${trasparent && theme === "light" ? "hover:bg-white/20" : "hover:bg-black/20"}
+    ${shadow ? "shadow-lg" : ""}
+    rounded-md
+    ${padding ? "p-4" : ""}
+    ${uppercase ? "uppercase" : ""}
+    text-xl
+    font-light
+    tracking-wide
+    ${fullWidth ? "w-full" : ""}
+    `}
+    >
+      <div
+        className={`
         flex w-full items-center
         ${center ? "justify-center" : "justify-start"}
-      `}>
+      `}
+      >
         <InnerLink />
       </div>
     </Link>
