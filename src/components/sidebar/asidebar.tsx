@@ -37,7 +37,7 @@ const Nav = () => {
         <LinkComponent
           key={index}
           label={link.name}
-          theme="light"
+          theme="dark"
           href={link.href}
           icon={link.icon}
           trasparent={true}

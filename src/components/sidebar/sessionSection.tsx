@@ -16,7 +16,7 @@ const SessionOptions = () => {
     <>
       <Button
         label="Iniciar Sesión"
-        theme="light"
+        theme="dark"
         trasparent={true}
         onClick={() => {
           signIn();
@@ -26,7 +26,7 @@ const SessionOptions = () => {
       />
       <Button
         label="Registrarse"
-        theme="light"
+        theme="dark"
         trasparent={true}
         onClick={() => {
           console.log("Registrarse");
@@ -43,8 +43,8 @@ const LoggedOptions = () => {
     <>
       <Button
         label="Perfil"
-        theme="light"
-        trasparent={true}
+        theme="dark"
+        trasparent
         icon={CiUser}
         onClick={() => {
           console.log("Perfil");
@@ -53,8 +53,8 @@ const LoggedOptions = () => {
       />
       <Button
         label="Cerrar Sesión"
-        theme="light"
-        trasparent={true}
+        theme="dark"
+        trasparent
         icon={CiLogout}
         onClick={() => {
           signOut();

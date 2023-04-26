@@ -54,18 +54,13 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={`
       ${theme === "light" ? "bg-gray-100" : "bg-neutral-800"}
-      ${
-        theme === "light" && !trasparent
-          ? "hover:bg-gray-200"
-          : "hover:bg-neutral-700"
-      }
+      ${theme === "light" && !trasparent ? "hover:bg-gray-200" : ""}
+      ${theme === "dark" && !trasparent ? "hover:bg-neutral-900" : ""}
+
       ${theme === "light" ? "text-black" : "text-white"}
       ${trasparent ? "bg-transparent" : ""}
-      ${
-        trasparent && theme === "light"
-          ? "hover:bg-white/20"
-          : "hover:bg-black/20"
-      }
+      ${trasparent && theme === "light" ? "hover:bg-white/20" : ""}
+      ${trasparent && theme === "dark" ? "hover:bg-black/20" : ""}
       ${shadow ? "shadow-lg" : ""}
       rounded-md
       ${padding ? "p-4" : ""}
