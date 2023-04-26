@@ -1,12 +1,12 @@
 import Button from "../button";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 interface FormContainerProps {
   title: string;
   body: React.ReactElement;
   footer?: React.ReactElement;
   actionlabel: string;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: () => void;
   visible?: boolean;
   onClose?: () => void;
 }
@@ -20,6 +20,9 @@ const ModalContainer: React.FC<FormContainerProps> = ({
   visible,
   onClose,
 }) => {
+  const handleSubmit = () => {
+    onSubmit();
+  };
   return (
     <section
       className={`absolute left-0 top-0 z-[100] bg-neutral-500/30 
@@ -46,20 +49,19 @@ const ModalContainer: React.FC<FormContainerProps> = ({
           </h2>
         </div>
         <div className=" h-full w-full ">
-          <form
-            onSubmit={onSubmit}
-            className=" flex h-full w-full flex-col justify-center "
-          >
+          <div className=" flex h-full w-full flex-col justify-center ">
             {body}
             <Button
               label={actionlabel}
               theme="dark"
-              onClick={() => {}}
+              onClick={() => {
+                handleSubmit();
+              }}
               center
               shadow
               uppercase
             />
-          </form>
+          </div>
         </div>
         {footer && <div className="form-footer">{footer}</div>}
       </div>
