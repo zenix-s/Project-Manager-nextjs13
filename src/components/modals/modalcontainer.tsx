@@ -6,7 +6,6 @@ interface FormContainerProps {
   body: React.ReactElement;
   footer?: React.ReactElement;
   actionlabel: string;
-  onSubmit: () => void;
   visible?: boolean;
   onClose?: () => void;
 }
@@ -16,13 +15,9 @@ const ModalContainer: React.FC<FormContainerProps> = ({
   body,
   footer,
   actionlabel,
-  onSubmit,
   visible,
   onClose,
 }) => {
-  const handleSubmit = () => {
-    onSubmit();
-  };
   return (
     <section
       className={`absolute left-0 top-0 z-[100] bg-neutral-500/30 
@@ -51,16 +46,6 @@ const ModalContainer: React.FC<FormContainerProps> = ({
         <div className=" h-full w-full ">
           <div className=" flex h-full w-full flex-col justify-center ">
             {body}
-            <Button
-              label={actionlabel}
-              theme="dark"
-              onClick={() => {
-                handleSubmit();
-              }}
-              center
-              shadow
-              uppercase
-            />
           </div>
         </div>
         {footer && <div className="form-footer">{footer}</div>}
