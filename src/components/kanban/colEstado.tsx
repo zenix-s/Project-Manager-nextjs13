@@ -41,11 +41,11 @@ const ColEstado = (
       <div className="w-full mt-4">
         <Button
           label="Agregar tarea"
-          theme="dark"
+          theme="light"
           onClick={() => { }}
           fullWidth
-          shadow
           center
+          shadow
         />
       </div>
     </div>  
