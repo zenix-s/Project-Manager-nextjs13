@@ -57,7 +57,7 @@ const CardProyecto = ({
         className=" absolute right-4 top-4 z-10"
         onClick={() => toogleVisible()}
       >
-        <FiMenu size={24} color={visible ? "white" : "black"} />
+        <FiMenu size={24} />
       </button>
 
       <div className="absolute bottom-0 right-0">
@@ -82,7 +82,7 @@ const CardProyecto = ({
       flex-col
       justify-center
       gap-2
-      bg-neutral-800
+      bg-white
       p-4
       `}
       >
@@ -90,8 +90,9 @@ const CardProyecto = ({
           label="Editar"
           onClick={() => {}}
           theme="light"
-          trasparent
           center
+          shadow
+
         />
         <Button
           label="Eliminar"
@@ -99,7 +100,7 @@ const CardProyecto = ({
             deleteProject();
           }}
           theme="light"
-          trasparent
+          shadow
           center
         />
       </div>
