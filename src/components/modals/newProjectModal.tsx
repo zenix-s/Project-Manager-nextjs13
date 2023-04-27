@@ -68,6 +68,8 @@ const NewProjectForm = () => {
         <Button
           label={loading ? "Cargando..." : "Crear"}
           theme="light"
+          textColor="black"
+          hoverEffect="darker"
           onClick={handleSubmit(onSubmit)}
           fullWidth
           center

@@ -64,7 +64,9 @@ const ColEstado = ({
       <div className="mt-4 w-full p-4">
         <Button
           label="Agregar tarea"
-          theme="light"
+          theme="dark"
+          textColor="white"
+          hoverEffect="whiter"
           onClick={() => {}}
           fullWidth
           center

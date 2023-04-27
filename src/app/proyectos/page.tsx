@@ -1,4 +1,3 @@
-import Button from "@/components/button";
 import HeaderProjects from "@/components/proyectos/headerProjects";
 import NewProjectForm from "@/components/modals/newProjectModal";
 import BodyProjects from "@/components/proyectos/bodyProjects";

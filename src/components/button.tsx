@@ -3,8 +3,9 @@ import { IconType } from "react-icons";
 interface ButtonProps {
   label: string;
   onClick: () => void;
-  theme: "light" | "dark";
-  trasparent?: boolean;
+  theme: "light" | "dark" | "transparent";
+  textColor: "black" | "white";
+  hoverEffect?: "whiter" | "darker" | "none";
   icon?: IconType;
   shadow?: boolean;
   center?: boolean;
@@ -17,7 +18,8 @@ const Button: React.FC<ButtonProps> = ({
   label,
   onClick,
   theme = "light",
-  trasparent = false,
+  hoverEffect = "none",
+  textColor,
   icon: Icon,
   shadow = false,
   center = false,
@@ -25,61 +27,80 @@ const Button: React.FC<ButtonProps> = ({
   uppercase = false,
   fullWidth = false,
 }) => {
-
-
-
-  const InnerButton = () => {
-    const color = theme === "light" ? "black" : "white";
-
-    if (Icon && label === "") {
-      return (
-        <>
-          <Icon className="" color={color} />
-        </>
-      );
-    } else if (Icon) {
-      return (
-        <>
-          <Icon className="" color={color} />
-          <span className="ml-4">{label}</span>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <span className="">{label}</span>
-        </>
-      );
+  const IconColor = () => {
+    switch (textColor) {
+      case "black":
+        return "black";
+      case "white":
+        return "white";
     }
+  };
+
+  const FontColor = () => {
+    switch (textColor) {
+      case "white":
+        return "text-white";
+      case "black":
+        return "text-black";
+    }
+  };
+
+  const BackColor = () => {
+    switch (theme) {
+      case "light":
+        return "bg-gray-100";
+      case "dark":
+        return "bg-neutral-800";
+      case "transparent":
+        return "bg-transparent";
+    }
+  };
+
+  const HoverEffect = () => {
+    switch (hoverEffect) {
+      case "whiter":
+        return "hover:bg-white/25";
+      case "darker":
+        return "hover:bg-black/25";
+      case "none":
+        return "";
+    }
+  };
+
+  const IconSec = () => {
+    return Icon ? <Icon color={IconColor()} /> : null;
+  };
+
+  const LabelSec = () => {
+    return label !== "" ? <span>{label}</span> : null;
   };
 
   return (
     <button
       className={`
-      ${theme === "light" ? "bg-gray-100" : "bg-neutral-800"}
-      ${theme === "light" && !trasparent ? "hover:bg-gray-200" : ""}
-      ${theme === "dark" && !trasparent ? "hover:bg-neutral-900" : ""}
-
-      ${theme === "light" ? "text-black" : "text-white"}
-      ${trasparent ? "bg-transparent" : ""}
-      ${trasparent && theme === "light" ? "hover:bg-white/20" : ""}
-      ${trasparent && theme === "dark" ? "hover:bg-black/20" : ""}
-      ${shadow ? "shadow-lg" : ""}
-      rounded-md
-      ${padding ? "p-4" : ""}
+      ${BackColor()}
+      ${FontColor()}
+      ${shadow ? "shadow-xl" : ""}
       ${uppercase ? "uppercase" : ""}
-      text-xl
+      ${fullWidth ? "w-full" : ""}
+      text-md
       font-light
       tracking-wide
-      ${fullWidth ? "w-full" : ""}
+      rounded-md
       `}
       onClick={onClick}
     >
       <div
-        className={`flex w-full items-center 
-        ${center ? "justify-center" : "justify-start"}`}
+        className={`
+        ${HoverEffect()}
+        rounded-md
+        ${padding ? "p-4" : "p-1"} 
+        ${center ? "justify-center" : "justify-start"}
+        flex w-full items-center gap-4 
+      `}
       >
-        <InnerButton />
+        <IconSec />
+        <LabelSec />
       </div>
     </button>
   );

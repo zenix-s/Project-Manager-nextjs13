@@ -14,12 +14,12 @@ const Header = () => {
       <div className="flex lg:hidden">
         <Button
           label=""
-          theme="light"
+          theme="transparent"
+          textColor="white"
           icon={SlMenu}
           onClick={() => {
             aside.onOpen();
           }}
-          trasparent
         />
       </div>
     </div>

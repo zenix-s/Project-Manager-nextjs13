@@ -6,7 +6,9 @@ const NewCol = () => {
     <div className="min-w-[300px]">
       <Button
         label="Agregar estado"
-        theme="light"
+        theme="dark"
+        textColor="white"
+        hoverEffect="whiter"
         onClick={() => {}}
         fullWidth
         center

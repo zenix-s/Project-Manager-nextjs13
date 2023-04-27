@@ -63,8 +63,8 @@ const CardProyecto = ({
       <div className="absolute bottom-0 right-0">
         <Button
           label=""
-          theme="light"
-          trasparent
+          theme="transparent"
+          textColor="black"
           onClick={() => openProject()}
           icon={FiExternalLink}
           center
@@ -90,6 +90,8 @@ const CardProyecto = ({
           label="Editar"
           onClick={() => {}}
           theme="light"
+          hoverEffect="darker"
+          textColor="black"
           center
           shadow
 
@@ -100,6 +102,8 @@ const CardProyecto = ({
             deleteProject();
           }}
           theme="light"
+          hoverEffect="darker"
+          textColor="black"
           shadow
           center
         />

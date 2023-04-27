@@ -69,12 +69,12 @@ const AsideBar = ({ id }: AsideBarProps) => {
           <div className={`absolute right-0 top-0 flex lg:hidden  `}>
             <Button
               label=""
-              theme="dark"
+              theme="transparent"
+              textColor="white"
               icon={CiCircleRemove}
               onClick={() => {
                 aside.onClose();
               }}
-              trasparent
               center
             />
           </div>
