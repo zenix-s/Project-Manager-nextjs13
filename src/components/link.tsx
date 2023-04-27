@@ -5,6 +5,7 @@ interface LinkProps {
   label: string;
   href: string;
   theme: "light" | "dark";
+  fontColor?: "white" | "black";
   icon?: IconType;
   shadow?: boolean;
   center?: boolean;
