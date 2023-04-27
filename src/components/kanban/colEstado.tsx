@@ -1,6 +1,7 @@
 "use client";
 import CardTarea from "./cardTarea";
 import Button from "../button";
+import { VscAdd } from "react-icons/vsc";
 interface EstadoProps {
   id: number;
   nombre: string;
@@ -71,6 +72,7 @@ const ColEstado = ({
           fullWidth
           center
           shadow
+          icon={VscAdd}
         />
       </div>
     </div>
