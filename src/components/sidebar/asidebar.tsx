@@ -29,6 +29,11 @@ const links = [
     href: "/about",
     icon: VscGraphLine,
   },
+  {
+    name: "Mockups",
+    href: "/mockups",
+    icon: VscGraphLine,
+  }
 ];
 
 const Nav = () => {

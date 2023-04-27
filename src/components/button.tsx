@@ -4,7 +4,6 @@ interface ButtonProps {
   label: string;
   onClick: () => void;
   theme: "light" | "dark";
-  fontColor?: "white" | "black";
   trasparent?: boolean;
   icon?: IconType;
   shadow?: boolean;
@@ -25,8 +24,10 @@ const Button: React.FC<ButtonProps> = ({
   padding = true,
   uppercase = false,
   fullWidth = false,
-  fontColor = "white",
 }) => {
+
+
+
   const InnerButton = () => {
     const color = theme === "light" ? "black" : "white";
 
