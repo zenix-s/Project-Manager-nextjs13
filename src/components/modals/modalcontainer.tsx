@@ -23,8 +23,13 @@ const ModalContainer: React.FC<FormContainerProps> = ({
       className={`absolute left-0 top-0 z-[100] bg-neutral-500/30 
     ${visible ? "flex" : "hidden"}
     h-full w-full items-center justify-center`}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose && onClose();
+        }
+      }}
     >
-      <div className="relative h-full w-full rounded-lg bg-slate-400 p-4 md:h-fit md:w-1/2 ">
+      <div className="relative h-full w-full rounded-lg bg-slate-700 px-4 py-8 md:h-fit md:w-1/2  max-w-[600px]">
         <div className="absolute right-0 top-0 p-4">
           <Button
             label=""
@@ -38,7 +43,7 @@ const ModalContainer: React.FC<FormContainerProps> = ({
             trasparent
           />
         </div>
-        <div className=" mb-4  h-16 w-full  border-b-2 border-slate-200/30  ">
+        <div className=" mb-8  h-16 w-full  border-b-2 border-slate-200/30  ">
           <h2 className=" p-4 text-center text-2xl uppercase tracking-widest text-white ">
             {title}
           </h2>

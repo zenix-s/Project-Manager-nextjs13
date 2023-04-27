@@ -4,6 +4,7 @@ import useProjectsModal from "@/hooks/useProjectsModal";
 import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../button";
+import Input from "../inputs/input";
 
 import { useState } from "react";
 
@@ -39,22 +40,22 @@ const NewProjectForm = () => {
 
   const body = (
     <div className="flex flex-col gap-4">
-      <div>
-        <input
-          type="text"
-          placeholder="Nombre del proyecto"
-          {...register("name", { required: true })}
-        />
-        {errors.name && <span>Este campo es requerido</span>}
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Descripción"
-          {...register("description", { required: true })}
-        />
-        {errors.description && <span>Este campo es requerido</span>}
-      </div>
+      <Input
+        id="name"
+        label="Nombre del proyecto"
+        type="text"
+        required
+        register={register}
+        errors={errors}
+      />
+      <Input
+        id="description"
+        label="Descripción"
+        type="text"
+        required
+        register={register}
+        errors={errors}
+      />
       <div>
         <input
           type="date"
