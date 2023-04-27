@@ -4,6 +4,9 @@ interface ButtonProps {
   label: string;
   onClick: () => void;
   theme: "light" | "dark";
+
+  // backColor: "light" | "dark" | "transparent"  | "sky";
+
   trasparent?: boolean;
   icon?: IconType;
   shadow?: boolean;
