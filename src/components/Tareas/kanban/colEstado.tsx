@@ -35,7 +35,7 @@ const ColEstado = ({
       className="flex h-full min-w-[350px] flex-col rounded-lg overflow-hidden bg-slate-700"
     >
       <div
-        className={` mb-4 flex justify-center p-4 ${color()} text-white text-2xl `}
+        className={` mb-4 flex justify-start p-4 ${color()} text-white text-xl `}
       >
         {estado.nombre}
       </div>
