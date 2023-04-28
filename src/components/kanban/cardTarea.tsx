@@ -16,7 +16,7 @@ const CardTarea = ({ tarea }: { tarea: TareaProps }) => {
       <p className="text-right text-gray-600">
         {tarea.endDate.toLocaleDateString()}
       </p>
-    </div> pepe
+    </div>
   );
 };
 
