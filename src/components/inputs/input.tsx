@@ -1,13 +1,6 @@
 "use client";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
-interface InputProps {
-  id: string;
-  label: string;
-  type: string;
-  required: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
-}
+import { InputProps } from "@/types";
 
 const Input: React.FC<InputProps> = ({
   id,

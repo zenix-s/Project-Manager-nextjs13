@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 export interface TareaProps {
   id: number;
   nombre: string;
@@ -29,4 +30,13 @@ export interface ButtonProps {
   padding?: boolean;
   uppercase?: boolean;
   fullWidth?: boolean;
+}
+
+export interface InputProps {
+  id: string;
+  label: string;
+  type: string;
+  required: boolean;
+  register: UseFormRegister<FieldValues>;
+  errors: FieldErrors;
 }
