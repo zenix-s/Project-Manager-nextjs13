@@ -1,4 +1,4 @@
-
+'use client'
 import LinkComponent from "@/components/link";
 import { NavBarLinkProps } from "@/types";
 

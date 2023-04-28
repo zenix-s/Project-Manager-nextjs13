@@ -5,14 +5,11 @@ import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
 
 import SessionSection from "./sessionSection";
 import Button from "../button";
-import LinkComponent from "../link";
 import { NavBarLinkProps } from "@/types";
 import useAside from "@/hooks/useAside";
-
 import { UserProps } from "@/types";
-
 import Nav from "./NavBar";
-
+import { useState } from "react";
 interface AsideBarProps {
   id?: string;
 }
@@ -40,11 +37,9 @@ const links: NavBarLinkProps[] = [
   },
 ];
 
-const AsideBar = (
-  {user}: {user: UserProps | undefined}
-) => {
+const AsideBar = ({ user }: { user: UserProps | undefined }) => {
   const aside = useAside();
-
+  const [selected, setSelected] = useState("Home");
   return (
     <aside
       className={`z-50 ${
@@ -57,9 +52,7 @@ const AsideBar = (
             <Logo />
             <Nav links={links} />
           </div>
-          <SessionSection 
-            user={user} 
-          />
+          <SessionSection user={user} />
           <div className={`absolute right-0 top-0 flex lg:hidden  `}>
             <Button
               label=""
