@@ -1,6 +1,6 @@
 "use client";
 import CardTarea from "./cardTarea";
-import Button from "../button";
+import Button from "../../button";
 import { VscAdd } from "react-icons/vsc";
 import { TareaProps, EstadoProps } from "@/types";
 
@@ -32,10 +32,7 @@ const ColEstado = ({
   };
   return (
     <div
-      className="flex h-full min-w-[350px] flex-col rounded-lg overflow-hidden"
-      style={{
-        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.25)",
-      }}
+      className="flex h-full min-w-[350px] flex-col rounded-lg overflow-hidden bg-slate-700"
     >
       <div
         className={` mb-4 flex justify-center p-4 ${color()} text-white text-2xl `}
@@ -50,8 +47,8 @@ const ColEstado = ({
       <div className="mt-4 w-full p-4">
         <Button
           label="Agregar tarea"
-          theme="dark"
-          textColor="white"
+          theme="light"
+          textColor="black"
           hoverEffect="whiter"
           onClick={() => {}}
           fullWidth

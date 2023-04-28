@@ -81,7 +81,7 @@ const Button: React.FC<ButtonProps> = ({
         className={`
         ${HoverEffect()}
         rounded-md
-        ${padding ? "p-4" : "p-1"} 
+        ${padding ? "p-4" : "p-2"} 
         ${center ? "justify-center" : "justify-start"}
         flex w-full items-center gap-4 
       `}

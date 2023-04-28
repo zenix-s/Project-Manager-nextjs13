@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LinkComponent from "./link";
 
 interface RouteProps {
   name: string;
@@ -12,14 +13,17 @@ const BreadCrumbItem = (ruta: RouteProps) => {
   if (ruta.actual) {
     return (
       <>
-        <span className="cursor-default text-neutral-600"> / {ruta.name}</span>
+        <span className="cursor-default capitalize text-gray-300">
+          {" "}
+          / {ruta.name}
+        </span>
       </>
     );
   } else {
     return (
       <>
         <span> / </span>
-        <Link href={ruta.path} className="hover:text-cyan-500">
+        <Link href={ruta.path} className=" capitalize hover:text-cyan-500">
           <span>{ruta.name}</span>
         </Link>
       </>
@@ -53,7 +57,7 @@ const BreadCrumbs = () => {
   const actualRouteArray = useActualRoute();
 
   return (
-    <div>
+    <div className="text-neutral-100">
       {actualRouteArray?.map((ruta, index) => (
         <BreadCrumbItem key={index} {...ruta} />
       ))}
