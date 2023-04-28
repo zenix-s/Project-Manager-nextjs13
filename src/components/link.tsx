@@ -1,78 +1,94 @@
 import Link from "next/link";
 import { IconType } from "react-icons";
+import { ButtonProps } from "@/types";
 
-interface LinkProps {
-  label: string;
-  href: string;
-  theme: "light" | "dark";
-  fontColor?: "white" | "black";
-  icon?: IconType;
-  shadow?: boolean;
-  center?: boolean;
-  padding?: boolean;
-  trasparent?: boolean;
-  uppercase?: boolean;
-  fullWidth?: boolean;
-}
-
-const LinkComponent: React.FC<LinkProps> = ({
+const LinkComponent: React.FC<ButtonProps> = ({
   label,
-  href,
   theme = "light",
-  trasparent = false,
+  hoverEffect = "none",
+  textColor,
   icon: Icon,
   shadow = false,
   center = false,
   padding = true,
   uppercase = false,
   fullWidth = false,
+  href="#",
 }) => {
-  const InnerLink = () => {
-    if (Icon) {
-      return (
-        <>
-          <Icon className="" />
-          <span className="ml-4">{label}</span>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <span className="text-xl">{label}</span>
-        </>
-      );
+  const IconColor = () => {
+    switch (textColor) {
+      case "black":
+        return "black";
+      case "white":
+        return "white";
     }
+  };
+
+  const FontColor = () => {
+    switch (textColor) {
+      case "white":
+        return "text-white";
+      case "black":
+        return "text-black";
+    }
+  };
+
+  const BackColor = () => {
+    switch (theme) {
+      case "light":
+        return "bg-gray-100";
+      case "dark":
+        return "bg-neutral-800";
+      case "transparent":
+        return "bg-transparent";
+    }
+  };
+
+  const HoverEffect = () => {
+    switch (hoverEffect) {
+      case "whiter":
+        return "hover:bg-white/25";
+      case "darker":
+        return "hover:bg-black/25";
+      case "none":
+        return "";
+    }
+  };
+
+  const IconSec = () => {
+    return Icon ? <Icon color={IconColor()} /> : null;
+  };
+
+  const LabelSec = () => {
+    return label !== "" ? <span>{label}</span> : null;
   };
 
   return (
     <Link
       href={href}
       className={`
-      ${theme === "light" ? "bg-gray-100" : "bg-neutral-800"}
-      ${theme === "light" && !trasparent ? "hover:bg-gray-200" : ""}
-      ${theme === "dark" && !trasparent ? "hover:bg-neutral-900" : ""}
-
-      ${theme === "light" ? "text-black" : "text-white"}
-      ${trasparent ? "bg-transparent" : ""}
-      ${trasparent && theme === "light" ? "hover:bg-white/20" : ""}
-      ${trasparent && theme === "dark" ? "hover:bg-black/20" : ""}
-      ${shadow ? "shadow-lg" : ""}
-      rounded-md
-      ${padding ? "p-4" : ""}
+      ${BackColor()}
+      ${FontColor()}
+      ${shadow ? "shadow-xl" : ""}
       ${uppercase ? "uppercase" : ""}
-      text-xl
+      ${fullWidth ? "w-full" : ""}
+      text-md
       font-light
       tracking-wide
-      ${fullWidth ? "w-full" : ""}
+      rounded-md
     `}
     >
       <div
         className={`
-        flex w-full items-center
+        ${HoverEffect()}
+        rounded-md
+        ${padding ? "p-4" : "p-1"} 
         ${center ? "justify-center" : "justify-start"}
+        flex w-full items-center gap-4 
       `}
       >
-        <InnerLink />
+        {IconSec()}
+        {LabelSec()}
       </div>
     </Link>
   );
