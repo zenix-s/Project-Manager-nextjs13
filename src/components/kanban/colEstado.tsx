@@ -2,22 +2,7 @@
 import CardTarea from "./cardTarea";
 import Button from "../button";
 import { VscAdd } from "react-icons/vsc";
-interface EstadoProps {
-  id: number;
-  nombre: string;
-  id_proyecto: number;
-  color: string;
-}
-
-interface TareaProps {
-  id: number;
-  nombre: string;
-  description: string;
-  endDate: Date;
-  id_proyecto: number;
-  id_usuario: number;
-  id_estado: number;
-}
+import { TareaProps, EstadoProps } from "@/types";
 
 const ColEstado = ({
   estado,
