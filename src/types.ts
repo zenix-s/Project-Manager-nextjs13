@@ -1,5 +1,11 @@
 import { IconType } from "react-icons";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
+
+export interface UserProps {
+  id: string;
+  name: string;
+  email: string;
+}
 export interface TareaProps {
   id: number;
   nombre: string;
@@ -39,4 +45,10 @@ export interface InputProps {
   required: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+}
+
+export interface NavBarLinkProps {
+  label: string;
+  href: string;
+  icon: IconType;
 }

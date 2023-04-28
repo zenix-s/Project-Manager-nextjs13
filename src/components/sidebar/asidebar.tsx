@@ -6,56 +6,43 @@ import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
 import SessionSection from "./sessionSection";
 import Button from "../button";
 import LinkComponent from "../link";
-
+import { NavBarLinkProps } from "@/types";
 import useAside from "@/hooks/useAside";
+
+import { UserProps } from "@/types";
+
+import Nav from "./NavBar";
 
 interface AsideBarProps {
   id?: string;
 }
 
-const links = [
+const links: NavBarLinkProps[] = [
   {
-    name: "Home",
+    label: "Home",
     href: "/",
     icon: CiHome,
   },
   {
-    name: "Proyectos",
+    label: "Proyectos",
     href: "/proyectos",
     icon: CiAlignTop,
   },
   {
-    name: "Estidisticas",
+    label: "Estidisticas",
     href: "/about",
     icon: VscGraphLine,
   },
   {
-    name: "Mockups",
+    label: "Mockups",
     href: "/mockups",
     icon: VscGraphLine,
   },
 ];
 
-const Nav = () => {
-  return (
-    <nav className="flex flex-col gap-1.5 p-4">
-      {links.map((link, index) => (
-        <LinkComponent
-          key={index}
-          label={link.name}
-          theme="transparent"
-          textColor="white"
-          hoverEffect="whiter"
-          href={link.href}
-          icon={link.icon}
-          uppercase={true}
-        />
-      ))}
-    </nav>
-  );
-};
-
-const AsideBar = ({ id }: AsideBarProps) => {
+const AsideBar = (
+  {user}: {user: UserProps | undefined}
+) => {
   const aside = useAside();
 
   return (
@@ -68,9 +55,11 @@ const AsideBar = ({ id }: AsideBarProps) => {
         <div className="relative flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700">
           <div>
             <Logo />
-            <Nav />
+            <Nav links={links} />
           </div>
-          <SessionSection id={id ? id : undefined} />
+          <SessionSection 
+            user={user} 
+          />
           <div className={`absolute right-0 top-0 flex lg:hidden  `}>
             <Button
               label=""

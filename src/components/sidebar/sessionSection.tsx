@@ -4,11 +4,12 @@ import { signIn, signOut } from "next-auth/react";
 
 import { useState } from "react";
 import { CiLogin, CiLogout, CiEdit, CiUser } from "react-icons/ci";
+import { UserProps } from "@/types";
 
 import Button from "../button";
 
 interface logSessionProps {
-  id?: string;
+  user?: UserProps;
 }
 
 const SessionOptions = () => {
@@ -69,8 +70,9 @@ const LoggedOptions = () => {
   );
 };
 
-const SessionSection: React.FC<logSessionProps> = ({ id }) => {
-  const [user, setUser] = useState(id);
+const SessionSection: React.FC<logSessionProps> = (
+  { user }
+) => {
   return (
     <div className="flex flex-col gap-1.5 border-t border-white/50 p-4">
       {user ? <LoggedOptions /> : <SessionOptions />}

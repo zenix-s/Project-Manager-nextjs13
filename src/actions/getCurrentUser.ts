@@ -1,12 +1,9 @@
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "../pages/api/auth/[...nextauth]";
+import { UserProps } from "@/types";
 
-interface UserProps {
-  id: string;
-  name: string;
-  email: string;
-}
+
 
 
 
