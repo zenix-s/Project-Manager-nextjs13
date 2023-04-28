@@ -1,18 +1,5 @@
 import { IconType } from "react-icons";
-
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  theme: "light" | "dark" | "transparent";
-  textColor: "black" | "white";
-  hoverEffect?: "whiter" | "darker" | "none";
-  icon?: IconType;
-  shadow?: boolean;
-  center?: boolean;
-  padding?: boolean;
-  uppercase?: boolean;
-  fullWidth?: boolean;
-}
+import { ButtonProps } from "@/types";
 
 const Button: React.FC<ButtonProps> = ({
   label,

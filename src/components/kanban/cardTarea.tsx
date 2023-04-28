@@ -1,21 +1,14 @@
-interface TareaProps {
-  id: number;
-  nombre: string;
-  description: string;
-  id_estado: number;
-  endDate: Date;
-  id_proyecto: number;
-  id_usuario: number;
-}
+import { TareaProps } from "@/types";
 
 const CardTarea = ({ tarea }: { tarea: TareaProps }) => {
   return (
-    <div className="cursor-pointer select-none rounded-md bg-white p-4 shadow">
+    <div className="bg-white rounded-md p-4 shadow cursor-pointer select-none">
       <h3 className="font-bold">{tarea.nombre}</h3>
-      <p className="mb-2 text-gray-600">{tarea.description}</p>
-      <p className="text-right text-gray-600">
-        {tarea.endDate.toLocaleDateString()}
-      </p>
+      <p className="text-gray-600 mb-2">{tarea.description}</p>
+      <p className="text-gray-600 text-right">
+        {
+        tarea.endDate.toLocaleDateString()
+      }</p>
     </div>
   );
 };
