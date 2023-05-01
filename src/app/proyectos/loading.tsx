@@ -2,8 +2,8 @@ import Image from "next/image"
 import loadingLogo from "../../assets/svg/loading.svg";
 const Loading = () => {
   return (
-    <div>
-      <Image src={ loadingLogo} alt="Loading..." width={500} height={500} />
+    <div className="w-full h-full flex items-center justify-center">
+      <Image src={ loadingLogo} alt="Loading..." width={100} height={100} />
     </div>
   )
 }

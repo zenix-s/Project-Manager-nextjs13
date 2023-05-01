@@ -74,7 +74,7 @@ const Tasks = ({
             })}
           </div>
         </div>
-        <div className="flex h-full flex-col">{handleTasksView()}</div>
+        <div className="flex h-full w-full overflow-hidden">{handleTasksView()}</div>
       </section>
     </>
   );
