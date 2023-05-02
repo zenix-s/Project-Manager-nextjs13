@@ -45,7 +45,7 @@ const Tasks = ({
 
   return (
     <>
-      <section className="flex h-full flex-col">
+      <section className="flex h-full w-full flex-col">
         <div>
           <div className="flex gap-4">
             {Views.map((view, index) => {
@@ -74,7 +74,7 @@ const Tasks = ({
             })}
           </div>
         </div>
-        <div className="flex h-full w-full overflow-hidden">{handleTasksView()}</div>
+        <div className="flex h-full w-full">{handleTasksView()}</div>
       </section>
     </>
   );

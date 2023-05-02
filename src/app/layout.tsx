@@ -34,7 +34,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="flex h-screen w-screen bg-slate-800">
+      <body className="flex h-screen w-screen bg-slate-800 overflow-hidden ">
         <AsideBar 
           user={user}
         />
