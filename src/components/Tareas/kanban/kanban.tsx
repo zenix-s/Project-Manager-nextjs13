@@ -10,8 +10,8 @@ const Kanban = ({
   estados: EstadoProps[];
 }) => {
   return (
-    <div className="flex h-full w-1/2 flex-row pt-4 overflow-scroll">
-      <div className="flex flex-row gap-4">
+    <div className="flex h-full w-full flex-row pt-4">
+      <div className="flex flex-row gap-4 overflow-x-scroll">
         {estados.map((estado: EstadoProps) => {
           return (
             <ColEstado
