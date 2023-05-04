@@ -5,6 +5,7 @@ import { EstadoProps, TareaProps } from "@/types";
 import { useState } from "react";
 import Button from "../button";
 import { VscTable, VscSymbolStructure, VscGraph } from "react-icons/vsc";
+import NewTaskModal from "../modals/newTaskForm";
 
 const Tasks = ({
   tareas,
@@ -45,6 +46,8 @@ const Tasks = ({
 
   return (
     <>
+      <NewTaskModal />
+
       <section className="flex h-full w-full flex-col">
         <div>
           <div className="flex gap-4">

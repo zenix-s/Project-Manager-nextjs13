@@ -52,3 +52,9 @@ export interface NavBarLinkProps {
   href: string;
   icon: IconType;
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
