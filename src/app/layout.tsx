@@ -17,27 +17,23 @@ export default async function RootLayout({
   const user = await getCurrentUser();
   const iduser = user ? user.id : null;
 
-  console.log("user", user);
-
   if (!user) {
-    return(
+    return (
       <html lang="en">
-      <body className="flex h-screen w-screen bg-slate-800">
-        <AsideBar user={undefined} />
-        <main className="z-40 h-full w-full p-4">
-          Incia sesión para ver el contenido
-        </main>
-      </body>
-    </html>
-    )
+        <body className="flex h-screen w-screen bg-slate-800">
+          <AsideBar user={undefined} />
+          <main className="z-40 h-full w-full p-4">
+            Incia sesión para ver el contenido
+          </main>
+        </body>
+      </html>
+    );
   }
 
   return (
     <html lang="en">
-      <body className="flex h-screen w-screen bg-slate-800 overflow-hidden ">
-        <AsideBar 
-          user={user}
-        />
+      <body className="flex h-screen w-screen overflow-hidden bg-slate-800 ">
+        <AsideBar user={user} />
         <main className="z-40 h-full w-full p-4">
           <div className="flex h-full w-full flex-col overflow-hidden">
             <Header />
