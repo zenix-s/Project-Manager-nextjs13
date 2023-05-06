@@ -9,11 +9,11 @@ export interface UserProps {
 export interface TareaProps {
   id: number;
   nombre: string;
-  description: string;
-  id_estado: number;
-  endDate: Date;
+  description: string | null;
+  endDate: Date | null;
+  id_estado: number | null;
   id_proyecto: number;
-  id_usuario: number;
+  id_usuario: number | null;
 }
 
 export interface EstadoProps {

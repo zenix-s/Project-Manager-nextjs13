@@ -46,7 +46,10 @@ const Tasks = ({
 
   return (
     <>
-      <NewTaskModal />
+      <NewTaskModal 
+        idProject={tareas[0].id_proyecto.toString()}
+        estados={estados}
+      />
 
       <section className="flex h-full w-full flex-col">
         <div>

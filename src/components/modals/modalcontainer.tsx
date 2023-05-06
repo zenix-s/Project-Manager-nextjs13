@@ -29,7 +29,13 @@ const ModalContainer: React.FC<FormContainerProps> = ({
         }
       }}
     >
-      <div className="relative h-full w-full rounded-lg bg-slate-700 px-4 py-8 md:h-fit md:w-1/2  max-w-[600px]">
+      <div className="relative h-full w-full rounded-lg bg-slate-700 px-4 py-8 md:h-fit md:w-1/2  max-w-[600px]"
+        style={
+          {
+            boxShadow: "0px 0px 10px 0px rgba(255,255,255,0.75)"
+          }
+        }
+      >
         <div className="absolute right-0 top-0 p-4">
           <Button
             label=""
