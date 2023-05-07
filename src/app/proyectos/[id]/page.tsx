@@ -21,6 +21,7 @@ const Page = async ({params}: {params: paramsProps}) => {
         <Tasks
           tareas={tareas}
           estados={estados}
+          idProject={parseInt(id.toString())}
         />
       </section>
     </>

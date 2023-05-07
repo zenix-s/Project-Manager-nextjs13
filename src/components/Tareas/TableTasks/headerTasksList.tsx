@@ -1,15 +1,17 @@
 "use client";
 import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
-const HeaderTasksList = () => {
+import NewTaskModal from "./newTaskForm";
+import { TareaProps, EstadoProps } from "@/types";
+const HeaderTasksList = (
+  { estados, idProject }: { estados: EstadoProps[]; idProject: number },
+) => {
   const TaskModal = useTasksModal();
   return (
     <div className="flex items-center justify-start">
-      <Button
-        label="Nueva tarea"
-        onClick={() => TaskModal.onOpen()}
-        theme="light"
-        textColor="black"
+      <NewTaskModal 
+        idProject={idProject}
+        estados={estados}
       />
     </div>
   );

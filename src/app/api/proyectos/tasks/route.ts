@@ -4,11 +4,7 @@ import prisma from "@/lib/prismadb";
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { 
-    nombre, 
-    id_proyecto, 
-    id_estado 
-  } = res;
+  const { nombre, id_proyecto, id_estado } = res;
 
   const nuevaTarea = await prisma.tareas.create({
     data: {
@@ -52,5 +48,19 @@ export async function PUT(request: NextRequest) {
 
   return NextResponse.json({
     tareaActualizada,
+  });
+}
+
+export async function DELETE(request: NextRequest) {
+  const id = request.headers.get("id_task");
+
+  const tareaEliminada = await prisma.tareas.delete({
+    where: {
+      id: Number(id),
+    },
+  });
+
+  return NextResponse.json({
+    tareaEliminada,
   });
 }

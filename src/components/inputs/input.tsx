@@ -17,11 +17,11 @@ const Input: React.FC<InputProps> = ({
         placeholder=" "
         {...register(id, { required })}
         id={id}
-        className="focus:shadow-outline text-lg peer w-full rounded-lg border px-2 py-3 text-gray-700 placeholder-gray-400"
+        className="focus:shadow-outline peer w-full rounded-lg border px-2 py-3 text-lg text-gray-200 placeholder-gray-400"
       />
       <label
         htmlFor={id}
-        className="absolute -top-6 text-lg left-2 cursor-text text-gray-200 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-500 peer-focus:-top-6 peer-focus:text-gray-200"
+        className="absolute -top-6 left-2 cursor-text select-none text-lg text-gray-200 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-500 peer-focus:-top-6 peer-focus:text-gray-200"
       >
         {label}{" "}
         {errors[id] && (

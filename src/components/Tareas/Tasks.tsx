@@ -5,14 +5,16 @@ import { EstadoProps, TareaProps } from "@/types";
 import { useState } from "react";
 import Button from "../button";
 import { VscTable, VscSymbolStructure, VscGraph } from "react-icons/vsc";
-import NewTaskModal from "../modals/newTaskForm";
+import EstadisticasProject from "./estadisticas/estadisticasProject";
 
 const Tasks = ({
   tareas,
   estados,
+  idProject,
 }: {
   tareas: TareaProps[];
   estados: EstadoProps[];
+  idProject: number;
 }) => {
   const [TasksView, setTasksView] = useState("table");
 
@@ -21,10 +23,10 @@ const Tasks = ({
       name: "table",
       icon: VscTable,
     },
-    {
-      name: "kanban",
-      icon: VscSymbolStructure,
-    },
+    // {
+    //   name: "kanban",
+    //   icon: VscSymbolStructure,
+    // },
     {
       name: "estadisticas",
       icon: VscGraph,
@@ -36,21 +38,24 @@ const Tasks = ({
       case "kanban":
         return <Kanban tareas={tareas} estados={estados} />;
       case "table":
-        return <TableTasks tareas={tareas} estados={estados} />;
+        return (
+          <TableTasks tareas={tareas} estados={estados} idProject={idProject} />
+        );
       case "estadisticas":
-        return null;
+        return <EstadisticasProject 
+          tareas={tareas}
+          estados={estados}
+          idProject={idProject}
+        />;
       default:
-        return <TableTasks tareas={tareas} estados={estados} />;
+        return (
+          <TableTasks tareas={tareas} estados={estados} idProject={idProject} />
+        );
     }
   };
 
   return (
     <>
-      <NewTaskModal 
-        idProject={tareas[0].id_proyecto.toString()}
-        estados={estados}
-      />
-
       <section className="flex h-full w-full flex-col">
         <div>
           <div className="flex gap-4">

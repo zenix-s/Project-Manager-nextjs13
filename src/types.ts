@@ -11,7 +11,7 @@ export interface TareaProps {
   nombre: string;
   description: string | null;
   endDate: Date | null;
-  id_estado: number | null;
+  id_estado: number;
   id_proyecto: number;
   id_usuario: number | null;
 }

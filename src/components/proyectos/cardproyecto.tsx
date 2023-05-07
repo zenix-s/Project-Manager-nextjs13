@@ -56,7 +56,7 @@ const CardProyecto = ({
   };
 
   return (
-    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between overflow-hidden rounded-xl bg-white p-4 shadow-md">
+    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between overflow-hidden rounded-xl bg-white p-4 shadow-md text-black">
       <div
         className={`
       ${isDeleting ? "flex" : "hidden"} 
@@ -75,7 +75,11 @@ const CardProyecto = ({
         <FiMenu size={24} />
       </button>
 
-      <div className={`${isDeleting? "hidden" : "flex"} absolute bottom-0 right-0`}>
+      <div
+        className={`${
+          isDeleting ? "hidden" : "flex"
+        } absolute bottom-0 right-0`}
+      >
         <Button
           label=""
           theme="transparent"

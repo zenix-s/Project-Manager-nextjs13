@@ -35,7 +35,6 @@ const NewProjectForm = () => {
         console.log("Finalizado");
         ProjectsModal.onClose();
       });
-
   };
 
   const body = (
@@ -56,15 +55,18 @@ const NewProjectForm = () => {
         register={register}
         errors={errors}
       />
-      <div>
+      <div className="mt-4">
         <input
           type="date"
+          id="deadlineFormNewProject"
           placeholder="Fecha de entrega"
-          {...register("deadline", { required: true })}
+          {...register("deadline")}
+          className="w-full rounded p-4 text-black"
         />
+
         {errors.deadline && <span>Este campo es requerido</span>}
       </div>
-      <div >
+      <div className="mt-8">
         <Button
           label={loading ? "Cargando..." : "Crear"}
           theme="light"
