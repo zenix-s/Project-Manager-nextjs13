@@ -1,52 +1,13 @@
 import { EstadoProps, TareaProps } from "@/types";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
-
+import { getHexColor } from "@/actions/getColors";
 interface EstadisticasProjectProps {
   tareas: TareaProps[];
   estados: EstadoProps[];
   idProject: number;
 }
 
-const getHexColor = (color: string) => {
-  switch (color) {
-    case "red":
-      return "#ef4444";
-    case "orange":
-      return "#f97316";
-    case "amber":
-      return "#f59e0b";
-    case "yellow":
-      return "#eab308";
-    case "lime":
-      return "#84cc16";
-    case "green":
-      return "#22c55e";
-    case "emerald":
-      return "#10b981";
-    case "teal":
-      return "#14b8a6";
-    case "cyan":
-      return "#06b6d4";
-    case "sky":
-      return "#0ea5e9";
-    case "blue":
-      return "#3b82f6";
-    case "indigo":
-      return "#6366f1";
-    case "violet":
-      return "#8b5cf6";
-    case "purple":
-      return "#a855f7";
-    case "fuchsia":
-      return "#d946ef";
-    case "pink":
-      return "#ec4899";
-    case "rose":
-      return "#f43f5e";
-    default:
-      return "#000000";
-  }
-};
+
 
 const EstadisticasProject = ({
   tareas,
@@ -108,7 +69,7 @@ const EstadisticasProject = ({
                     className={`h-3 w-3 rounded-full`}
                     style={{ backgroundColor: getHexColor(estado.color) }}
                   ></div>
-                  <p>{estado.nombre}</p>
+                  <p>{estado.nombre} - {tareas.filter((tarea) => tarea.id_estado === estado.id).length}</p>
                 </div>
               );
             })}

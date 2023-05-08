@@ -80,7 +80,7 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
           placeholder="Nombre de la tarea"
           className={`input-bordered input w-full
           max-w-xs
-          ${ TitleError ? "input-error" : ""}
+          ${TitleError ? "input-error" : ""}
           `}
           {...register("TitleNewTaskInput")}
         />
@@ -102,7 +102,7 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
       </div>
 
       <button
-        className="btn-primary btn-active btn"
+        className="btn-primary btn"
         onClick={handleSubmit(onSubmit)}
         disabled={loading}
       >

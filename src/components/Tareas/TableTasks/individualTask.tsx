@@ -3,6 +3,7 @@ import { TareaProps, EstadoProps } from "@/types";
 import { useState } from "react";
 import { VscKebabVertical } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
+import { getBgColor, getHexColor } from "@/actions/getColors";
 const IndividualTask = ({
   tarea,
   estados,
@@ -55,6 +56,7 @@ const IndividualTask = ({
       })
       .catch((error) => {
         console.error("Error:", error);
+        router.refresh();
       });
   };
 
@@ -63,32 +65,14 @@ const IndividualTask = ({
     return estado;
   };
 
-  const optionBackColor = (color: string = "gray") => {
-    switch (color) {
-      case "red":
-        return "bg-red-500";
-      case "yellow":
-        return "bg-yellow-500";
-      case "green":
-        return "bg-green-500";
-      case "blue":
-        return "bg-blue-500";
-      case "indigo":
-        return "bg-indigo-500";
-      case "emerald":
-        return "bg-emerald-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
-
   const EstadosSelect = () => {
     return (
       <select
         defaultValue={tarea.id_estado?.toString()}
-        className={`select-bordered select w-48
-          ${stateLoading ? "bg-neutral-600" : optionBackColor(Estado()?.color)}
-        `}
+        className={`select-bordered select w-48`}
+        style={{
+          backgroundColor: getHexColor(Estado()?.color || "gray"),
+        }}
         disabled={stateLoading}
         onChange={(e) => {
           onChangeEstado(e.target.value);
@@ -98,7 +82,10 @@ const IndividualTask = ({
           <option
             key={estado.id}
             value={estado.id}
-            className=" !bg-neutral-600 p-2 text-white "
+            className=" p-2 text-white "
+            style={{
+              backgroundColor: getHexColor(estado.color),
+            }}
           >
             {stateLoading ? "Cargando..." : estado.nombre}
           </option>
@@ -108,7 +95,7 @@ const IndividualTask = ({
   };
 
   return (
-    <div className="relative border border-white/50 text-white">
+    <div className="relative text-white">
       <div
         className={`
         ${loading ? "flex" : "hidden"}

@@ -17,7 +17,7 @@ const Input: React.FC<InputProps> = ({
         placeholder=" "
         {...register(id, { required })}
         id={id}
-        className="focus:shadow-outline peer w-full rounded-lg border px-2 py-3 text-lg text-gray-200 placeholder-gray-400"
+        className="focus:shadow-outline peer w-full rounded-lg border px-2 py-3 text-lg text-gray-800 placeholder-gray-400"
       />
       <label
         htmlFor={id}

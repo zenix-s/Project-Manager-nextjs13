@@ -20,7 +20,7 @@ const TableTasks = ({
           idProject={idProject} 
         />
       </div>
-      <div>
+      <div className="flex flex-col gap-2">
         {tareas.map((tarea) => {
           return (
             <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />

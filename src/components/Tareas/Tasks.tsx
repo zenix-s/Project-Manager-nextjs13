@@ -4,8 +4,9 @@ import TableTasks from "./TableTasks/tableTasks";
 import { EstadoProps, TareaProps } from "@/types";
 import { useState } from "react";
 import Button from "../button";
-import { VscTable, VscSymbolStructure, VscGraph } from "react-icons/vsc";
+import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject } from "react-icons/vsc";
 import EstadisticasProject from "./estadisticas/estadisticasProject";
+import EstadosSection from "./Estados/EstadosSection";
 
 const Tasks = ({
   tareas,
@@ -23,10 +24,14 @@ const Tasks = ({
       name: "table",
       icon: VscTable,
     },
-    // {
-    //   name: "kanban",
-    //   icon: VscSymbolStructure,
-    // },
+    {
+      name: "kanban",
+      icon: VscProject,
+    },
+    {
+      name: "estados",
+      icon: VscSymbolStructure,
+    },
     {
       name: "estadisticas",
       icon: VscGraph,
@@ -42,11 +47,17 @@ const Tasks = ({
           <TableTasks tareas={tareas} estados={estados} idProject={idProject} />
         );
       case "estadisticas":
-        return <EstadisticasProject 
-          tareas={tareas}
-          estados={estados}
-          idProject={idProject}
-        />;
+        return (
+          <EstadisticasProject
+            tareas={tareas}
+            estados={estados}
+            idProject={idProject}
+          />
+        );
+
+      case "estados":
+        return <EstadosSection estados={estados} idProject={idProject} />;
+
       default:
         return (
           <TableTasks tareas={tareas} estados={estados} idProject={idProject} />

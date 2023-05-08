@@ -1,5 +1,6 @@
 import Header from "../components/header/header";
 import getCurrentUser from "@/actions/getCurrentUser";
+import toast, { Toaster } from "react-hot-toast";
 
 const Page = async () => {
   const user = await getCurrentUser();

@@ -3,6 +3,7 @@ import AsideBar from "@/components/sidebar/asidebar";
 import getCurrentUser from "@/actions/getCurrentUser";
 import Header from "@/components/header/header";
 import ModalContainer from "@/components/modals/modalcontainer";
+import ToasterProvider from "@/providers/ToasterProvider";
 
 export const metadata = {
   title: "Varbas",
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <body className="flex h-screen w-screen overflow-hidden bg-slate-800 ">
         <AsideBar user={user} />
         <main className="z-40 h-full w-full p-4">
+          <ToasterProvider />
           <div className="flex h-full w-full flex-col overflow-hidden">
             <Header />
             {children}

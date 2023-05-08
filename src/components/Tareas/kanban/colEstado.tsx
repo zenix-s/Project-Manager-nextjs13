@@ -3,6 +3,7 @@ import CardTarea from "./cardTarea";
 import Button from "../../button";
 import { VscAdd } from "react-icons/vsc";
 import { TareaProps, EstadoProps } from "@/types";
+import { getBgColor, getHexColor } from "@/actions/getColors";
 
 const ColEstado = ({
   estado,
@@ -11,31 +12,15 @@ const ColEstado = ({
   estado: EstadoProps;
   tareas: TareaProps[];
 }) => {
-  console.log(tareas);
-  const color = () => {
-    switch (estado.color) {
-      case "red":
-        return "bg-red-500";
-      case "emerald":
-        return "bg-emerald-500";
-      case "blue":
-        return "bg-blue-500";
-      case "yellow":
-        return "bg-yellow-500";
-      case "orange":
-        return "bg-orange-500";
-      case "green":
-        return "bg-green-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
   return (
     <div
       className="flex h-full min-w-[350px] flex-col rounded-lg overflow-hidden bg-slate-700"
     >
       <div
-        className={` mb-4 flex justify-start p-4 ${color()} text-white text-xl `}
+        className={` mb-4 flex justify-start p-4 text-white text-xl `}
+        style={{
+          backgroundColor: getHexColor(estado.color),
+        }}
       >
         {estado.nombre}
       </div>
