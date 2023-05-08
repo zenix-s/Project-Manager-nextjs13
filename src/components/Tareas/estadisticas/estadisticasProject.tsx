@@ -15,12 +15,6 @@ const EstadisticasProject = ({
   idProject,
 }: EstadisticasProjectProps) => {
   const data: any = [
-    // { name: 'Group A', value: 400 },
-    // { name: 'Group B', value: 300 },
-    // { name: 'Group C', value: 300 },
-    // { name: 'Group D', value: 200 },
-
-    // map number of tasks by state
 
     ...estados.map((estado) => {
       return {
@@ -31,10 +25,9 @@ const EstadisticasProject = ({
   ];
   // get the colors of the states
   const COLORS = estados.map((estado) => getHexColor(estado.color));
-  const color = "#334155";
   return (
-    <div className="p-4">
-      <div className=" rounded-xl py-4 px-8 bg-slate-900"
+    <div className="p-4 w-full h-full">
+      <div className=" rounded-xl py-4 px-8 bg-slate-900 w-1/3 flex flex-col items-center justify-center"
         style={
           {
             boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
@@ -42,7 +35,7 @@ const EstadisticasProject = ({
         }
       >
         <div>
-          <PieChart width={300} height={300}>
+          <PieChart height={300} width={300} >
             <Pie
               data={data}
               innerRadius={60}
