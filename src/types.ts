@@ -16,6 +16,13 @@ export interface TareaProps {
   id_usuario: number | null;
 }
 
+export interface TeamMembersProps {
+  id: number;
+  id_proyecto: number;
+  id_usuario: number;
+  rol: string;
+}
+
 export interface EstadoProps {
   id: number;
   nombre: string;

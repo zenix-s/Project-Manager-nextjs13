@@ -1,20 +1,23 @@
 "use client";
 import Kanban from "./kanban/kanban";
 import TableTasks from "./TableTasks/tableTasks";
-import { EstadoProps, TareaProps } from "@/types";
+import { EstadoProps, TareaProps, TeamMembersProps } from "@/types";
 import { useState } from "react";
 import Button from "../button";
-import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject } from "react-icons/vsc";
+import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSettingsGear } from "react-icons/vsc";
 import EstadisticasProject from "./estadisticas/estadisticasProject";
-import EstadosSection from "./Estados/EstadosSection";
+import EstadosSection from "./Configuraciones/estados/EstadosSection";
+import ConfigSection from "./Configuraciones/ConfigSection";
 
 const Tasks = ({
   tareas,
   estados,
+  teamMembers,
   idProject,
 }: {
   tareas: TareaProps[];
   estados: EstadoProps[];
+  teamMembers: TeamMembersProps[];
   idProject: number;
 }) => {
   const [TasksView, setTasksView] = useState("table");
@@ -29,12 +32,12 @@ const Tasks = ({
       icon: VscProject,
     },
     {
-      name: "estados",
-      icon: VscSymbolStructure,
-    },
-    {
       name: "estadisticas",
       icon: VscGraph,
+    },
+    {
+      name: "Configuraciones",
+      icon: VscSettingsGear,
     },
   ];
 
@@ -55,8 +58,13 @@ const Tasks = ({
           />
         );
 
-      case "estados":
-        return <EstadosSection estados={estados} idProject={idProject} />;
+      case "Configuraciones":
+        return <ConfigSection
+          tareas={tareas}
+          estados={estados}
+          teamMembers={teamMembers}
+          idProject={idProject}
+        />;
 
       default:
         return (
