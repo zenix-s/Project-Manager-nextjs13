@@ -94,6 +94,41 @@ const IndividualTask = ({
     );
   };
 
+  const LinksDropdown = () => {
+    return (
+      <div className="flex flex-grow justify-end">
+        <div className="dropdown-bottom dropdown-end dropdown">
+          <label tabIndex={0} className="btn m-1 border-none bg-transparent">
+            <VscKebabVertical />
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+          >
+            <li>
+              <button
+                onClick={() => {
+                  onDeleteTask();
+                }}
+              >
+                Archivar
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  console.log("click");
+                }}
+              >
+                Editar
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="relative text-white">
       <div
@@ -111,36 +146,7 @@ const IndividualTask = ({
         <div>
           <EstadosSelect />
         </div>
-        <div className="flex flex-grow justify-end">
-          <div className="dropdown-bottom dropdown-end dropdown">
-            <label tabIndex={0} className="btn m-1 border-none bg-transparent">
-              <VscKebabVertical />
-            </label>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
-            >
-              <li>
-                <button
-                  onClick={() => {
-                    onDeleteTask();
-                  }}
-                >
-                  Archivar
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    console.log("click");
-                  }}
-                >
-                  Editar
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <LinksDropdown />
       </div>
     </div>
   );
