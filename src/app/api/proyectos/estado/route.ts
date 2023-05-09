@@ -6,11 +6,26 @@ export async function POST(request: NextRequest) {
 
   const { id_proyecto, nombre, color } = res;
 
+  const lastOrder = await prisma.estados.findFirst({
+    where: {
+      id_proyecto: id_proyecto,
+    },
+    orderBy: {
+      order: "desc",
+    },
+  });
+
+  const newOrder = lastOrder ? lastOrder.order + 1 : 1;
+
+
+
   const nuevoEstado = await prisma.estados.create({
     data: {
       nombre: nombre,
       color: color,
       id_proyecto: id_proyecto,
+      // new order must be the last one + 1
+      order: newOrder,
     },
   });
 

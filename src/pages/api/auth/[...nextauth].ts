@@ -19,8 +19,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-
-
         const userna = await prisma.users.findUnique({
           where: {
             email: credentials?.email,
@@ -31,11 +29,8 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        
-
-        
         const id = String(userna?.id);
-        const user = { id: id, name: userna?.username, email: userna?.email};
+        const user = { id: id, name: userna?.username, email: userna?.email };
         return user;
       },
     }),
@@ -50,8 +45,8 @@ export const authOptions: NextAuthOptions = {
         },
       };
     },
-    jwt: ({token, user}) => {
-      if (user){
+    jwt: ({ token, user }) => {
+      if (user) {
         const u = user as unknown as any;
         return {
           ...token,
