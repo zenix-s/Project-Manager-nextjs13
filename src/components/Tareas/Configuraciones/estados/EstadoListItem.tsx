@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { VscKebabVertical } from "react-icons/vsc";
 import toast, { Toaster } from "react-hot-toast";
+import { set } from "react-hook-form";
 
 interface EstadoListItemProps {
   estado: EstadoProps;
@@ -61,6 +62,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setEstadoLoading(false);
         router.refresh();
       });
   };
@@ -95,7 +97,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       <div>
         <div className="dropdown-bottom dropdown-end dropdown">
           <label
-            className="btn border-none bg-transparent"
+            className="btn btn-ghost"
             tabIndex={estado.id}
           >
             <VscKebabVertical />

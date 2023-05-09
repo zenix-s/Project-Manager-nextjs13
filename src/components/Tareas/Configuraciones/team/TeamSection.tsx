@@ -1,18 +1,21 @@
-import { TeamMembersProps } from "@/types";
+import { TeamMemberProps } from "@/types";
+import TeamMember from "./TeamMemeber";
 interface TeamSectionProps {
   idProject: number;
-  teamMembers: TeamMembersProps[];
+  teamMembers: TeamMemberProps[];
 }
 
 const TeamSection = ({ idProject, teamMembers }: TeamSectionProps) => {
   return (
-    <div>
+    <div className="h-96 p-4">
       <h2 className="text-2xl font-bold">Team</h2>
-      <div>
+      <div className="overflox-scroll border border-white/50 rounded-lg h-full">
         {teamMembers.map((member) => (
-          <div key={member.id} className="flex items-center justify-between">
-            {member.id_usuario}
-          </div>
+          <TeamMember
+            key={member.id_usuario}
+            idProject={idProject}
+            teamMember={member}
+          />
         ))}
       </div>
     </div>
