@@ -96,7 +96,7 @@ const IndividualTask = ({
 
   const LinksDropdown = () => {
     return (
-      <div className="flex flex-grow justify-end">
+      <div className="flex justify-end">
         <div className="dropdown-bottom dropdown-end dropdown">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
             <VscKebabVertical />
@@ -139,13 +139,19 @@ const IndividualTask = ({
       >
         loading...
       </div>
-      <div className="flex w-full items-center px-4">
-        <div className="w-1/3">
-          <h3>{tarea.nombre}</h3>
-        </div>
-        <div>
+      <div className="flex w-full items-center justify-between px-4">
+        <div className="flex w-full items-center justify-normal gap-12">
+          <div className="flex items-center gap-4">
+            {/* <input
+              type="checkbox"
+              defaultChecked={tarea.completed}
+              className="checkbox"
+            /> */}
+            <h3>{tarea.nombre}</h3>
+          </div>
           <EstadosSelect />
         </div>
+
         <LinksDropdown />
       </div>
     </div>
