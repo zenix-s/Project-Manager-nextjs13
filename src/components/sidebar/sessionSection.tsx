@@ -45,6 +45,7 @@ const LoggedOptions = () => {
         onClick={() => {
           console.log("Perfil");
         }}
+        fontSize="lg"
       />
       <Button
         label="Cerrar Sesión"
@@ -53,6 +54,7 @@ const LoggedOptions = () => {
         onClick={() => {
           signOut();
         }}
+        fontSize="lg"
       />
     </>
   );

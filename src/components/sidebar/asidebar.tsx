@@ -27,12 +27,7 @@ const links: NavBarLinkProps[] = [
   },
   {
     label: "Estidisticas",
-    href: "/about",
-    icon: VscGraphLine,
-  },
-  {
-    label: "Mockups",
-    href: "/mockups",
+    href: "/estadisticas",
     icon: VscGraphLine,
   },
 ];

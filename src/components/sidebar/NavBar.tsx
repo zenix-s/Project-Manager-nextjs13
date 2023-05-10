@@ -14,6 +14,7 @@ const Nav = (
           theme="ghost"
           href={link.href}
           icon={link.icon}
+          fontSize="lg"
         />
       ))}
     </nav>

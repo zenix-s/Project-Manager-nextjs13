@@ -13,6 +13,7 @@ interface ButtonProps {
   active?: boolean;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  fontSize?: "default" | "lg"
 }
 const Button: React.FC<ButtonProps> = ({
   label,
@@ -27,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
   loading = false,
   active = false,
   disabled = false,
+  fontSize = "default"
 }) => {
 
 
@@ -55,7 +57,8 @@ const Button: React.FC<ButtonProps> = ({
       <div
         className={`
         ${center ? "justify-center" : "justify-start"}
-        flex w-full items-center gap-4 
+        flex w-full items-center gap-4
+        ${fontSize === "lg" && "text-lg" }
       `}
       >
         {Icon && <Icon />}

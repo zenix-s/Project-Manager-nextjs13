@@ -12,6 +12,8 @@ interface LinkProps {
   circle?: boolean;
   loading?: boolean;
   active?: boolean;
+  fontSize?: "default" | "lg"
+
 }
 const LinkComponent: React.FC<LinkProps> = ({
   label,
@@ -24,6 +26,7 @@ const LinkComponent: React.FC<LinkProps> = ({
   circle = false,
   loading = false,
   active = false,
+  fontSize = "default"
 }) => {
   
 
@@ -48,6 +51,7 @@ const LinkComponent: React.FC<LinkProps> = ({
         className={`
         ${!center ? "justify-start" : ""}
         flex w-full items-center gap-4 
+        ${fontSize === "lg" && "text-lg"}
       `}
       >
         {Icon && <Icon />}

@@ -1,6 +1,6 @@
 'use client';
 import { VscAdd } from "react-icons/vsc";
-import Button from "../../button";
+import Button from "@/components/button";
 const NewCol = () => {
   return (
     <div className="min-w-[300px]">
