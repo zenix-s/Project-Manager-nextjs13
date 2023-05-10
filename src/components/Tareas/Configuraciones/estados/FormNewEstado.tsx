@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Button from "@/components/button";
 const { Colors, getBgColor, getHexColor } = require("@/actions/getColors");
 
 interface FormNewEstadoProps {
@@ -96,9 +97,13 @@ const FormNewEstado: React.FC<FormNewEstadoProps> = ({ idProject }) => {
             ))}
           </select>
         </div>
-        <button type="submit" className="btn-primary btn" disabled={loading}>
-          {loading ? "Cargando..." : "Crear estado"}
-        </button>
+        <Button
+          type="submit"
+          disabled={loading}
+          loading={loading}
+          theme="primary"
+          label={loading ? "Cargando..." : "Crear estado"}
+        />
       </form>
     </div>
   );

@@ -92,11 +92,8 @@ const Tasks = ({
                   <Button
                     onClick={() => setTasksView(view.name)}
                     label={view.name}
-                    textColor="white"
-                    theme="transparent"
+                    theme="ghost"
                     center
-                    padding={false}
-                    hoverEffect="whiter"
                     icon={view.icon}
                   />
                 </div>

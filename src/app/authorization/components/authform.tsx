@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { BsBoxArrowInRight, BsPencilSquare } from "react-icons/bs";
+import Button from "@/components/button";
 import Input from "@/components/inputs/input";
 type AuthType = "login" | "register";
 const AuthForm = () => {
@@ -57,13 +58,14 @@ const AuthForm = () => {
         .then((res) => {
           if (res?.error) {
             toast.error(res.error);
+            setLoading(false);
           }
-          if (res?.ok) {
+          if (res?.ok && !res?.error) {
+            toast.success("Bienvenido");
             router.push("/proyectos");
           }
         })
         .finally(() => {
-          toast.success("Bienvenido");
           router.refresh();
         });
     }
@@ -106,32 +108,24 @@ const AuthForm = () => {
               errors={errors}
               required
             />
-            <button
-              type="submit"
-              className="btn-primary btn-block btn"
+            <Button
+              label={authType === "login" ? "Login" : "Register"}
+              theme="primary"
+              fullWidth
+              center
+              icon={authType === "login" ? BsBoxArrowInRight : BsPencilSquare}
+              loading={loading}
               disabled={loading}
-            >
-              {authType === "login" ? (
-                <>
-                  <BsBoxArrowInRight className="mr-2" />
-                  Login
-                </>
-              ) : (
-                <>
-                  <BsPencilSquare className="mr-2" />
-                  Register
-                </>
-              )}
-            </button>
-            <button
-              type="button"
-              className="btn-secondary btn-block btn"
+              type="submit"
+            />
+            <Button
+              label={ authType === "login" ? "No tienes una cuenta? Registrate" : "Ya tienes una cuenta? Inicia Sesión"}
+              theme="secondary"
+              fullWidth
+              center
               onClick={toggleAuthType}
-            >
-              {authType === "login"
-                ? "No tienes una cuenta? Registrate"
-                : "Ya tienes una cuenta? Inicia Sesión"}
-            </button>
+            />
+
           </form>
         </div>
       </div>

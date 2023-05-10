@@ -4,6 +4,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { EstadoProps } from "@/types";
 import { useRouter } from "next/navigation";
 import Input from "@/components/inputs/input";
+import Button from "@/components/button";
 
 interface NewTaskFormProps {
   idProject: number;
@@ -106,13 +107,13 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
         ))}
       </select>
 
-      <button
-        className="btn-primary btn"
+      <Button
         onClick={handleSubmit(onSubmit)}
+        loading={loading}
         disabled={loading}
-      >
-        {loading ? "Cargando..." : "Crear tarea"}
-      </button>
+        label={loading ? "Cargando..." : "Crear tarea"}
+        theme="primary"
+      />
     </div>
   );
 };

@@ -55,9 +55,7 @@ const AsideBar = ({ user }: { user: any }) => {
           <SessionSection user={user} />
           <div className={`absolute right-0 top-0 flex lg:hidden  `}>
             <Button
-              label=""
-              theme="transparent"
-              textColor="white"
+              theme="ghost"
               icon={CiCircleRemove}
               onClick={() => {
                 aside.onClose();

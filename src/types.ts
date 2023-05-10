@@ -36,20 +36,7 @@ export interface EstadoProps {
   color: string;
 }
 
-export interface ButtonProps {
-  label: string;
-  onClick?: () => void;
-  href?: string;
-  theme: "light" | "dark" | "transparent";
-  textColor: "black" | "white";
-  hoverEffect?: "whiter" | "darker" | "none";
-  icon?: IconType;
-  shadow?: boolean;
-  center?: boolean;
-  padding?: boolean;
-  uppercase?: boolean;
-  fullWidth?: boolean;
-}
+
 
 export interface InputProps {
   id: string;

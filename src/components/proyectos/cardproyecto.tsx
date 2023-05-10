@@ -64,16 +64,14 @@ const CardProyecto = ({
       >
         <Image src={loadingLogo} alt="Loading..." width={100} height={100} />
       </div>
-
-      <button
-        className={`
-          ${isDeleting ? "hidden" : "flex"}
-          absolute right-4 top-4 z-10 
-          `}
-        onClick={() => toogleVisible()}
-      >
-        <FiMenu size={24} />
-      </button>
+      <div className="absolute right-0 top-0 z-10 ">
+        <Button
+          theme="ghost"
+          icon={FiMenu}
+          onClick={() => toogleVisible()}
+          disabled={isDeleting}
+        />
+      </div>
 
       <div
         className={`${
@@ -82,11 +80,9 @@ const CardProyecto = ({
       >
         <Button
           label=""
-          theme="transparent"
-          textColor="black"
+          theme="ghost"
           onClick={() => openProject()}
           icon={FiExternalLink}
-          center
         />
       </div>
 
@@ -103,28 +99,21 @@ const CardProyecto = ({
       justify-center
       gap-2
       bg-white
-      p-4
+      py-4
+      px-12
       `}
       >
         <Button
           label="Editar"
           onClick={() => {}}
-          theme="light"
-          hoverEffect="darker"
-          textColor="black"
-          center
-          shadow
+          theme="accent"
         />
         <Button
           label="Eliminar"
           onClick={() => {
             deleteProject();
           }}
-          theme="light"
-          hoverEffect="darker"
-          textColor="black"
-          shadow
-          center
+          theme="accent"
         />
       </div>
       <div className="">

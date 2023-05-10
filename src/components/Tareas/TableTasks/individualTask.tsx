@@ -147,7 +147,9 @@ const IndividualTask = ({
               defaultChecked={tarea.completed}
               className="checkbox"
             /> */}
-            <h3>{tarea.nombre}</h3>
+            <div className="w-64 overflow-scroll">
+              <h3>{tarea.nombre}</h3>
+            </div>
           </div>
           <EstadosSelect />
         </div>

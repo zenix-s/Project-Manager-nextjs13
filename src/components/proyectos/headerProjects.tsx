@@ -9,13 +9,9 @@ const HeaderProjects = () => {
       <div className="flex items-center justify-between p-4">
         <Button
           label="Nuevo Proyecto"
-          theme="light"
-          textColor="black"
-          hoverEffect="whiter"
+          theme="primary"
           onClick={ProjectModal.onOpen}
           center
-          shadow
-          uppercase
         />
       </div>
     </>

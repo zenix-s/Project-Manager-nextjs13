@@ -32,13 +32,10 @@ const ColEstado = ({
       <div className="mt-4 w-full p-4">
         <Button
           label="Agregar tarea"
-          theme="light"
-          textColor="black"
-          hoverEffect="whiter"
+          theme="accent"
           onClick={() => {}}
           fullWidth
           center
-          shadow
           icon={VscAdd}
         />
       </div>

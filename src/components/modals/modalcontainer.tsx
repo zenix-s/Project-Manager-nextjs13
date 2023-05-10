@@ -38,16 +38,11 @@ const ModalContainer: React.FC<FormContainerProps> = ({
       >
         <div className="absolute right-0 top-0 p-4">
           <Button
-            label=""
             icon={CiCircleRemove}
-            theme="transparent"
-            textColor="white"
-            hoverEffect="whiter"
+            theme="ghost"
             onClick={() => {
               onClose && onClose();
             }}
-            center
-            uppercase
           />
         </div>
         <div className=" mb-8  h-16 w-full  border-b-2 border-slate-200/30  ">

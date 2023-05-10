@@ -17,25 +17,19 @@ const SessionOptions = () => {
     <>
       <Button
         label="Iniciar Sesión"
-        theme="transparent"
-        textColor="white"
-        hoverEffect="whiter"
+        theme="ghost"
         onClick={() => {
           signIn();
         }}
         icon={CiLogin}
-        uppercase
       />
       <Button
         label="Registrarse"
-        theme="transparent"
-        textColor="white"
-        hoverEffect="whiter"
+        theme="ghost"
         onClick={() => {
           console.log("Registrarse");
         }}
         icon={CiEdit}
-        uppercase
       />
     </>
   );
@@ -46,25 +40,19 @@ const LoggedOptions = () => {
     <>
       <Button
         label="Perfil"
-        theme="transparent"
-        textColor="white"
-        hoverEffect="whiter"
+        theme="ghost"
         icon={CiUser}
         onClick={() => {
           console.log("Perfil");
         }}
-        uppercase={true}
       />
       <Button
         label="Cerrar Sesión"
-        theme="transparent"
-        textColor="white"
-        hoverEffect="whiter"
+        theme="ghost"
         icon={CiLogout}
         onClick={() => {
           signOut();
         }}
-        uppercase={true}
       />
     </>
   );

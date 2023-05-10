@@ -13,9 +13,7 @@ const Header = () => {
       <BreadCrumbs />
       <div className="flex lg:hidden">
         <Button
-          label=""
-          theme="transparent"
-          textColor="white"
+          theme="ghost"
           icon={SlMenu}
           onClick={() => {
             aside.onOpen();

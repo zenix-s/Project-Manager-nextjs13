@@ -3,8 +3,9 @@ import { EstadoProps } from "@/types";
 import { Colors, getBgColor, getHexColor } from "@/actions/getColors";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { VscKebabVertical } from "react-icons/vsc";
+import { VscKebabVertical, VscChromeMinimize } from "react-icons/vsc";
 import toast, { Toaster } from "react-hot-toast";
+import Button from "@/components/button";
 import { set } from "react-hook-form";
 
 interface EstadoListItemProps {
@@ -97,25 +98,15 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
         </select>
       </div>
       <div>
-        <div className="dropdown-bottom dropdown-end dropdown">
-          <label className="btn-ghost btn" tabIndex={estado.id}>
-            <VscKebabVertical />
-          </label>
-          <ul
-            className="dropdown-content menu rounded-box bg-base-100 p-2 shadow "
-            tabIndex={estado.id}
-          >
-            <li>
-              <button
-                onClick={() => {
-                  onDeleteEstado();
-                }}
-              >
-                eliminar
-              </button>
-            </li>
-          </ul>
-        </div>
+        <Button
+          onClick={() => {
+            onDeleteEstado();
+          }}
+          loading={estadoLoading}
+          label="eliminar"
+          icon={VscChromeMinimize}
+          theme="error"
+        />
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Input: React.FC<InputProps> = ({
     <div className="form-control">
       <label
         htmlFor={id}
-        className=""
+        className="label"
       >
         <span className="label-text">{label}</span>
         {errors[id] && (

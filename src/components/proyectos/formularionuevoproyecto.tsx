@@ -50,9 +50,8 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
       >
         <Button
           onClick={() => setVisibility(true)}
-          theme="light"
+          theme="primary"
           label="Nuevo Proyecto"
-          shadow={true}
         />
       </div>
       <div
@@ -121,8 +120,8 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
                 {...register("deadline", { required: true })}
               />
               {errors.deadline && <span>Este campo es requerido</span>}
-
-              <button type="submit">Crear Proyecto</button>
+              
+              <Button type="submit" theme="primary" label="Crear Proyecto" />
             </div>
           </form>
         </div>

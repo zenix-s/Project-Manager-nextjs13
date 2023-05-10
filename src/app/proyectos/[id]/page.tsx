@@ -15,8 +15,6 @@ const Page = async ({params}: {params: paramsProps}) => {
   const estados = await getEstados(id);
   const teamMembers = await getTeamMembers(id);
 
-  console.log(estados);
-
   return (
     <>
       <section className="flex h-full flex-col">

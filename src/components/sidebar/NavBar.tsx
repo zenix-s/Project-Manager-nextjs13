@@ -11,12 +11,9 @@ const Nav = (
         <LinkComponent
           key={index}
           label={link.label}
-          theme="transparent"
-          textColor="white"
-          hoverEffect="whiter"
+          theme="ghost"
           href={link.href}
           icon={link.icon}
-          uppercase={true}
         />
       ))}
     </nav>
