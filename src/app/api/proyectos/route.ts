@@ -54,7 +54,7 @@ export async function POST(request: Request) {
     data: {
       id_proyecto: newProject.id,
       id_usuario: parseInt(user.id.toString()),
-      rol: "admin",
+      rol: "owner",
     },
   });
 
