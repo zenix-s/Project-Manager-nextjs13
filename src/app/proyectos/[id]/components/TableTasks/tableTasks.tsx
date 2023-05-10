@@ -13,13 +13,14 @@ const TableTasks = ({
   idProject: number;
 }) => {
   return (
-    <div className="flex w-full flex-col gap-4 p-4">
+    <div className="flex w-full flex-col p-4">
       <div>
         <HeaderTasksList 
           estados={estados} 
           idProject={idProject} 
         />
       </div>
+      <div className="divider" />
       <div className="flex flex-col gap-2">
         {tareas.map((tarea) => {
           return (

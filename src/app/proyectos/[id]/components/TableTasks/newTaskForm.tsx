@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import axios from "axios";
+import { Toast, toast } from "react-hot-toast";
 import { EstadoProps } from "@/types";
 import { useRouter } from "next/navigation";
 import Input from "@/components/inputs/input";
 import Button from "@/components/button";
+import { getHexColor } from "@/actions/getColors";
 
 interface NewTaskFormProps {
   idProject: number;
@@ -48,43 +51,26 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
       return;
     }
 
-    fetch("http://localhost:3000/api/proyectos/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    axios
+      .post("/api/proyectos/tasks", {
         nombre: data.TitleNewTaskInput,
         id_estado: parseInt(data.stateFormNewTask),
         id_proyecto: idProject,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setLoading(false);
+      })
+      .then((res) => {
         CleanInputs();
         setTitleError(false);
         setStateError(false);
+        toast.success("Tarea creada correctamente");
         router.refresh();
       })
-      .catch((err) => console.log(err))
+      .catch((err) => toast.error(err.response.data.message))
       .finally(() => {
-        console.log("Finalizado");
-        console.log(data);
+        setLoading(false);
       });
   };
   return (
     <div className="flex w-full items-end justify-start gap-4">
-      {/* <input
-          type="text"
-          placeholder="Nombre de la tarea"
-          className={`input-bordered input w-full
-          max-w-xs
-          ${TitleError ? "input-error" : ""}
-          `}
-          {...register("TitleNewTaskInput")}
-        /> */}
       <Input
         id="TitleNewTaskInput"
         label="Nombre de la tarea"
@@ -96,12 +82,18 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
 
       <select
         {...register("stateFormNewTask")}
-        className={`select select-bordered ${StateError ? "select-error" : ""}`}
+        className={`select-bordered select ${StateError ? "select-error" : ""}`}
         defaultValue="Selecciona un estado"
       >
         <option disabled>Selecciona un estado</option>
         {estados.map((estado) => (
-          <option key={estado.id} value={estado.id}>
+          <option
+            key={estado.id}
+            value={estado.id}
+            style={{
+              backgroundColor: getHexColor(estado.color),
+            }}
+          >
             {estado.nombre}
           </option>
         ))}

@@ -13,6 +13,7 @@ const EstadosSection = ({ estados, idProject }: EstadosSectionProps) => {
       <div className="my-4">
         <FormNewEstado idProject={idProject} />
       </div>
+      <div className="divider" />
       <div className="flex flex-col gap-4 mt-4 h-full">
         {estados.map((estado) => (
           <EstadoListItem key={estado.id} estado={estado} idProject={idProject} />

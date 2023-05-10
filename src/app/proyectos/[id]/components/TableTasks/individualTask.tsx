@@ -142,11 +142,11 @@ const IndividualTask = ({
       <div className="flex w-full items-center justify-between px-4">
         <div className="flex w-full items-center justify-normal gap-12">
           <div className="flex items-center gap-4">
-            {/* <input
+            <input
               type="checkbox"
               defaultChecked={tarea.completed}
               className="checkbox"
-            /> */}
+            />
             <div className="w-64 overflow-scroll">
               <h3>{tarea.nombre}</h3>
             </div>
