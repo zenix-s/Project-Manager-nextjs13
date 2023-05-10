@@ -3,7 +3,7 @@ import Kanban from "./kanban/kanban";
 import TableTasks from "./TableTasks/tableTasks";
 import { EstadoProps, TareaProps, TeamMemberProps } from "@/types";
 import { useState } from "react";
-import Button from "../button";
+import Button from "@/components/button";
 import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSettingsGear } from "react-icons/vsc";
 import EstadisticasProject from "./estadisticas/estadisticasProject";
 import EstadosSection from "./Configuraciones/estados/EstadosSection";

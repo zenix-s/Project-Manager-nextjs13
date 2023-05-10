@@ -47,10 +47,10 @@ model tareas {
   nombre      String    @db.VarChar(50)
   description String?   @db.VarChar(255)
   endDate     DateTime? @db.DateTime(0)
+  completed   Boolean   @default(false)
   id_proyecto Int
   id_usuario  Int?
   id_estado   Int
-  completed   Boolean   @default(false)
   users       users?    @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_1")
   proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_2")
   estados     estados   @relation(fields: [id_estado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_3")

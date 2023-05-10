@@ -1,6 +1,6 @@
 "use client";
 import CardTarea from "./cardTarea";
-import Button from "../../button";
+import Button from "@/components/button";
 import { VscAdd } from "react-icons/vsc";
 import { TareaProps, EstadoProps } from "@/types";
 import { getBgColor, getHexColor } from "@/actions/getColors";
