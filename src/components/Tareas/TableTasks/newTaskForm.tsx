@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { EstadoProps } from "@/types";
 import { useRouter } from "next/navigation";
+import Input from "@/components/inputs/input";
 
 interface NewTaskFormProps {
   idProject: number;
@@ -73,9 +74,8 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
       });
   };
   return (
-    <div className="flex w-full items-center justify-start gap-4">
-      <div className="flex h-full items-center justify-center">
-        <input
+    <div className="flex w-full items-end justify-start gap-4">
+      {/* <input
           type="text"
           placeholder="Nombre de la tarea"
           className={`input-bordered input w-full
@@ -83,23 +83,28 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
           ${TitleError ? "input-error" : ""}
           `}
           {...register("TitleNewTaskInput")}
-        />
-      </div>
+        /> */}
+      <Input
+        id="TitleNewTaskInput"
+        label="Nombre de la tarea"
+        type="text"
+        required
+        register={register}
+        errors={errors}
+      />
 
-      <div className="h-full">
-        <select
-          {...register("stateFormNewTask")}
-          className={`select ${StateError ? "select-error" : ""}`}
-          defaultValue="Selecciona un estado"
-        >
-          <option disabled>Selecciona un estado</option>
-          {estados.map((estado) => (
-            <option key={estado.id} value={estado.id}>
-              {estado.nombre}
-            </option>
-          ))}
-        </select>
-      </div>
+      <select
+        {...register("stateFormNewTask")}
+        className={`select select-bordered ${StateError ? "select-error" : ""}`}
+        defaultValue="Selecciona un estado"
+      >
+        <option disabled>Selecciona un estado</option>
+        {estados.map((estado) => (
+          <option key={estado.id} value={estado.id}>
+            {estado.nombre}
+          </option>
+        ))}
+      </select>
 
       <button
         className="btn-primary btn"

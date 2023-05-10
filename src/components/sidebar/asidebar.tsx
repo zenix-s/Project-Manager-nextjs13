@@ -37,7 +37,7 @@ const links: NavBarLinkProps[] = [
   },
 ];
 
-const AsideBar = ({ user }: { user: UserProps | undefined }) => {
+const AsideBar = ({ user }: { user: any }) => {
   const aside = useAside();
   const [selected, setSelected] = useState("Home");
   return (

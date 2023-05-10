@@ -41,7 +41,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
 
   const ToastDelete = () => {
     console.log("toast");
-    toast.success("Estado eliminado")
+    toast.success("Estado eliminado");
   };
 
   const onDeleteEstado = () => {
@@ -55,21 +55,23 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        if(data.error) return toast.error(data.error)
-        toast.success("Estado eliminado")
-        router.refresh();
+        if (data.error) return toast.error(data.error);
         setEstadoLoading(false);
+        toast.success("Estado eliminado");
+        router.refresh();
       })
       .catch((error) => {
         console.error("Error:", error);
         setEstadoLoading(false);
         router.refresh();
+      })
+      .finally(() => {
+        setEstadoLoading(false);
       });
   };
 
   return (
     <div className="flex items-center justify-between gap-4">
-      
       <div className="flex items-center gap-4">
         <div className="w-60">{estado.nombre}</div>
         <select
@@ -96,10 +98,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       </div>
       <div>
         <div className="dropdown-bottom dropdown-end dropdown">
-          <label
-            className="btn btn-ghost"
-            tabIndex={estado.id}
-          >
+          <label className="btn-ghost btn" tabIndex={estado.id}>
             <VscKebabVertical />
           </label>
           <ul

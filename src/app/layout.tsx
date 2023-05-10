@@ -2,8 +2,9 @@ import "@/styles/globals.css";
 import AsideBar from "@/components/sidebar/asidebar";
 import getCurrentUser from "@/actions/getCurrentUser";
 import Header from "@/components/header/header";
-import ModalContainer from "@/components/modals/modalcontainer";
 import ToasterProvider from "@/providers/ToasterProvider";
+import AuthForm from "./authorization/components/authform";
+import { useRouter } from "next/navigation";
 
 export const metadata = {
   title: "Varbas",
@@ -16,16 +17,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const user = await getCurrentUser();
-  const iduser = user ? user.id : null;
 
   if (!user) {
     return (
       <html lang="en">
-        <body className="flex h-screen w-screen bg-slate-800">
-          <AsideBar user={undefined} />
-          <main className="z-40 h-full w-full p-4">
-            Incia sesión para ver el contenido
-          </main>
+        <body className="h-screen w-screen">
+          <ToasterProvider />
+          <AuthForm />
         </body>
       </html>
     );
@@ -35,8 +33,8 @@ export default async function RootLayout({
     <html lang="en">
       <body className="flex h-screen w-screen overflow-hidden bg-slate-800 ">
         <AsideBar user={user} />
+        <ToasterProvider />
         <main className="z-40 h-full w-full p-4">
-          <ToasterProvider />
           <div className="flex h-full w-full flex-col overflow-hidden">
             <Header />
             {children}

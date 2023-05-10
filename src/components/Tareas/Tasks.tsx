@@ -1,7 +1,7 @@
 "use client";
 import Kanban from "./kanban/kanban";
 import TableTasks from "./TableTasks/tableTasks";
-import { EstadoProps, TareaProps, TeamMembersProps } from "@/types";
+import { EstadoProps, TareaProps, TeamMemberProps } from "@/types";
 import { useState } from "react";
 import Button from "../button";
 import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSettingsGear } from "react-icons/vsc";
@@ -17,7 +17,7 @@ const Tasks = ({
 }: {
   tareas: TareaProps[];
   estados: EstadoProps[];
-  teamMembers: TeamMembersProps[];
+  teamMembers: TeamMemberProps[];
   idProject: number;
 }) => {
   const [TasksView, setTasksView] = useState("table");

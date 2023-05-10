@@ -61,7 +61,7 @@ const NewProjectForm = () => {
           id="deadlineFormNewProject"
           placeholder="Fecha de entrega"
           {...register("deadline")}
-          className="w-full rounded p-4 text-black"
+          className="input-bordered input w-full"
         />
 
         {errors.deadline && <span>Este campo es requerido</span>}

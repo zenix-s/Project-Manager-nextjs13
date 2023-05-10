@@ -53,7 +53,7 @@ export async function POST(request: Request) {
   const newProjectUser = await prisma.asignaciones.create({
     data: {
       id_proyecto: newProject.id,
-      id_usuario: parseInt(user.id),
+      id_usuario: parseInt(user.id.toString()),
       rol: "admin",
     },
   });

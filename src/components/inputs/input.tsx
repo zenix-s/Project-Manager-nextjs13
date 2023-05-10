@@ -11,23 +11,23 @@ const Input: React.FC<InputProps> = ({
   errors,
 }) => {
   return (
-    <div className="text-md relative mb-3 mt-6 w-full">
+    <div className="form-control">
+      <label
+        htmlFor={id}
+        className=""
+      >
+        <span className="label-text">{label}</span>
+        {errors[id] && (
+          <span className="text-red-600 textx-label-alt">Este campo es obligatorio</span>
+        )}
+      </label>
       <input
         type={type}
         placeholder=" "
         {...register(id, { required })}
         id={id}
-        className="focus:shadow-outline peer w-full rounded-lg border px-2 py-3 text-lg text-gray-800 placeholder-gray-400"
+        className="input input-bordered w-full"
       />
-      <label
-        htmlFor={id}
-        className="absolute -top-6 left-2 cursor-text select-none text-lg text-gray-200 transition-all peer-placeholder-shown:top-3.5 peer-placeholder-shown:text-gray-500 peer-focus:-top-6 peer-focus:text-gray-200"
-      >
-        {label}{" "}
-        {errors[id] && (
-          <span className="text-red-600">Este campo es obligatorio</span>
-        )}
-      </label>
     </div>
   );
 };
