@@ -8,8 +8,11 @@ interface TeamSectionProps {
 const TeamSection = ({ idProject, teamMembers }: TeamSectionProps) => {
   return (
     <div className="h-96 p-4">
-      <h2 className="text-2xl font-bold">Team</h2>
-      <div className="overflox-scroll border border-white/50 rounded-lg h-full">
+      <div>
+        form para agregar miembros al proyecto
+      </div>
+      <div className="divider" />
+      <div className="overflox-scroll h-full">
         {teamMembers.map((member) => (
           <TeamMember
             key={member.id_usuario}
