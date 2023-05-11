@@ -32,8 +32,6 @@ const IndividualTask = ({
     const newEndDate = endDate || tarea.endDate;
     const newUserId = userId || tarea.userId;
 
-
-
     setLoading(true);
     const NewTask = {
       ...tarea,
@@ -91,7 +89,7 @@ const IndividualTask = ({
         style={{
           backgroundColor: getHexColor(Estado()?.color || "gray"),
         }}
-        disabled={stateLoading}
+        disabled={stateLoading || tarea.completed}
         onChange={(e) => {
           const newStateId = e.target.value;
           onChangeTask({
@@ -151,11 +149,17 @@ const IndividualTask = ({
   };
 
   return (
-    <div className="relative text-white">
+    <div
+      className={`relative text-white
+
+        rounded-lg
+    `}
+    >
       <div
         className={`
         ${loading ? "flex" : "hidden"}
-        absolute h-full w-full items-center justify-center bg-slate-800
+        absolute h-full w-full items-center justify-center 
+        
       `}
       >
         loading...
@@ -163,43 +167,55 @@ const IndividualTask = ({
       <div
         className={`${
           loading ? "opacity-0" : ""
-        } flex w-full items-center justify-between px-4`}
+        } flex w-full items-center justify-between gap-4 px-4`}
       >
-        <div className="flex w-full items-center justify-normal gap-12">
-          <div className="flex items-center gap-4">
-            <input
-              type="checkbox"
-              defaultChecked={tarea.completed}
-              className="checkbox"
-              onChange={(e) => {
-                onChangeTask({
-                  completed: e.target.checked,
-                });
-              }}
-            />
-            <div className="w-64 overflow-scroll">
-              <h3>{tarea.name}</h3>
-            </div>
-          </div>
-          <EstadosSelect />
-          <div>
-            <input
-              type="date"
-              className="input-bordered input"
-              defaultValue={
-                tarea.endDate
-                  ? new Date(tarea.endDate).toISOString().split("T")[0]
-                  : ""
-              }
-              onChange={(e) => {
-                onChangeTask({
-                  endDate: new Date(e.target.value),
-                });
-              }}
-            />
-          </div>
+        <div>
+          <input
+            type="checkbox"
+            defaultChecked={tarea.completed}
+            className="checkbox"
+            onChange={(e) => {
+              onChangeTask({
+                completed: e.target.checked,
+              });
+            }}
+          />
         </div>
+        <div
+          className={`relative flex w-full items-center justify-normal gap-12 ${
+            tarea.completed && "text-gray-400"
+          }`}
+        >
+          <div
+            className={`
+            ${tarea.completed ? "flex" : "hidden"}
+            absolute h-full w-full items-center justify-center
+          `}
+          >
+            <div className="h-px w-full bg-white " />
+          </div>
+          <div className="w-56">
+            <h3>{tarea.name}</h3>
+          </div>
 
+          <EstadosSelect />
+
+          <input
+            type="date"
+            className="input-bordered input w-56"
+            defaultValue={
+              tarea.endDate
+                ? new Date(tarea.endDate).toISOString().split("T")[0]
+                : ""
+            }
+            disabled={tarea.completed}
+            onChange={(e) => {
+              onChangeTask({
+                endDate: new Date(e.target.value),
+              });
+            }}
+          />
+        </div>
         <LinksDropdown />
       </div>
     </div>
