@@ -24,12 +24,13 @@ export async function PUT(request: NextRequest) {
 
   const {
     id,
-    nombre,
+    name,
     description,
     endDate,
-    id_proyecto,
-    id_usuario,
-    id_estado,
+    projectId,
+    userId,
+    stateId,
+    completed,
   } = res;
 
   const tareaActualizada = await prisma.tasks.update({
@@ -37,12 +38,13 @@ export async function PUT(request: NextRequest) {
       id: id,
     },
     data: {
-      name: nombre,
+      name: name,
       description: description,
-      endDate: new Date(endDate),
-      projectId: id_proyecto,
-      userId: id_usuario,
-      stateId: id_estado,
+      endDate: endDate,
+      projectId: projectId,
+      userId: userId,
+      stateId: stateId,
+      completed: completed,
     },
   });
 

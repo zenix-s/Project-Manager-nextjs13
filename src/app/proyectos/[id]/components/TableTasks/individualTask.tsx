@@ -17,23 +17,43 @@ const IndividualTask = ({
   const [stateLoading, setStateLoading] = useState(false);
   const router = useRouter();
 
-  const onChangeEstado = (newValue: string) => {
-    setStateLoading(true);
-    const NewTaskState = {
+  const onChangeTask = ({
+    completed,
+    endDate,
+    stateId,
+    userId,
+  }: {
+    completed?: boolean;
+    endDate?: Date;
+    stateId?: number;
+    userId?: number;
+  }) => {
+    const newState = stateId || tarea.stateId;
+    const newEndDate = endDate || tarea.endDate;
+    const newUserId = userId || tarea.userId;
+
+
+
+    setLoading(true);
+    const NewTask = {
       ...tarea,
-      id_estado: parseInt(newValue),
+      stateId: newState,
+      endDate: newEndDate,
+      completed: completed,
+      userId: newUserId,
     };
     axios
-      .put("/api/proyectos/tasks", NewTaskState)
+      .put("/api/proyectos/tasks", NewTask)
       .then((res) => {
-        console.log(res);
-        setStateLoading(false);
         toast.success("Estado cambiado");
-        router.refresh();
       })
       .catch((err) => {
         toast.error("Error al cambiar el estado de la tarea");
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+        router.refresh();
       });
   };
 
@@ -73,7 +93,10 @@ const IndividualTask = ({
         }}
         disabled={stateLoading}
         onChange={(e) => {
-          onChangeEstado(e.target.value);
+          const newStateId = e.target.value;
+          onChangeTask({
+            stateId: parseInt(newStateId),
+          });
         }}
       >
         {estados.map((estado) => (
@@ -137,19 +160,44 @@ const IndividualTask = ({
       >
         loading...
       </div>
-      <div className="flex w-full items-center justify-between px-4">
+      <div
+        className={`${
+          loading ? "opacity-0" : ""
+        } flex w-full items-center justify-between px-4`}
+      >
         <div className="flex w-full items-center justify-normal gap-12">
           <div className="flex items-center gap-4">
             <input
               type="checkbox"
               defaultChecked={tarea.completed}
               className="checkbox"
+              onChange={(e) => {
+                onChangeTask({
+                  completed: e.target.checked,
+                });
+              }}
             />
             <div className="w-64 overflow-scroll">
               <h3>{tarea.name}</h3>
             </div>
           </div>
           <EstadosSelect />
+          <div>
+            <input
+              type="date"
+              className="input-bordered input"
+              defaultValue={
+                tarea.endDate
+                  ? new Date(tarea.endDate).toISOString().split("T")[0]
+                  : ""
+              }
+              onChange={(e) => {
+                onChangeTask({
+                  endDate: new Date(e.target.value),
+                });
+              }}
+            />
+          </div>
         </div>
 
         <LinksDropdown />
