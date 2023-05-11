@@ -12,9 +12,9 @@ export async function GET(request: Request, { params }: { params: paramsProps })
 
 
 
-  const tareas = await prisma.tareas.findMany({
+  const tareas = await prisma.tasks.findMany({
     where: {
-      id_proyecto: Number(id),
+      projectId: Number(id),
     },
   });
 
