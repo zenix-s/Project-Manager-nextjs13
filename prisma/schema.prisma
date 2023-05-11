@@ -39,6 +39,7 @@ model proyectos {
   endDate      DateTime       @db.DateTime(0)
   asignaciones asignaciones[]
   estados      estados[]
+  invitations  invitations[]
   tareas       tareas[]
 }
 
@@ -66,5 +67,20 @@ model users {
   email        String         @unique(map: "email") @db.VarChar(100)
   password     String         @db.VarChar(100)
   asignaciones asignaciones[]
+  invitations  invitations[]
   tareas       tareas[]
+}
+
+model invitations {
+  id        Int       @id @default(autoincrement())
+  email     String    @db.VarChar(100)
+  projectId Int
+  senderId  Int
+  status    String    @default("pending") @db.VarChar(50)
+  createdAt DateTime  @default(now()) @db.DateTime(0)
+  proyectos proyectos @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_1")
+  senders   users     @relation(fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_2")
+
+  @@index([projectId], map: "projectId")
+  @@index([senderId], map: "senderId")
 }
