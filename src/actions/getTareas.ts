@@ -9,9 +9,9 @@ const getTareas = async (id_proyecto: any) => {
   }
 
 
-  const tareas = await prisma.tareas.findMany({
+  const tareas = await prisma.tasks.findMany({
     where: {
-      id_proyecto: parseInt(id_proyecto),
+      projectId: parseInt(id_proyecto),
     },
   });
   return tareas;

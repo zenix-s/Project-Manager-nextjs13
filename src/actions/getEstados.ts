@@ -6,9 +6,9 @@ const getEstados = async (id_proyecto: Number) => {
   }
 
   const id = parseInt(id_proyecto.toString());
-  const estados = await prisma.estados.findMany({
+  const estados = await prisma.states.findMany({
     where: {
-      id_proyecto: id,
+      projectId: id,
     },
     orderBy: {
       order: "asc",      

@@ -5,22 +5,24 @@ import Button from "../button";
 import { useRouter } from "next/navigation";
 import loadingLogo from "../../assets/svg/loading.svg";
 import Image from "next/image";
+import { ProjectProps } from "@/types";
+import axios from "axios";
 
-interface CardProyectoProps {
-  name: String;
-  description: String;
-  idProyecto: String;
-  rol: String;
-  endDate?: String;
-}
+// interface CardProyectoProps {
+//   name: String;
+//   description: String;
+//   idProyecto: String;
+//   endDate?: String;
+//   role?: String;
+// }
 
 const CardProyecto = ({
+  id,
   name,
   description,
   endDate,
-  rol,
-  idProyecto,
-}: CardProyectoProps) => {
+  role,
+}: ProjectProps) => {
   const [visible, setVisible] = useState(false);
   const [isDeleting, setDeleting] = useState(false);
 
@@ -31,32 +33,38 @@ const CardProyecto = ({
   const router = useRouter();
 
   const openProject = () => {
-    router.push(`/proyectos/${idProyecto}`);
+    router.push(`/proyectos/${id}`);
   };
 
   const deleteProject = async () => {
     setDeleting(true);
-    const IdProyecto = idProyecto as string;
-    try {
-      const response = await fetch("http://localhost:3000/api/proyectos", {
-        method: "DELETE",
-        headers: {
-          "id-proyecto": IdProyecto,
-        },
-      });
+    const IdProyecto = id as number;
+    // try {
+    //   const response = await fetch("http://localhost:3000/api/proyectos", {
+    //     method: "DELETE",
+    //     headers: {
+    //       "id-proyecto": IdProyecto.toString(),
+    //     },
+    //   });
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-        router.refresh();
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    //   if (response.ok) {
+    //     const result = await response.json();
+    //     console.log(result);
+    //     router.refresh();
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
+    axios.delete("/api/proyectos", {
+      headers: {
+        "id-proyecto": IdProyecto.toString(),
+      },
+    });
+    router.refresh();
   };
 
   return (
-    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between overflow-hidden rounded-xl bg-white p-4 shadow-md text-black">
+    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between overflow-hidden rounded-xl bg-white p-4 text-black shadow-md">
       <div
         className={`
       ${isDeleting ? "flex" : "hidden"} 
@@ -99,14 +107,15 @@ const CardProyecto = ({
       justify-center
       gap-2
       bg-white
-      py-4
       px-12
+      py-4
       `}
       >
         <Button
           label="Editar"
           onClick={() => {}}
           theme="accent"
+          disabled={role === "admin" || role === "owner" ? false : true}
         />
         <Button
           label="Eliminar"
@@ -119,10 +128,12 @@ const CardProyecto = ({
       <div className="">
         <h3>{name}</h3>
         <p>{description}</p>
-        <p>{rol}</p>
+        <div>
+          <p>Role: {role}</p>
+        </div>
       </div>
       <div className="">
-        <p>End Date: {endDate}</p>
+        <p>End Date: {endDate.toDateString()}</p>
       </div>
     </div>
   );

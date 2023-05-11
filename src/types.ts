@@ -6,6 +6,23 @@ export interface UserProps {
   name: string;
   email: string;
 }
+
+export interface AssigmentsProps {
+  id: number;
+  userId: number;
+  projectId: number;
+  role: string;
+}
+
+export interface ProjectProps {
+  id: number;
+  name: string;
+  description: string;
+  creationDate: Date;
+  endDate: Date;
+  role: string;
+}
+
 export interface TareaProps {
   id: number;
   nombre: string;
@@ -17,8 +34,6 @@ export interface TareaProps {
   id_usuario: number | null;
 }
 
-
-
 export interface TeamMemberProps {
   id: number;
   id_proyecto: number;
@@ -26,7 +41,7 @@ export interface TeamMemberProps {
   rol: string;
   users: {
     username: string;
-  }
+  };
 }
 
 export interface EstadoProps {
@@ -35,8 +50,6 @@ export interface EstadoProps {
   id_proyecto: number;
   color: string;
 }
-
-
 
 export interface InputProps {
   id: string;

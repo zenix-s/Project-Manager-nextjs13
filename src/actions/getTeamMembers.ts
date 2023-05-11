@@ -7,9 +7,9 @@ const getTeamMembers = async (id_proyecto: any) => {
 
   // get the teamMembers from the asignaciones table and also include the username from the users table just the users.username
 
-  const TeamMembers = await prisma.asignaciones.findMany({
+  const TeamMembers = await prisma.assignments.findMany({
     where: {
-      id_proyecto: parseInt(id_proyecto),
+      projectId: parseInt(id_proyecto),
     },
     include: {
       users: {

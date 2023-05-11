@@ -1,4 +1,6 @@
 import getCurrentUser from "./getCurrentUser";
+import prisma from "@/lib/prismadb";
+import { ProjectProps } from "@/types";
 
 const getProyectos = async () => {
   const user = await getCurrentUser();
@@ -7,23 +9,35 @@ const getProyectos = async () => {
     return [];
   }
 
-  try {
-    const response = await fetch("http://localhost:3000/api/proyectos", {
-      method: "GET",
-      headers: {
-        "user-id": user.id,
+  const proyectos = await prisma.projects.findMany({
+    where: {
+      assignments: {
+        some: {
+          userId: parseInt(user.id.toString()),
+        },
       },
-    });
+    },
+    include: {
+      assignments: {
+        where: {
+          userId: parseInt(user.id.toString()),
+        },
+      },
+    },
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      return data;
-    }
-  } catch (err) {
-    console.error(err);
-  }
+  const proyectosConRol = proyectos.map((proyecto) => {
+    const rol = proyecto.assignments[0].role;
 
-  return [];
+    const proyectoConRol: ProjectProps = {
+      ...proyecto,
+      role: rol,
+    };
+
+    return proyectoConRol;
+  });
+
+  return proyectosConRol;
 };
 
 export default getProyectos;

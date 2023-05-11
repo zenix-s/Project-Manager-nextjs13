@@ -1,34 +1,25 @@
 import CardProyecto from "./cardproyecto";
+import { ProjectProps } from "@/types";
 
-interface ProyectoProps {
-  id: number;
-  name: string;
-  description: string;
-  creationDate: string;
-  endDate: string;
-  asignaciones: any[];
+interface BodyProjectsProps {
+  proyectos: ProjectProps[];
 }
 
-const BodyProjects = ({ proyectos }: any) => {
+const BodyProjects = ({ proyectos }: BodyProjectsProps) => {
   if (!proyectos) {
     return <div>Proyectos no encontrados</div>;
   }
   return (
     <div className="grid w-full grid-cols-1 gap-4 overflow-y-scroll p-2 md:grid-cols-2 xl:grid-cols-3">
-      {proyectos.map((proyecto: ProyectoProps) => (
+      {proyectos.map((proyecto: ProjectProps) => (
         <CardProyecto
           key={proyecto.id}
+          id={proyecto.id}
           name={proyecto.name}
           description={proyecto.description}
-          endDate={
-            new Date(proyecto.endDate).toLocaleDateString("es-ES", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            }) || "Sin fecha de entrega"
-          }
-          idProyecto={proyecto.id.toString()}
-          rol={proyecto.asignaciones[0].rol}
+          endDate={proyecto.endDate}
+          creationDate={proyecto.creationDate}
+          role={proyecto.role}
         />
       ))}
     </div>
