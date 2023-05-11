@@ -3,9 +3,11 @@ import { StateProps } from "@/types";
 import { time } from "console";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/button";
+import { toast } from "react-hot-toast";
 const { Colors, getBgColor, getHexColor } = require("@/actions/getColors");
 
 interface FormNewEstadoProps {
@@ -43,26 +45,19 @@ const FormNewEstado: React.FC<FormNewEstadoProps> = ({ idProject }) => {
       id_proyecto: idProject,
     };
 
-    fetch("http://localhost:3000/api/proyectos/estado", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newEstado),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setLoading(false);
+    axios
+      .post("/api/proyectos/estado", newEstado)
+      .then((res) => {
+        toast.success("Estado creado correctamente");
         CleanInputs();
-        router.refresh();
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Error al crear el estado");
         setLoading(false);
       })
       .finally(() => {
-        console.log("finally");
-        console.log("newEstado: ", newEstado);
+        setLoading(false);
+        router.refresh();
       });
   };
 

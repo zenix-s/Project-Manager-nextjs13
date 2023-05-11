@@ -4,6 +4,8 @@ import { useState } from "react";
 import { VscKebabVertical } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { getBgColor, getHexColor } from "@/actions/getColors";
+import toast from "react-hot-toast";
+import axios from "axios";
 const IndividualTask = ({
   tarea,
   estados,
@@ -21,41 +23,37 @@ const IndividualTask = ({
       ...tarea,
       id_estado: parseInt(newValue),
     };
-
-    fetch(`http://localhost:3000/api/proyectos/tasks`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(NewTaskState),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+    axios
+      .put("/api/proyectos/tasks", NewTaskState)
+      .then((res) => {
+        console.log(res);
         setStateLoading(false);
+        toast.success("Estado cambiado");
         router.refresh();
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch((err) => {
+        toast.error("Error al cambiar el estado de la tarea");
+        console.log(err);
       });
   };
 
   const onDeleteTask = () => {
     setLoading(true);
-    fetch(`http://localhost:3000/api/proyectos/tasks/`, {
-      method: "DELETE",
-      headers: {
-        id_task: tarea.id.toString(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        setLoading(false);
-        router.refresh();
+    axios
+      .delete("/api/proyectos/tasks", {
+        headers: {
+          id_task: tarea.id.toString(),
+        },
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .then((res) => {
+        console.log(res);
+        toast.success("Tarea archivada");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
         router.refresh();
       });
   };

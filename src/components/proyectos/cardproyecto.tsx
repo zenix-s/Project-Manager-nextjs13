@@ -39,26 +39,16 @@ const CardProyecto = ({
   const deleteProject = async () => {
     setDeleting(true);
     const IdProyecto = id as number;
-    // try {
-    //   const response = await fetch("http://localhost:3000/api/proyectos", {
-    //     method: "DELETE",
-    //     headers: {
-    //       "id-proyecto": IdProyecto.toString(),
-    //     },
-    //   });
-
-    //   if (response.ok) {
-    //     const result = await response.json();
-    //     console.log(result);
-    //     router.refresh();
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
     axios.delete("/api/proyectos", {
       headers: {
         "id-proyecto": IdProyecto.toString(),
       },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
     });
     router.refresh();
   };

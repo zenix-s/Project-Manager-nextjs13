@@ -7,6 +7,7 @@ import { VscKebabVertical, VscChromeMinimize } from "react-icons/vsc";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "@/components/button";
 import { set } from "react-hook-form";
+import axios from "axios";
 
 interface EstadoListItemProps {
   estado: StateProps;
@@ -23,20 +24,19 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       ...estado,
       color,
     };
-    fetch(`http://localhost:3000/api/proyectos/estado`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(estado),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+
+    axios
+      .put("/api/proyectos/estado", estado)
+      .then((res) => {
+        setEstadoLoading(false);
         router.refresh();
+      })
+      .catch((err) => {
+        console.error("Error:", err);
         setEstadoLoading(false);
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .finally(() => {
+        setEstadoLoading(false);
       });
   };
 
@@ -48,23 +48,20 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
   const onDeleteEstado = () => {
     setEstadoLoading(true);
 
-    fetch(`http://localhost:3000/api/proyectos/estado`, {
-      method: "DELETE",
-      headers: {
-        id_estado: estado.id.toString(),
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) return toast.error(data.error);
+    axios
+      .delete("/api/proyectos/estado", {
+        headers: {
+          id_estado: estado.id.toString(),
+        },
+      })
+      .then((res) => {
         setEstadoLoading(false);
-        toast.success("Estado eliminado");
+        ToastDelete();
         router.refresh();
       })
-      .catch((error) => {
-        console.error("Error:", error);
+      .catch((err) => {
+        console.error("Error:", err);
         setEstadoLoading(false);
-        router.refresh();
       })
       .finally(() => {
         setEstadoLoading(false);
