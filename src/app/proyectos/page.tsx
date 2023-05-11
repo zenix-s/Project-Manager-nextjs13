@@ -6,7 +6,6 @@ import { ProjectProps } from "@/types";
 
 const Page = async () => {
   const proyectos = await getProyectos();
-  console.log(proyectos);
 
   return (
     <section className="flex h-full w-full flex-col overflow-hidden">

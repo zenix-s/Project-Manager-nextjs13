@@ -47,7 +47,6 @@ const IndividualTask = ({
       })
       .catch((err) => {
         toast.error("Error al cambiar el estado de la tarea");
-        console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -64,11 +63,9 @@ const IndividualTask = ({
         },
       })
       .then((res) => {
-        console.log(res);
         toast.success("Tarea archivada");
       })
       .catch((err) => {
-        console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -136,7 +133,6 @@ const IndividualTask = ({
             <li>
               <button
                 onClick={() => {
-                  console.log("click");
                 }}
               >
                 Editar

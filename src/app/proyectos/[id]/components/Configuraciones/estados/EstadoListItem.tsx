@@ -41,7 +41,6 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
   };
 
   const ToastDelete = () => {
-    console.log("toast");
     toast.success("Estado eliminado");
   };
 

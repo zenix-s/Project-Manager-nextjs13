@@ -27,7 +27,6 @@ const SessionOptions = () => {
         label="Registrarse"
         theme="ghost"
         onClick={() => {
-          console.log("Registrarse");
         }}
         icon={CiEdit}
       />
@@ -43,7 +42,6 @@ const LoggedOptions = () => {
         theme="ghost"
         icon={CiUser}
         onClick={() => {
-          console.log("Perfil");
         }}
         fontSize="lg"
       />

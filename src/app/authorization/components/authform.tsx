@@ -36,7 +36,6 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     if (authType === "register") {
-      console.log(data);
 
       axios
         .post("api/register", data)

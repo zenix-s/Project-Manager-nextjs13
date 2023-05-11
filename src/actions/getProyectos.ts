@@ -40,4 +40,19 @@ const getProyectos = async () => {
   return proyectosConRol;
 };
 
+export const ProjectExists = async (projectId: number) => {
+  
+  const project = await prisma.projects.findUnique({
+    where: {
+      id: projectId,
+    },
+  });
+
+  if (!project) {
+    return false;
+  }
+
+  return true;
+};
+
 export default getProyectos;

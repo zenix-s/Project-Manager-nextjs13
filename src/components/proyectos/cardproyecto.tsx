@@ -45,10 +45,8 @@ const CardProyecto = ({
       },
     })
     .then((res) => {
-      console.log(res);
     })
     .catch((err) => {
-      console.log(err);
     });
     router.refresh();
   };

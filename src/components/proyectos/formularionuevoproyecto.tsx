@@ -29,15 +29,12 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
     const res = await axios
       .post("/api/proyectos", data)
       .then(() => {
-        console.log("Proyecto creado");
         setVisibility(false);
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
       })
       .finally(() => {
-        console.log("Finalizado");
       });
   };
 

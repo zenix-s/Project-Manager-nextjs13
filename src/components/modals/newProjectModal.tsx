@@ -24,15 +24,12 @@ const NewProjectForm = () => {
     const res = await axios
       .post("/api/proyectos", data)
       .then(() => {
-        console.log("Proyecto creado");
         window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
       })
       .finally(() => {
         setLoading(false);
-        console.log("Finalizado");
         ProjectsModal.onClose();
       });
   };
