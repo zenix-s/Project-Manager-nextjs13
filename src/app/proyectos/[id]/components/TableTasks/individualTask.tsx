@@ -1,7 +1,7 @@
 "use client";
 import { TaskProps, StateProps } from "@/types";
 import { useState } from "react";
-import { VscKebabVertical } from "react-icons/vsc";
+import { VscKebabVertical, VscAccount } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { getBgColor, getHexColor } from "@/actions/getColors";
 import toast from "react-hot-toast";
@@ -65,8 +65,7 @@ const IndividualTask = ({
       .then((res) => {
         toast.success("Tarea archivada");
       })
-      .catch((err) => {
-      })
+      .catch((err) => {})
       .finally(() => {
         setLoading(false);
         router.refresh();
@@ -131,12 +130,7 @@ const IndividualTask = ({
               </button>
             </li>
             <li>
-              <button
-                onClick={() => {
-                }}
-              >
-                Editar
-              </button>
+              <button onClick={() => {}}>Editar</button>
             </li>
           </ul>
         </div>
@@ -146,9 +140,9 @@ const IndividualTask = ({
 
   return (
     <div
-      className={`relative text-white
+      className={`relative rounded-lg
 
-        rounded-lg
+        text-white
     `}
     >
       <div
@@ -211,6 +205,29 @@ const IndividualTask = ({
               });
             }}
           />
+
+          <div className="dropdown">
+            <label tabIndex={0} className="btn btn-ghost btn-circle m-1">
+              <VscAccount /> {tarea.userId}
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+            >
+              {/* <li>
+                <a>Item 1</a>
+              </li>
+              <li>
+                <a>Item 2</a>
+              </li> */}
+              {
+                
+              }
+            </ul>
+          </div>
+          <div>
+
+          </div>
         </div>
         <LinksDropdown />
       </div>
