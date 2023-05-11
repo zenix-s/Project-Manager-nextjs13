@@ -1,5 +1,5 @@
 "use client";
-import { EstadoProps } from "@/types";
+import { StateProps } from "@/types";
 import { time } from "console";
 import { useState } from "react";
 import { useRouter } from "next/navigation";

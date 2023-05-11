@@ -23,31 +23,31 @@ export interface ProjectProps {
   role: string;
 }
 
-export interface TareaProps {
+export interface TaskProps {
   id: number;
-  nombre: string;
+  name: string;
   description: string | null;
   endDate: Date | null;
   completed: boolean;
-  id_estado: number;
-  id_proyecto: number;
-  id_usuario: number | null;
+  stateId: number;
+  projectId: number;
+  userId: number | null;
 }
 
 export interface TeamMemberProps {
   id: number;
-  id_proyecto: number;
-  id_usuario: number;
-  rol: string;
+  projectId: number;
+  userId: number;
+  role: string;
   users: {
     username: string;
   };
 }
 
-export interface EstadoProps {
+export interface StateProps {
   id: number;
-  nombre: string;
-  id_proyecto: number;
+  name: string;
+  projectId: number;
   color: string;
 }
 

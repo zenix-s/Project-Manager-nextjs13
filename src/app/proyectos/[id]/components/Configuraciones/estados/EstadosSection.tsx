@@ -1,9 +1,9 @@
-import { EstadoProps } from "@/types";
+import { StateProps } from "@/types";
 import EstadoListItem from "./EstadoListItem";
 import FormNewEstado from "./FormNewEstado";
 
 interface EstadosSectionProps {
-  estados: EstadoProps[];
+  estados: StateProps[];
   idProject: number;
 }
 

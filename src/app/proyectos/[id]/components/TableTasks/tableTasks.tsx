@@ -1,4 +1,4 @@
-import { TareaProps, EstadoProps } from "@/types";
+import { TaskProps, StateProps } from "@/types";
 import IndividualTask from "./individualTask";
 import HeaderTasksList from "./headerTasksList";
 import NewTaskModal from "./newTaskForm";
@@ -8,8 +8,8 @@ const TableTasks = ({
   estados,
   idProject,
 }: {
-  tareas: TareaProps[];
-  estados: EstadoProps[];
+  tareas: TaskProps[];
+  estados: StateProps[];
   idProject: number;
 }) => {
   return (

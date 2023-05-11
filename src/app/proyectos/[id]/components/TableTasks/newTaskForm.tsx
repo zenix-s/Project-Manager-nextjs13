@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import { Toast, toast } from "react-hot-toast";
-import { EstadoProps } from "@/types";
+import { StateProps } from "@/types";
 import { useRouter } from "next/navigation";
 import Input from "@/components/inputs/input";
 import Button from "@/components/button";
@@ -11,7 +11,7 @@ import { getHexColor } from "@/actions/getColors";
 
 interface NewTaskFormProps {
   idProject: number;
-  estados: EstadoProps[];
+  estados: StateProps[];
 }
 
 const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
@@ -94,7 +94,7 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
               backgroundColor: getHexColor(estado.color),
             }}
           >
-            {estado.nombre}
+            {estado.name}
           </option>
         ))}
       </select>

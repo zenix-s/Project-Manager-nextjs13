@@ -1,18 +1,18 @@
-import { EstadoProps, TareaProps } from "@/types";
+import { StateProps, TaskProps } from "@/types";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { getHexColor } from "@/actions/getColors";
 
 interface TasksPerStatusProps {
-  tareas: TareaProps[];
-  estados: EstadoProps[];
+  tareas: TaskProps[];
+  estados: StateProps[];
 }
 
 const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
   const data: any = [
     ...estados.map((estado) => {
       return {
-        name: estado.nombre,
-        value: tareas.filter((tarea) => tarea.id_estado === estado.id).length,
+        name: estado.name,
+        value: tareas.filter((tarea) => tarea.stateId === estado.id).length,
       };
     }),
   ];
@@ -55,9 +55,9 @@ const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
                   style={{ backgroundColor: getHexColor(estado.color) }}
                 ></div>
                 <p>
-                  {estado.nombre} -{" "}
+                  {estado.name} -{" "}
                   {
-                    tareas.filter((tarea) => tarea.id_estado === estado.id)
+                    tareas.filter((tarea) => tarea.stateId === estado.id)
                       .length
                   }
                 </p>

@@ -1,5 +1,5 @@
 "use client";
-import { EstadoProps } from "@/types";
+import { StateProps } from "@/types";
 import { Colors, getBgColor, getHexColor } from "@/actions/getColors";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import Button from "@/components/button";
 import { set } from "react-hook-form";
 
 interface EstadoListItemProps {
-  estado: EstadoProps;
+  estado: StateProps;
   idProject: number;
 }
 
@@ -74,7 +74,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <div className="w-60">{estado.nombre}</div>
+        <div className="w-60">{estado.name}</div>
         <select
           defaultValue={estado.color}
           className="select-bordered select w-52"

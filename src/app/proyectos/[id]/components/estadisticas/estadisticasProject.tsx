@@ -1,8 +1,8 @@
-import { EstadoProps, TareaProps } from "@/types";
+import { StateProps, TaskProps } from "@/types";
 import TasksPerStatus from "./stats/TasksPerStatus";
 interface EstadisticasProjectProps {
-  tareas: TareaProps[];
-  estados: EstadoProps[];
+  tareas: TaskProps[];
+  estados: StateProps[];
   idProject: number;
 }
 

@@ -1,12 +1,12 @@
 "use client";
-import { EstadoProps, TareaProps, TeamMemberProps } from "@/types";
+import { StateProps, TaskProps, TeamMemberProps } from "@/types";
 import EstadosSection from "./estados/EstadosSection";
 import TeamSection from "./team/TeamSection";
 import { useState } from "react";
 
 interface ConfigSectionProps {
-  tareas: TareaProps[];
-  estados: EstadoProps[];
+  tareas: TaskProps[];
+  estados: StateProps[];
   teamMembers: TeamMemberProps[];
   idProject: number;
 }

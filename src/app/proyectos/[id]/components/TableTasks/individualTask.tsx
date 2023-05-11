@@ -1,5 +1,5 @@
 "use client";
-import { TareaProps, EstadoProps } from "@/types";
+import { TaskProps, StateProps } from "@/types";
 import { useState } from "react";
 import { VscKebabVertical } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
@@ -8,8 +8,8 @@ const IndividualTask = ({
   tarea,
   estados,
 }: {
-  tarea: TareaProps;
-  estados: EstadoProps[];
+  tarea: TaskProps;
+  estados: StateProps[];
 }) => {
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
@@ -61,14 +61,14 @@ const IndividualTask = ({
   };
 
   const Estado = () => {
-    const estado = estados.find((estado) => estado.id === tarea.id_estado);
+    const estado = estados.find((estado) => estado.id === tarea.stateId);
     return estado;
   };
 
   const EstadosSelect = () => {
     return (
       <select
-        defaultValue={tarea.id_estado?.toString()}
+        defaultValue={tarea.stateId?.toString()}
         className={`select-bordered select w-48`}
         style={{
           backgroundColor: getHexColor(Estado()?.color || "gray"),
@@ -87,7 +87,7 @@ const IndividualTask = ({
               backgroundColor: getHexColor(estado.color),
             }}
           >
-            {stateLoading ? "Cargando..." : estado.nombre}
+            {stateLoading ? "Cargando..." : estado.name}
           </option>
         ))}
       </select>
@@ -148,7 +148,7 @@ const IndividualTask = ({
               className="checkbox"
             />
             <div className="w-64 overflow-scroll">
-              <h3>{tarea.nombre}</h3>
+              <h3>{tarea.name}</h3>
             </div>
           </div>
           <EstadosSelect />

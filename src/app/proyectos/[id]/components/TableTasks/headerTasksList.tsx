@@ -2,9 +2,9 @@
 import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
 import NewTaskModal from "./newTaskForm";
-import { TareaProps, EstadoProps } from "@/types";
+import { TaskProps, StateProps } from "@/types";
 const HeaderTasksList = (
-  { estados, idProject }: { estados: EstadoProps[]; idProject: number },
+  { estados, idProject }: { estados: StateProps[]; idProject: number },
 ) => {
   const TaskModal = useTasksModal();
   return (
