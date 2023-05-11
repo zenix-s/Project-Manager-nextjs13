@@ -7,79 +7,79 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model asignaciones {
-  id          Int       @id @default(autoincrement())
-  id_proyecto Int
-  id_usuario  Int
-  rol         String    @db.VarChar(50)
-  users       users     @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "asignaciones_ibfk_1")
-  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "asignaciones_ibfk_2")
+model assignments {
+  id          Int      @id @default(autoincrement())
+  projectId Int
+  userId  Int
+  role         String   @db.VarChar(50)
+  users       users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_1")
+  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_2")
 
-  @@index([id_proyecto], map: "id_proyecto")
-  @@index([id_usuario], map: "id_usuario")
+  @@index([projectId], map: "projectId")
+  @@index([userId], map: "userId")
 }
 
-model estados {
-  id          Int       @id @default(autoincrement())
-  id_proyecto Int
-  nombre      String    @db.VarChar(50)
-  color       String    @db.VarChar(25)
+model states {
+  id          Int      @id @default(autoincrement())
+  projectId Int
+  name      String   @db.VarChar(50)
+  color       String   @db.VarChar(25)
   order       Int
-  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "estados_ibfk_1")
-  tareas      tareas[]
+  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
+  tasks       tasks[]
 
-  @@index([id_proyecto], map: "id_proyecto")
+  @@index([projectId], map: "projectId")
 }
 
-model proyectos {
-  id           Int            @id @default(autoincrement())
-  name         String         @db.VarChar(50)
-  description  String         @db.VarChar(255)
-  creationDate DateTime       @db.DateTime(0)
-  endDate      DateTime       @db.DateTime(0)
-  asignaciones asignaciones[]
-  estados      estados[]
+model projects {
+  id           Int           @id @default(autoincrement())
+  name         String        @db.VarChar(50)
+  description  String        @db.VarChar(255)
+  creationDate DateTime      @db.DateTime(0)
+  endDate      DateTime      @db.DateTime(0)
+  assignments  assignments[]
+  states       states[]
   invitations  invitations[]
-  tareas       tareas[]
+  tasks        tasks[]
 }
 
-model tareas {
+model tasks {
   id          Int       @id @default(autoincrement())
-  nombre      String    @db.VarChar(50)
+  name      String    @db.VarChar(50)
   description String?   @db.VarChar(255)
   endDate     DateTime? @db.DateTime(0)
   completed   Boolean   @default(false)
-  id_proyecto Int
-  id_usuario  Int?
-  id_estado   Int
-  users       users?    @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_1")
-  proyectos   proyectos @relation(fields: [id_proyecto], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_2")
-  estados     estados   @relation(fields: [id_estado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tareas_ibfk_3")
+  projectId Int
+  userId  Int?
+  stateId   Int
+  users       users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_1")
+  projects    projects  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_2")
+  states      states    @relation(fields: [stateId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_3")
 
-  @@index([id_estado], map: "id_estado")
-  @@index([id_proyecto], map: "id_proyecto")
-  @@index([id_usuario], map: "id_usuario")
+  @@index([stateId], map: "stateId")
+  @@index([projectId], map: "projectId")
+  @@index([userId], map: "userId")
 }
 
 model users {
-  id           Int            @id @default(autoincrement())
-  username     String         @db.VarChar(50)
-  email        String         @unique(map: "email") @db.VarChar(100)
-  password     String         @db.VarChar(100)
-  asignaciones asignaciones[]
-  invitations  invitations[]
-  tareas       tareas[]
+  id          Int           @id @default(autoincrement())
+  username    String        @db.VarChar(50)
+  email       String        @unique(map: "email") @db.VarChar(100)
+  password    String        @db.VarChar(100)
+  assignments assignments[]
+  invitations invitations[]
+  tasks       tasks[]
 }
 
 model invitations {
-  id        Int       @id @default(autoincrement())
-  email     String    @db.VarChar(100)
-  projectId Int
-  senderId  Int
-  status    String    @default("pending") @db.VarChar(50)
-  createdAt DateTime  @default(now()) @db.DateTime(0)
-  proyectos proyectos @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_1")
-  senders   users     @relation(fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_2")
+  id          Int      @id @default(autoincrement())
+  receiverEmail String   @db.VarChar(100)
+  projectId   Int
+  senderId    Int
+  status      String   @default("pending") @db.VarChar(50)
+  createdDate DateTime @default(now()) @db.DateTime(0)
+  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_1")
+  senders     users    @relation(fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_2")
 
   @@index([projectId], map: "projectId")
   @@index([senderId], map: "senderId")

@@ -6,9 +6,9 @@ export async function POST(request: NextRequest) {
 
   const { id_proyecto, nombre, color } = res;
 
-  const lastOrder = await prisma.estados.findFirst({
+  const lastOrder = await prisma.states.findFirst({
     where: {
-      id_proyecto: id_proyecto,
+      projectId: id_proyecto,
     },
     orderBy: {
       order: "desc",
@@ -19,11 +19,11 @@ export async function POST(request: NextRequest) {
 
 
 
-  const nuevoEstado = await prisma.estados.create({
+  const nuevoEstado = await prisma.states.create({
     data: {
-      nombre: nombre,
+      name: nombre,
       color: color,
-      id_proyecto: id_proyecto,
+      projectId: id_proyecto,
       // new order must be the last one + 1
       order: newOrder,
     },
@@ -39,12 +39,12 @@ export async function PUT(request: NextRequest) {
 
   const { id, id_proyecto, nombre, color } = res;
 
-  const estadoActualizado = await prisma.estados.update({
+  const estadoActualizado = await prisma.states.update({
     where: {
       id: id,
     },
     data: {
-      nombre: nombre,
+      name: nombre,
       color: color,
     },
   });
@@ -58,9 +58,9 @@ export async function DELETE(request: NextRequest) {
   const id = request.headers.get("id_estado");
 
 
-  const tareas = await prisma.tareas.findMany({
+  const tareas = await prisma.tasks.findMany({
     where: {
-      id_estado: Number(id),
+      stateId: Number(id),
     },
   });
 
@@ -70,7 +70,7 @@ export async function DELETE(request: NextRequest) {
     });
   }
 
-  const estadoEliminado = await prisma.estados.delete({
+  const estadoEliminado = await prisma.states.delete({
     where: {
       id: Number(id),
     },

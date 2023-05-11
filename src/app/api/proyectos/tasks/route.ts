@@ -6,11 +6,11 @@ export async function POST(request: NextRequest) {
 
   const { nombre, id_proyecto, id_estado } = res;
 
-  const nuevaTarea = await prisma.tareas.create({
+  const nuevaTarea = await prisma.tasks.create({
     data: {
-      nombre: nombre,
-      id_proyecto: id_proyecto,
-      id_estado: id_estado,
+      name: nombre,
+      projectId: id_proyecto,
+      stateId: id_estado,
     },
   });
 
@@ -32,17 +32,17 @@ export async function PUT(request: NextRequest) {
     id_estado,
   } = res;
 
-  const tareaActualizada = await prisma.tareas.update({
+  const tareaActualizada = await prisma.tasks.update({
     where: {
       id: id,
     },
     data: {
-      nombre: nombre,
+      name: nombre,
       description: description,
       endDate: new Date(endDate),
-      id_proyecto: id_proyecto,
-      id_usuario: id_usuario,
-      id_estado: id_estado,
+      projectId: id_proyecto,
+      userId: id_usuario,
+      stateId: id_estado,
     },
   });
 
@@ -54,7 +54,7 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const id = request.headers.get("id_task");
 
-  const tareaEliminada = await prisma.tareas.delete({
+  const tareaEliminada = await prisma.tasks.delete({
     where: {
       id: Number(id),
     },

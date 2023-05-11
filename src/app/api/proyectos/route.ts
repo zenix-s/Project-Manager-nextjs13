@@ -10,18 +10,18 @@ export async function GET(request: Request) {
     return [];
   }
 
-  const proyectos = await prisma.proyectos.findMany({
+  const proyectos = await prisma.projects.findMany({
     where: {
-      asignaciones: {
+      assignments: {
         some: {
-          id_usuario: parseInt(idUser),
+          userId: parseInt(idUser),
         },
       },
     },
     include: {
-      asignaciones: {
+      assignments: {
         where: {
-          id_usuario: parseInt(idUser),
+          userId: parseInt(idUser),
         },
       },
     },
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
   const { name, description, deadline } = body;
 
-  const newProject = await prisma.proyectos.create({
+  const newProject = await prisma.projects.create({
     data: {
       name: name,
       description: description,
@@ -50,11 +50,11 @@ export async function POST(request: Request) {
     },
   });
 
-  const newProjectUser = await prisma.asignaciones.create({
+  const newProjectUser = await prisma.assignments.create({
     data: {
-      id_proyecto: newProject.id,
-      id_usuario: parseInt(user.id.toString()),
-      rol: "owner",
+      projectId: newProject.id,
+      userId: parseInt(user.id.toString()),
+      role: "owner",
     },
   });
 
@@ -69,13 +69,13 @@ export async function DELETE(request: Request) {
     return NextResponse.error();
   }
 
-  const deleteAsignaciones = await prisma.asignaciones.deleteMany({
+  const deleteAsignaciones = await prisma.assignments.deleteMany({
     where: {
-      id_proyecto: parseInt(idProyecto),
+      projectId: parseInt(idProyecto),
     },
   });
 
-  const deleteProyecto = await prisma.proyectos.delete({
+  const deleteProyecto = await prisma.projects.delete({
     where: {
       id: parseInt(idProyecto),
     },
