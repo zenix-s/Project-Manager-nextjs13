@@ -47,7 +47,7 @@ const Button: React.FC<ButtonProps> = ({
         ${outline && "btn-outline"}
         ${fullWidth && "w-full"}
         ${circle && "btn-circle"}
-        ${active && "active"}
+        ${active && "btn-active"}
         ${loading && "loading"}
       `}
       disabled={disabled}

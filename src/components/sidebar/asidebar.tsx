@@ -2,12 +2,10 @@
 import Logo from "./logo";
 import { VscGraphLine } from "react-icons/vsc";
 import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
-
 import SessionSection from "./sessionSection";
 import Button from "../button";
 import { NavBarLinkProps } from "@/types";
 import useAside from "@/hooks/useAside";
-import { UserProps } from "@/types";
 import Nav from "./NavBar";
 import { useState } from "react";
 interface AsideBarProps {
@@ -34,7 +32,6 @@ const links: NavBarLinkProps[] = [
 
 const AsideBar = ({ user }: { user: any }) => {
   const aside = useAside();
-  const [selected, setSelected] = useState("Home");
   return (
     <aside
       className={`z-50 ${

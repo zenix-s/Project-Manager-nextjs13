@@ -42,7 +42,7 @@ const LinkComponent: React.FC<LinkProps> = ({
         ${outline && "btn-outline"}
         ${fullWidth && "w-full"}
         ${circle && "btn-circle"}
-        ${active && "active"}
+        ${active && "btn-active"}
         ${loading && "loading"}
 
     `}
