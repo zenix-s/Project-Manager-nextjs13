@@ -1,4 +1,4 @@
-import { TareaProps } from "@/types";
+import { TaskProps } from "@/types";
 
 const EndDateSection = ({ date }: { date: Date }) => {
   return (
@@ -8,14 +8,14 @@ const EndDateSection = ({ date }: { date: Date }) => {
   );
 };
 
-const CardTarea = ({ tarea }: { tarea: TareaProps }) => {
+const CardTarea = ({ tarea }: { tarea: TaskProps }) => {
   return (
-    <div className="cursor-pointer select-none rounded-md bg-white p-4 shadow">
+    <div className="cursor-pointer select-none rounded-md bg-white p-4 shadow text-black">
       <div>
-        <h3 className="font-bold">{tarea.nombre}</h3>
+        <h3 className="font-bold">{tarea.name}</h3>
       </div>
       <div className="mb-2">
-        <p className="text-gray-600">{tarea.description}</p>
+        <p className="">{tarea.description}</p>
       </div>
       {tarea.endDate && <EndDateSection date={tarea.endDate} />}
     </div>
