@@ -21,8 +21,9 @@ const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
             className="select-bordered select w-full max-w-xs"
             defaultValue={teamMember.role}
           >
-            <option>user</option>
             <option>admin</option>
+            <option>member</option>
+            <option>viewer</option>
           </select>
         )}
       </div>
