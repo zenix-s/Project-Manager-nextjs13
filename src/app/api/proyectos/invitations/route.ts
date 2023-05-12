@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       receiverEmail: email,
       projectId: projectId,
       createdDate: new Date(),
-      status: "pending",
+      status: "Pendiente",
       senderId: user.id,
     },
   });

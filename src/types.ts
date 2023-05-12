@@ -57,6 +57,17 @@ export interface StateProps {
   color: string;
 }
 
+export interface InvitationProps {
+
+  id: number;
+  receiverEmail: string;
+  projectId: number;
+  senderId: number;
+  status: "Pendiente" | "Aceptado" | "Rechazado";
+  createdDate: Date;
+
+}
+
 export interface InputProps {
   id: string;
   label: string;
