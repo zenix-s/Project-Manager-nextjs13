@@ -1,7 +1,7 @@
 "use client";
 import Logo from "./logo";
 import { VscGraphLine } from "react-icons/vsc";
-import { CiHome, CiAlignTop, CiCircleRemove } from "react-icons/ci";
+import { CiHome, CiAlignTop, CiCircleRemove, CiBellOn } from "react-icons/ci";
 import SessionSection from "./sessionSection";
 import Button from "../button";
 import { NavBarLinkProps } from "@/types";
@@ -28,6 +28,11 @@ const links: NavBarLinkProps[] = [
     href: "/estadisticas",
     icon: VscGraphLine,
   },
+  {
+    label: "Notificaciones",
+    href: "/notificaciones",
+    icon: CiBellOn,
+  }
 ];
 
 const AsideBar = ({ user }: { user: any }) => {

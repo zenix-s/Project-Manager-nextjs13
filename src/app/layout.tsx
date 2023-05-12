@@ -18,6 +18,9 @@ export default async function RootLayout({
 }) {
   const user = await getCurrentUser();
 
+  
+
+
   if (!user) {
     return (
       <html lang="en">
@@ -29,11 +32,13 @@ export default async function RootLayout({
     );
   }
 
+  
   return (
     <html lang="en">
       <body className="flex h-screen w-screen overflow-hidden bg-slate-800 ">
         <AsideBar user={user} />
         <ToasterProvider />
+        {/* <UserProvider user={user} /> */}
         <main className="z-40 h-full w-full p-4">
           <div className="flex h-full w-full flex-col overflow-hidden">
             <Header />

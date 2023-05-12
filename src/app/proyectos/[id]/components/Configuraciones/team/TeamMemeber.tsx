@@ -7,7 +7,7 @@ interface TeamMemberListProps {
   teamMember: TeamMemberProps;
 }
 const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
-  const isOwner = teamMember.rol === "owner";
+  const isOwner = teamMember.role === "owner";
   return (
     <div className="flex items-center gap-8 p-4">
       <div>{teamMember.users.username}</div>
@@ -19,7 +19,7 @@ const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
         ) : (
           <select
             className="select-bordered select w-full max-w-xs"
-            defaultValue={teamMember.rol}
+            defaultValue={teamMember.role}
           >
             <option>user</option>
             <option>admin</option>

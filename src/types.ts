@@ -7,6 +7,12 @@ export interface UserProps {
   email: string;
 }
 
+export interface UseUserProps{
+  id: number;
+  name: string;
+  email: string;
+}
+
 export interface AssigmentsProps {
   id: number;
   userId: number;
@@ -38,7 +44,7 @@ export interface TeamMemberProps {
   id: number;
   projectId: number;
   userId: number;
-  role: string;
+  role: "owner" | "admin" | "member" | "viewer";
   users: {
     username: string;
   };
