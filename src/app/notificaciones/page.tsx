@@ -5,8 +5,6 @@ import Button from "@/components/button";
 const NotificacionesPage = async () => {
   const Invitations = (await getInvitations()) || [];
 
-  console.log(Invitations);
-
   return (
     <div>
       <div className="w-full overflow-x-auto">
