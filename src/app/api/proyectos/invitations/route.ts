@@ -1,10 +1,8 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prismadb"
+import prisma from "@/lib/prismadb";
 import getCurrentUser from "@/actions/getCurrentUser";
 
-
 export async function POST(request: Request) {
-
   const user = await getCurrentUser();
 
   if (!user?.email) {
@@ -13,13 +11,9 @@ export async function POST(request: Request) {
 
   const body = await request.json();
 
-  const { 
-    email, 
-    projectId,
-  } = body;
+  const { email, projectId } = body;
 
   console.log(email, projectId);
-  
 
   const newInvitation = await prisma.invitations.create({
     data: {
@@ -31,15 +25,10 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json(
-    "ok"
-  );
-
+  return NextResponse.json("ok");
 }
 
-
 export async function PUT(request: Request) {
-
   const user = await getCurrentUser();
 
   if (!user?.email) {
@@ -48,10 +37,7 @@ export async function PUT(request: Request) {
 
   const body = await request.json();
 
-  const { 
-    id,
-    status,
-  } = body;
+  const { id, status } = body;
 
   const invitation = await prisma.invitations.update({
     where: {
@@ -59,12 +45,8 @@ export async function PUT(request: Request) {
     },
     data: {
       status: status,
-    }
+    },
   });
 
-  return NextResponse.json(
-    "ok"
-  );
-
-
+  return NextResponse.json("ok");
 }
