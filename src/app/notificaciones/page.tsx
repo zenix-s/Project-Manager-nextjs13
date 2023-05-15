@@ -9,7 +9,6 @@ const NotificacionesPage = async () => {
     <div>
       <div className="w-full overflow-x-auto">
         <table className="table w-full">
-          {/* head */}
           <thead>
             <tr>
               <th>Notificacion</th>
@@ -19,8 +18,6 @@ const NotificacionesPage = async () => {
             </tr>
           </thead>
           <tbody>
-
-
             {Invitations.map((invitation) => (
               <tr key={invitation.id}>
                 <td>Invitación a proyecto con id {invitation.projectId}</td>
