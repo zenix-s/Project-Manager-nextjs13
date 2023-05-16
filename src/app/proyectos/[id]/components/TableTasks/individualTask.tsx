@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { getBgColor, getHexColor } from "@/actions/getColors";
 import toast from "react-hot-toast";
 import axios from "axios";
+import Button from "@/components/button";
 const IndividualTask = ({
   tarea,
   estados,
@@ -68,7 +69,6 @@ const IndividualTask = ({
       .catch((err) => {})
       .finally(() => {
         setLoading(false);
-        router.refresh();
       });
   };
 
@@ -78,34 +78,42 @@ const IndividualTask = ({
   };
 
   const EstadosSelect = () => {
+    const [estado, setEstado] = useState(Estado()?.name || "Cargando");
     return (
-      <select
-        defaultValue={tarea.stateId?.toString()}
-        className={`select-bordered select w-48`}
-        style={{
-          backgroundColor: getHexColor(Estado()?.color || "gray"),
-        }}
-        disabled={stateLoading || tarea.completed}
-        onChange={(e) => {
-          const newStateId = e.target.value;
-          onChangeTask({
-            stateId: parseInt(newStateId),
-          });
-        }}
-      >
-        {estados.map((estado) => (
-          <option
-            key={estado.id}
-            value={estado.id}
-            className=" p-2 text-white "
-            style={{
-              backgroundColor: getHexColor(estado.color),
-            }}
-          >
-            {stateLoading ? "Cargando..." : estado.name}
-          </option>
-        ))}
-      </select>
+      <div className="dropdown">
+        <label
+          tabIndex={0}
+          className="btn w-48"
+          style={{
+            backgroundColor: getHexColor(Estado()?.color || "gray"),
+          }}
+        >
+          {estado}
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+        >
+          {estados.map((estado) => (
+            <li key={estado.id}>
+              <button
+                className="btn"
+                style={{
+                  backgroundColor: getHexColor(estado.color),
+                }}
+                onClick={() => {
+                  setEstado(estado.name);
+                  onChangeTask({
+                    stateId: estado.id,
+                  });
+                }}
+              >
+                {estado.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   };
 
@@ -207,7 +215,7 @@ const IndividualTask = ({
           />
 
           <div className="dropdown">
-            <label tabIndex={0} className="btn btn-ghost btn-circle m-1">
+            <label tabIndex={0} className="btn-ghost btn-circle btn m-1">
               <VscAccount /> {tarea.userId}
             </label>
             <ul
@@ -220,14 +228,10 @@ const IndividualTask = ({
               <li>
                 <a>Item 2</a>
               </li> */}
-              {
-                
-              }
+              {}
             </ul>
           </div>
-          <div>
-
-          </div>
+          <div></div>
         </div>
         <LinksDropdown />
       </div>
