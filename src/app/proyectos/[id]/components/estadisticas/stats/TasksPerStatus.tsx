@@ -21,11 +21,12 @@ const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
 
   return (
     <div
-      className=" flex w-1/3 flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" flex w-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}
     >
+      <h2 className="text-2xl font-bold">Tareas por Estado</h2>
       <div>
         <PieChart height={300} width={300}>
           <Pie

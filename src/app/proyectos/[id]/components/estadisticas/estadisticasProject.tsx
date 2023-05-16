@@ -15,11 +15,13 @@ const EstadisticasProject = ({
 }: EstadisticasProjectProps) => {
   
   return (
-    <div className="p-4 w-full h-full">
-      <TasksPerStatus 
-        tareas={tareas}
-        estados={estados}
-      />
+    <div className="p-4 w-full h-full flex">
+      <div className="w-1/3">
+        <TasksPerStatus
+          tareas={tareas}
+          estados={estados}
+        />
+      </div>
     </div>
   );
 };
