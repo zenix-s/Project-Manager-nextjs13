@@ -1,9 +1,13 @@
 import getInvitations from "@/actions/getInvitations";
 import { InvitationProps } from "@/types";
 import Button from "@/components/button";
+import getCurrentUser from "@/actions/getCurrentUser";
+import IndividualInvitation from "./components/IndividualInvitation";
 
 const NotificacionesPage = async () => {
   const Invitations = (await getInvitations()) || [];
+  const user = await getCurrentUser();
+
 
   return (
     <div>
@@ -18,19 +22,10 @@ const NotificacionesPage = async () => {
             </tr>
           </thead>
           <tbody>
-            {Invitations.map((invitation) => (
-              <tr key={invitation.id}>
-                <td>Invitación a proyecto con id {invitation.projectId}</td>
-                <td>{invitation.createdDate.toLocaleDateString("es-ES")}</td>
-                <td>{invitation.status}</td>
-                <th>
-                  <div className="flex w-full items-center justify-end">
-                    <Button theme="primary" label="Aceptar" />
-                    <div className="divider-horizontal" />
-                    <Button theme="error" label="Rechazar" />
-                  </div>
-                </th>
-              </tr>
+            {Invitations.map((invitation:any) => (
+              <IndividualInvitation key={invitation.id} 
+              invitation={invitation}
+              />
             ))}
           </tbody>
         </table>

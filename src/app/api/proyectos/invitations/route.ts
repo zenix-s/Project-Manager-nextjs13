@@ -37,7 +37,50 @@ export async function PUT(request: Request) {
 
   const body = await request.json();
 
-  const { id, status } = body;
+  const { id, accept } = body;
+
+  const status = accept ? "Aceptado" : "Rechazado";
+
+  if (status !== "Aceptado" && status !== "Rechazado") {
+    return NextResponse.error();
+  }
+
+  if (status === "Aceptado") {
+    const invitation = await prisma.invitations.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    
+    if (!invitation) {
+      return NextResponse.error();
+    }
+
+    
+    const teamMember = await prisma.assignments.create({
+      data: {
+        projectId: invitation.projectId,
+        role: "viewer",
+        userId: user.id,
+      },
+    });
+
+  }
+
+  if (status === "Rechazado") {
+    const invitation = await prisma.invitations.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    
+    if (!invitation) {
+      return NextResponse.error();
+    }
+
+  }
+
+
 
   const invitation = await prisma.invitations.update({
     where: {
@@ -48,5 +91,7 @@ export async function PUT(request: Request) {
     },
   });
 
-  return NextResponse.json("ok");
+  return NextResponse.json(
+    invitation
+  );
 }
