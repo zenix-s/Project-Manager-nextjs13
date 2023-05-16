@@ -120,7 +120,7 @@ const IndividualTask = ({
   const LinksDropdown = () => {
     return (
       <div className="flex justify-end">
-        <div className="dropdown-bottom dropdown-end dropdown">
+        <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
             <VscKebabVertical />
           </label>
