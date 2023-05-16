@@ -8,25 +8,25 @@ datasource db {
 }
 
 model assignments {
-  id          Int      @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   projectId Int
-  userId  Int
-  role         String   @db.VarChar(50)
-  users       users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_1")
-  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_2")
+  role      String   @db.VarChar(50)
+  userId    Int
+  users     users    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_1")
+  projects  projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "assignments_ibfk_2")
 
   @@index([projectId], map: "projectId")
   @@index([userId], map: "userId")
 }
 
 model states {
-  id          Int      @id @default(autoincrement())
-  projectId Int
+  id        Int      @id @default(autoincrement())
+  color     String   @db.VarChar(25)
+  order     Int
   name      String   @db.VarChar(50)
-  color       String   @db.VarChar(25)
-  order       Int
-  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
-  tasks       tasks[]
+  projectId Int
+  projects  projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
+  tasks     tasks[]
 
   @@index([projectId], map: "projectId")
 }
@@ -38,20 +38,20 @@ model projects {
   creationDate DateTime      @db.DateTime(0)
   endDate      DateTime      @db.DateTime(0)
   assignments  assignments[]
-  states       states[]
   invitations  invitations[]
+  states       states[]
   tasks        tasks[]
 }
 
 model tasks {
   id          Int       @id @default(autoincrement())
-  name      String    @db.VarChar(50)
   description String?   @db.VarChar(255)
   endDate     DateTime? @db.DateTime(0)
   completed   Boolean   @default(false)
-  projectId Int
-  userId  Int?
-  stateId   Int
+  name        String    @db.VarChar(50)
+  projectId   Int
+  stateId     Int
+  userId      Int?
   users       users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_1")
   projects    projects  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_2")
   states      states    @relation(fields: [stateId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_3")
@@ -72,14 +72,14 @@ model users {
 }
 
 model invitations {
-  id          Int      @id @default(autoincrement())
+  id            Int      @id @default(autoincrement())
+  projectId     Int
+  senderId      Int
+  status        String   @default("pending") @db.VarChar(50)
+  createdDate   DateTime @default(now()) @db.DateTime(0)
   receiverEmail String   @db.VarChar(100)
-  projectId   Int
-  senderId    Int
-  status      String   @default("pending") @db.VarChar(50)
-  createdDate DateTime @default(now()) @db.DateTime(0)
-  projects    projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_1")
-  senders     users    @relation(fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_2")
+  projects      projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_1")
+  senders       users    @relation(fields: [senderId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "invitations_ibfk_2")
 
   @@index([projectId], map: "projectId")
   @@index([senderId], map: "senderId")
