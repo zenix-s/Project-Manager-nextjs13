@@ -55,16 +55,24 @@ const IndividualTask = ({
       });
   };
 
-  const onDeleteTask = () => {
+  const onDeleteTask = (
+    action: "archive" | "unarchive" | "delete" = "archive"
+  ) => {
     setLoading(true);
     axios
       .delete("/api/proyectos/tasks", {
         headers: {
           id_task: tarea.id.toString(),
+          action: action,
         },
       })
       .then((res) => {
-        toast.success("Tarea archivada");
+        if(res.data.status === 200){
+          toast.success(res.data.message);
+        }
+        if(res.data.status !== 200){
+          toast.error(res.data.message);
+        }
       })
       .catch((err) => {})
       .finally(() => {
@@ -132,10 +140,12 @@ const IndividualTask = ({
             <li>
               <button
                 onClick={() => {
-                  onDeleteTask();
+                  onDeleteTask(
+                    tarea.archived ? "unarchive" : "archive"
+                  );
                 }}
               >
-                Archivar
+                {tarea.archived ? "Desarchivar" : "Archivar"}
               </button>
             </li>
             <li>

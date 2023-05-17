@@ -12,7 +12,6 @@ const TableTasks = ({
   estados: StateProps[];
   idProject: number;
 }) => {
-
   // order the tasks by end date if endDate is null, put it at the end of the list
   const tareasOrdenadas = tareas.sort((a, b) => {
     if (a.endDate && b.endDate) {
@@ -26,9 +25,15 @@ const TableTasks = ({
     }
   });
 
-  const tareasSinCompletar = tareasOrdenadas.filter((tarea) => !tarea.completed);
-  const tareasCompletadas = tareasOrdenadas.filter((tarea) => tarea.completed);
-  tareas
+  const tareasArchivadas = tareasOrdenadas.filter((tarea) => tarea.archived);
+  const tareasSinArchivar = tareasOrdenadas.filter((tarea) => !tarea.archived);
+
+  const tareasSinCompletar = tareasSinArchivar.filter(
+    (tarea) => !tarea.completed
+  );
+  const tareasCompletadas = tareasSinArchivar.filter(
+    (tarea) => tarea.completed
+  );
 
   return (
     <div className="flex w-full flex-col p-4">
@@ -44,15 +49,19 @@ const TableTasks = ({
               <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
             );
           })}
-          <h2>
-            Tareas Completadas
-          </h2>
+          <h2>Tareas Completadas</h2>
           {tareasCompletadas.map((tarea) => {
             return (
               <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
             );
           })}
 
+          <h2>Tareas Archivadas</h2>
+          {tareasArchivadas.map((tarea) => {
+            return (
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
+            );
+          })}
         </div>
       </div>
     </div>
