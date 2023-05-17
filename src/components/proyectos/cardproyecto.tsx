@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import LinkComponent from "../link";
 
-
 // interface CardProyectoProps {
 //   name: String;
 //   description: String;
@@ -55,16 +54,11 @@ const CardProyecto = ({
       })
       .then((res) => {
         if (res.data.status === 200) {
-          toast.success(
-            res.data.message
-          );
+          toast.success(res.data.message);
         }
         if (res.data.status === 403) {
-          toast.error(
-            res.data.message
-          );
+          toast.error(res.data.message);
         }
-
       })
       .catch((err) => {})
       .finally(() => {
@@ -82,39 +76,40 @@ const CardProyecto = ({
       >
         <Image src={loadingLogo} alt="Loading..." width={100} height={100} />
       </div>
-      <div className="absolute right-0 bottom-0 z-10 ">
-        <Link 
-          href={`/proyectos/${id}`}
-          className="btn-ghost btn"
-        >
+      <div className="absolute bottom-0 right-0 z-10 ">
+        <Link href={`/proyectos/${id}`} className="btn-ghost btn">
           <FiExternalLink />
         </Link>
       </div>
 
-      <div className={`dropdown absolute top-0 right-0`}>
+      <div className={`dropdown absolute right-0 top-0`}>
         <label tabIndex={0} className="btn-ghost btn">
           <FiMenu />
         </label>
 
-        <ul className="dropdown-content menu flex flex-col gap-2 p-4 w-52 bg-slate-400 rounded-lg">
+        <ul className="dropdown-content menu flex w-52 flex-col gap-2 rounded-lg bg-slate-400 p-4">
+          {role === "admin" ||
+            (role === "owner" && (
+              <li>
+                <Button label="Editar" onClick={() => {}} theme="accent" />
+              </li>
+            ))}
+          {role === "admin" ||
+            (role === "owner" && (
+              <li>
+                <Button
+                  label={archived === true ? "Desarchivar" : "Archivar"}
+                  onClick={() => {
+                    deleteProject(archived === true ? "unarchive" : "archive");
+                  }}
+                  theme="accent"
+                />
+              </li>
+            ))}
           <li>
-            <Button
-              label="Editar"
-              onClick={() => {}}
-              theme="accent"
-              disabled={role === "admin" || role === "owner" ? false : true}
-            />
-          </li>
-          <li>
-            <Button
-              label={archived === true ? "Desarchivar" : "Archivar"}
-              onClick={() => {
-                deleteProject(
-                  archived === true ? "unarchive" : "archive"
-                );
-              }}
-              theme="accent"
-            />
+            <Link href={`/proyectos/${id}`} className="btn-accent btn justify-start">
+              Abrir
+            </Link>
           </li>
         </ul>
       </div>
@@ -126,13 +121,7 @@ const CardProyecto = ({
         </div>
       </div>
       <div className="">
-        <p>End Date: {endDate.toDateString()}</p>
-      </div>
-      <div>
-        <p>
-          archived:
-          {archived === true ? "true" : "false"}
-        </p>
+        <p>End Date: {endDate.toLocaleDateString("es-ES")}</p>
       </div>
     </div>
   );
