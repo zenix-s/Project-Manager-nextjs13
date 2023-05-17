@@ -35,23 +35,65 @@ export async function PUT(request: NextRequest) {
     archived,
   } = res;
 
-  const tareaActualizada = await prisma.tasks.update({
+  const tarea = await prisma.tasks.findUnique({
     where: {
       id: id,
     },
-    data: {
-      name: name,
-      description: description,
-      endDate: endDate,
-      projectId: projectId,
-      userId: userId,
-      stateId: stateId,
-      completed: completed,
+  });
+
+  const user = await getCurrentUser();
+
+  if (!user?.id || !user?.email) {
+    return NextResponse.json({
+      status: 401,
+      message: "No Autorizado",
+    });
+  }
+
+  const permisos = await prisma.assignments.findFirst({
+    where: {
+      userId: user.id,
+      projectId: tarea?.projectId,
     },
   });
 
+  if (
+    permisos?.role !== "owner" &&
+    permisos?.role !== "admin" &&
+    permisos?.role !== "member"
+  ) {
+    return NextResponse.json({
+      status: 401,
+      message: "No Autorizado",
+    });
+  }
+
+  try {
+    console.log(userId);
+    const tareaActualizada = await prisma.tasks.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+        description: description,
+        endDate: endDate,
+        projectId: projectId,
+        userId: userId,
+        stateId: stateId,
+        completed: completed,
+      },
+    });
+  } catch (e) {
+    return NextResponse.json({
+      status: 400,
+      message: "Error al Actualizar Tarea",
+    });
+  }
+
   return NextResponse.json({
-    tareaActualizada,
+    status: 200,
+    message: "Tarea Actualizada",
   });
 }
 
@@ -80,7 +122,6 @@ export async function DELETE(request: NextRequest) {
     },
   });
 
-
   const permisos = await prisma.assignments.findFirst({
     where: {
       userId: user.id,
@@ -88,13 +129,16 @@ export async function DELETE(request: NextRequest) {
     },
   });
 
-  if (permisos?.role !== "owner" && permisos?.role !== "admin" && permisos?.role !== "member") {
+  if (
+    permisos?.role !== "owner" &&
+    permisos?.role !== "admin" &&
+    permisos?.role !== "member"
+  ) {
     return NextResponse.json({
       status: 401,
       message: "No Autorizado",
     });
   }
-
 
   if (action === "archive") {
     const tareaArchivada = await prisma.tasks.update({
@@ -133,7 +177,6 @@ export async function DELETE(request: NextRequest) {
     });
   }
 
-
   if (action === "delete") {
     const tareaEliminada = await prisma.tasks.delete({
       where: {
@@ -145,7 +188,6 @@ export async function DELETE(request: NextRequest) {
       message: "Tarea Eliminada",
     });
   }
-
 
   return NextResponse.json({
     status: 200,

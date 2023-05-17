@@ -55,7 +55,7 @@ const Tasks = ({
         return <Kanban tareas={tareas} estados={estados} />;
       case "table":
         return (
-          <TableTasks tareas={tareas} estados={estados} idProject={idProject} />
+          <TableTasks tareas={tareas} estados={estados} idProject={idProject} teamMembers={teamMembers} />
         );
       case "estadisticas":
         return (
@@ -86,7 +86,7 @@ const Tasks = ({
 
       default:
         return (
-          <TableTasks tareas={tareas} estados={estados} idProject={idProject} />
+          <TableTasks tareas={tareas} estados={estados} idProject={idProject} teamMembers={teamMembers} />
         );
     }
   };

@@ -1,6 +1,6 @@
 "use client";
-import { TaskProps, StateProps } from "@/types";
-import { useState } from "react";
+import { TaskProps, StateProps, TeamMemberProps } from "@/types";
+import { use, useState } from "react";
 import { VscKebabVertical, VscAccount } from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { getBgColor, getHexColor } from "@/actions/getColors";
@@ -10,9 +10,11 @@ import Button from "@/components/button";
 const IndividualTask = ({
   tarea,
   estados,
+  teamMembers,
 }: {
   tarea: TaskProps;
   estados: StateProps[];
+  teamMembers: TeamMemberProps[];
 }) => {
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
@@ -27,11 +29,11 @@ const IndividualTask = ({
     completed?: boolean;
     endDate?: Date;
     stateId?: number;
-    userId?: number;
+    userId?: number | null;
   }) => {
     const newState = stateId || tarea.stateId;
     const newEndDate = endDate || tarea.endDate;
-    const newUserId = userId || tarea.userId;
+    const newUserId = userId === undefined ? tarea.userId : userId;
 
     setLoading(true);
     const NewTask = {
@@ -44,7 +46,12 @@ const IndividualTask = ({
     axios
       .put("/api/proyectos/tasks", NewTask)
       .then((res) => {
-        toast.success("Estado cambiado");
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+        }
+        if (res.data.status !== 200) {
+          toast.error(res.data.message);
+        }
       })
       .catch((err) => {
         toast.error("Error al cambiar el estado de la tarea");
@@ -67,10 +74,10 @@ const IndividualTask = ({
         },
       })
       .then((res) => {
-        if(res.data.status === 200){
+        if (res.data.status === 200) {
           toast.success(res.data.message);
         }
-        if(res.data.status !== 200){
+        if (res.data.status !== 200) {
           toast.error(res.data.message);
         }
       })
@@ -140,9 +147,7 @@ const IndividualTask = ({
             <li>
               <button
                 onClick={() => {
-                  onDeleteTask(
-                    tarea.archived ? "unarchive" : "archive"
-                  );
+                  onDeleteTask(tarea.archived ? "unarchive" : "archive");
                 }}
               >
                 {tarea.archived ? "Desarchivar" : "Archivar"}
@@ -226,20 +231,41 @@ const IndividualTask = ({
           />
 
           <div className="dropdown">
-            <label tabIndex={0} className="btn-ghost btn-circle btn m-1">
-              <VscAccount /> {tarea.userId}
+            <label tabIndex={0} className="btn-ghost btn m-1 gap-2">
+              <VscAccount />{" "}
+              {tarea.userId
+                ? teamMembers.find((member) => member.userId === tarea.userId)
+                    ?.users.username
+                : "Sin asignar"}
             </label>
             <ul
               tabIndex={0}
               className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
             >
-              {/* <li>
-                <a>Item 1</a>
-              </li>
               <li>
-                <a>Item 2</a>
-              </li> */}
-              {}
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      userId: null,
+                    });
+                  }}
+                >
+                  Sin asignar
+                </button>
+              </li>
+              {teamMembers.map((member: TeamMemberProps) => (
+                <li key={member.id}>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        userId: member.userId,
+                      });
+                    }}
+                  >
+                    {member.users.username}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
           <div></div>

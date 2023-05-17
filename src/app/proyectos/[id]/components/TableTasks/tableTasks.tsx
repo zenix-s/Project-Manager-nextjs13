@@ -1,4 +1,4 @@
-import { TaskProps, StateProps } from "@/types";
+import { TaskProps, StateProps, TeamMemberProps } from "@/types";
 import IndividualTask from "./individualTask";
 import HeaderTasksList from "./headerTasksList";
 import NewTaskModal from "./newTaskForm";
@@ -7,10 +7,12 @@ const TableTasks = ({
   tareas,
   estados,
   idProject,
+  teamMembers,
 }: {
   tareas: TaskProps[];
   estados: StateProps[];
   idProject: number;
+  teamMembers: TeamMemberProps[];
 }) => {
   // order the tasks by end date if endDate is null, put it at the end of the list
   const tareasOrdenadas = tareas.sort((a, b) => {
@@ -46,20 +48,20 @@ const TableTasks = ({
           <h2> Tareas Sin Completar </h2>
           {tareasSinCompletar.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers}  />
             );
           })}
           <h2>Tareas Completadas</h2>
           {tareasCompletadas.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} />
             );
           })}
 
           <h2>Tareas Archivadas</h2>
           {tareasArchivadas.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} />
             );
           })}
         </div>
