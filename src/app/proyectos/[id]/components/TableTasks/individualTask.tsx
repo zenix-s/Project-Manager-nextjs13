@@ -69,6 +69,7 @@ const IndividualTask = ({
       .catch((err) => {})
       .finally(() => {
         setLoading(false);
+        router.refresh();
       });
   };
 

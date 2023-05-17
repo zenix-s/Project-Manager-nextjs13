@@ -40,9 +40,6 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       });
   };
 
-  const ToastDelete = () => {
-    toast.success("Estado eliminado");
-  };
 
   const onDeleteEstado = () => {
     setEstadoLoading(true);
@@ -54,9 +51,13 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
         },
       })
       .then((res) => {
-        setEstadoLoading(false);
-        ToastDelete();
-        router.refresh();
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+        }
+        if(res.data.status !== 200){
+          toast.error(res.data.message);
+        }
+
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -64,6 +65,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       })
       .finally(() => {
         setEstadoLoading(false);
+        router.refresh();
       });
   };
 

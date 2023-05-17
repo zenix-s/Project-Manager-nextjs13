@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export async function POST(request: NextRequest) {
   const res = await request.json();
@@ -56,6 +57,15 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const id = request.headers.get("id_estado");
+  const user = await getCurrentUser();
+
+  if (!user?.id) {
+    return NextResponse.json({
+      status: 401,
+      message: "No se ha podido obtener el usuario",
+    });
+  }
+
 
 
   const tareas = await prisma.tasks.findMany({
@@ -66,7 +76,8 @@ export async function DELETE(request: NextRequest) {
 
   if (tareas.length > 0) {
     return NextResponse.json({
-      error: "No se puede eliminar el estado porque tiene tareas asociadas",
+      status: 400,
+      message: "No se puede eliminar el estado porque tiene tareas asociadas",
     });
   }
 
@@ -77,6 +88,7 @@ export async function DELETE(request: NextRequest) {
   });
 
   return NextResponse.json({
-    estadoEliminado,
+    status: 200,
+    message: "Estado eliminado correctamente",
   });
 }
