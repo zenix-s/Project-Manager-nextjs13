@@ -51,6 +51,7 @@ export interface TeamMemberProps {
   users: {
     username: string;
   };
+
 }
 
 export interface StateProps {
