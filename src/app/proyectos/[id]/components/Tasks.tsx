@@ -6,7 +6,7 @@ import { useState } from "react";
 import Button from "@/components/button";
 import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSettingsGear } from "react-icons/vsc";
 import EstadisticasProject from "./estadisticas/estadisticasProject";
-import EstadosSection from "./Configuraciones/estados/EstadosSection";
+import EstadosSection from "./estados/EstadosSection";
 import ConfigSection from "./Configuraciones/ConfigSection";
 
 const Tasks = ({
@@ -34,6 +34,14 @@ const Tasks = ({
     {
       name: "estadisticas",
       icon: VscGraph,
+    },
+    {
+      name: "calendario",
+      icon: VscCalendar,
+    },
+    {
+      name: "Estados",
+      icon: VscSymbolStructure,
     },
     {
       name: "Configuraciones",
@@ -65,6 +73,16 @@ const Tasks = ({
           teamMembers={teamMembers}
           idProject={idProject}
         />;
+      case "Estados":
+        return <EstadosSection
+          estados={estados}
+          idProject={idProject}
+        />;
+      case "calendario":
+        return (
+          null
+        );
+        
 
       default:
         return (
