@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prismadb";
 import getCurrentUser from "../../../actions/getCurrentUser";
 export async function GET(request: Request) {
-
-
   const idUser = request.headers.get("user-id");
 
   if (!idUser) {
@@ -62,27 +60,89 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  const user = await getCurrentUser();
 
   const idProyecto = request.headers.get("id-proyecto");
+  const action = request.headers.get("action");
 
   if (!idProyecto) {
     return NextResponse.error();
   }
 
-  const deleteAsignaciones = await prisma.assignments.deleteMany({
+  if (!user?.id) {
+    return NextResponse.error();
+  }
+
+  const permisoProyecto = await prisma.assignments.findFirst({
     where: {
       projectId: parseInt(idProyecto),
+      userId: parseInt(user.id.toString()),
     },
   });
 
-  const deleteProyecto = await prisma.projects.delete({
-    where: {
-      id: parseInt(idProyecto),
-    },
-  });
+  if (permisoProyecto?.role !== "owner") {
+    return NextResponse.json({
+      status: 403,
+      message: "No tienes permisos para realizar esta acción",
+    });
+
+  }
+
+  if (action === "unarchive"){
+    const updateProyecto = await prisma.projects.update({
+      where: {
+        id: parseInt(idProyecto),
+      },
+      data: {
+        archived: false,
+      },
+    });
+
+    return NextResponse.json({
+      status: 200,
+      message: "El proyecto ha sido desarchivado",
+    });
+
+  }
+
+  if (action === "delete") {
+    const deleteAsignaciones = await prisma.assignments.deleteMany({
+      where: {
+        projectId: parseInt(idProyecto),
+      },
+    });
+
+    const deleteProyecto = await prisma.projects.delete({
+      where: {
+        id: parseInt(idProyecto),
+      },
+    });
+
+    return NextResponse.json({
+      status: 200,
+      message: "El proyecto ha sido eliminado",
+    });
+  }
+
+  if (action === "archive") {
+    const updateProyecto = await prisma.projects.update({
+      where: {
+        id: parseInt(idProyecto),
+      },
+      data: {
+        archived: true,
+      },
+    });
+
+    return NextResponse.json({
+      status: 200,
+      message: "El proyecto ha sido archivado",
+    });
+
+  }
 
   return NextResponse.json({
+    status: 200,
     message: "ok",
-    idProyecto,
   });
 }

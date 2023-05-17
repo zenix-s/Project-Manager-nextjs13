@@ -27,6 +27,7 @@ export interface ProjectProps {
   creationDate: Date;
   endDate: Date;
   role: string;
+  archived: boolean;
 }
 
 export interface TaskProps {
