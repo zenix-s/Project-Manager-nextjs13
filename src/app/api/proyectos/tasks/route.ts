@@ -32,6 +32,7 @@ export async function PUT(request: NextRequest) {
     userId,
     stateId,
     completed,
+    archived,
   } = res;
 
   const tareaActualizada = await prisma.tasks.update({
