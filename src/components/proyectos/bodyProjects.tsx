@@ -18,7 +18,7 @@ const BodyProjects = ({ proyectos }: BodyProjectsProps) => {
   );
 
   return (
-    <div className="w-full overflow-y-scroll p-2">
+    <div className="w-full h-full overflow-y-scroll p-2">
       <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
         {proyectosNoArchivados.map((proyecto: ProjectProps) => (
           <CardProyecto

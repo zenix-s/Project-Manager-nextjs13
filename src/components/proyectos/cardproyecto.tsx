@@ -111,6 +111,17 @@ const CardProyecto = ({
               Abrir
             </Link>
           </li>
+          {role === "owner" && (
+            <li>
+              <Button
+                label="Eliminar"
+                theme="error"
+                onClick={() => {
+                  deleteProject("delete");
+                }}
+              />
+            </li>
+          )} 
         </ul>
       </div>
       <div className="">
