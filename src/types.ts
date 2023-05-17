@@ -39,6 +39,8 @@ export interface TaskProps {
   stateId: number;
   projectId: number;
   userId: number | null;
+  archived: boolean;
+  createdDate: Date;
 }
 
 export interface TeamMemberProps {

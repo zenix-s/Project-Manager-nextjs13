@@ -54,6 +54,7 @@ model tasks {
   stateId     Int
   userId      Int?
   archived    Boolean   @default(false)
+  createdDate DateTime  @default(now()) @db.DateTime(0)
   users       users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_1")
   projects    projects  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_2")
   states      states    @relation(fields: [stateId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_3")
