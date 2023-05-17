@@ -82,7 +82,7 @@ const CardProyecto = ({
         </Link>
       </div>
 
-      <div className={`dropdown absolute right-0 top-0`}>
+      <div className={`dropdown dropdown-end absolute right-0 top-0`}>
         <label tabIndex={0} className="btn-ghost btn">
           <FiMenu />
         </label>
