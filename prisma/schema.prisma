@@ -37,6 +37,7 @@ model projects {
   description  String        @db.VarChar(255)
   creationDate DateTime      @db.DateTime(0)
   endDate      DateTime      @db.DateTime(0)
+  archived     Boolean       @default(false)
   assignments  assignments[]
   invitations  invitations[]
   states       states[]
@@ -52,6 +53,7 @@ model tasks {
   projectId   Int
   stateId     Int
   userId      Int?
+  archived    Boolean   @default(false)
   users       users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_1")
   projects    projects  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_2")
   states      states    @relation(fields: [stateId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_3")
