@@ -97,7 +97,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
               center
               fontSize="lg"
               onClick={() => {
-                TaskModal.onClose();
+                onClose();
               }}
             />
           </div>
