@@ -8,6 +8,7 @@ import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSet
 import EstadisticasProject from "./estadisticas/estadisticasProject";
 import EstadosSection from "./estados/EstadosSection";
 import ConfigSection from "./Configuraciones/ConfigSection";
+import TaskModal from "./TaskModal";
 
 const Tasks = ({
   tareas,
@@ -93,6 +94,10 @@ const Tasks = ({
 
   return (
     <>
+      <TaskModal
+        TeamMembers={teamMembers}
+        States={estados}
+      />
       <section className="flex h-full w-full flex-col">
         <div>
           <div className="flex gap-4">

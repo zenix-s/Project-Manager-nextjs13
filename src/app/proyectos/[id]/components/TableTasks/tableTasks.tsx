@@ -1,7 +1,7 @@
 import { TaskProps, StateProps, TeamMemberProps } from "@/types";
 import IndividualTask from "./individualTask";
 import HeaderTasksList from "./headerTasksList";
-import NewTaskModal from "./newTaskForm";
+import NewTaskModal from "./newTaskModal";
 
 const TableTasks = ({
   tareas,
