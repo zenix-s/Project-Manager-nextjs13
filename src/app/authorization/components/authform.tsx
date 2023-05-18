@@ -36,7 +36,6 @@ const AuthForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     if (authType === "register") {
-
       axios
         .post("api/register", data)
         .then(() => {
@@ -118,13 +117,16 @@ const AuthForm = () => {
               type="submit"
             />
             <Button
-              label={ authType === "login" ? "No tienes una cuenta? Registrate" : "Ya tienes una cuenta? Inicia Sesión"}
+              label={
+                authType === "login"
+                  ? "No tienes una cuenta? Registrate"
+                  : "Ya tienes una cuenta? Inicia Sesión"
+              }
               theme="secondary"
               fullWidth
               center
               onClick={toggleAuthType}
             />
-
           </form>
         </div>
       </div>
