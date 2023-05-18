@@ -108,12 +108,12 @@ const IndividualTask = ({
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+          className="dropdown-content menu rounded-box w-full bg-base-100 mt-2 shadow outline outline-2 outline-slate-200"
         >
           {estados.map((estado) => (
             <li key={estado.id}>
               <button
-                className="btn"
+                className=""
                 style={{
                   backgroundColor: getHexColor(estado.color),
                 }}
@@ -142,7 +142,7 @@ const IndividualTask = ({
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+            className="dropdown-content menu rounded-box w-52 bg-base-100 mt-2 shadow"
           >
             <li>
               <button
@@ -240,7 +240,7 @@ const IndividualTask = ({
             </label>
             <ul
               tabIndex={0}
-              className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 shadow"
+              className="dropdown-content menu rounded-box w-full bg-base-100 pt-2 shadow"
             >
               <li>
                 <button
