@@ -34,8 +34,8 @@ const HeaderTasksList = (
           TaskModal.onOpen(
             // {
             //   id: 0,
-            //   name: "",
-            //   description: "",
+            //   name: "hola mundo perro",
+            //   description: "hola mundo gente",
             //   endDate: null,
             //   completed: false,
             //   stateId: 0,

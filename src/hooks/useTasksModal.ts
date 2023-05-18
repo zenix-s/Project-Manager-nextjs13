@@ -17,6 +17,7 @@ interface TaskModalProps {
   isOpen: boolean;
   Task: TaskProps;
   // onOpen: (Task: TaskProps) => void;
+  setTask: (Task: TaskProps) => void;
   onOpen: (Task?: TaskProps) => void;
   onClose: () => void;
 }
@@ -24,6 +25,7 @@ interface TaskModalProps {
 const useTasksModal = create<TaskModalProps>((set) => ({
   isOpen: false,
   Task: {} as TaskProps,
+  setTask: (newTask: TaskProps) => set({ Task: newTask }),
   onOpen: (newTask?: TaskProps | undefined) => set({ isOpen: true, Task: newTask  }),
   onClose: () => set({ isOpen: false }),
 }));

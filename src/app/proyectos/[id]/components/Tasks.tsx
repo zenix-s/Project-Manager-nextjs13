@@ -97,6 +97,7 @@ const Tasks = ({
       <TaskModal
         TeamMembers={teamMembers}
         States={estados}
+        idProject={idProject}
       />
       <section className="flex h-full w-full flex-col">
         <div>

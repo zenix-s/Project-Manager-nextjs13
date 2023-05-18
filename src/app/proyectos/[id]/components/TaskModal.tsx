@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import useTasksModal from "@/hooks/useTasksModal";
 import { VscChromeClose, VscChevronDown } from "react-icons/vsc";
 import { TaskProps, TeamMemberProps, StateProps } from "@/types";
@@ -24,11 +24,12 @@ import { getHexColor, getBgColor } from "@/actions/getColors";
 interface TaskModalProps {
   TeamMembers: TeamMemberProps[];
   States: StateProps[];
+  idProject: number;
 }
 
 // const TaskModal FC<TaskModalProps> = ({ TeamMember, States }) => {
 
-const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
+const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject }) => {
   const TaskModal = useTasksModal();
   const Task = TaskModal.Task;
 
@@ -57,16 +58,48 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
     color: "grey",
   };
 
+  const emptyTask = {
+    id: 0,
+    name: "",
+    description: "",
+    endDate: null,
+    completed: false,
+    stateId: 0,
+    projectId: 0,
+    userId: null,
+    archived: true,
+    createdDate: new Date(),
+  };
+
   const [TaskState, setTaskState] = useState(emptyState);
 
   const [show, setShow] = useState(TaskModal.isOpen);
 
   useEffect(() => {
     setShow(TaskModal.isOpen);
-  }, [TaskModal.isOpen]);
+    setValue("name", Task ? Task.name : "");
+    setValue("description", Task ? Task.description : "");
+
+  }, [TaskModal.isOpen, Task, setValue]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    
+
+    const task: TaskProps = {
+      id: Task ? Task.id : 0,
+      name: data.name,
+      description: data.description,
+      endDate: new Date(data.endDate),
+      completed: false,
+      stateId: TaskState.id,
+      projectId: idProject,
+      userId: data.userId,
+      archived: false,
+      createdDate: new Date(),
+    };
+
+    console.log(task);
+
   };
 
   const onClose = () => {
@@ -75,10 +108,12 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
     setValue("endDate", "");
     setTaskState(emptyState);
 
+    TaskModal.setTask(
+      emptyTask
+    );
+
     TaskModal.onClose();
   };
-
-  console.log("TaskModal", Task);
 
   return (
     <>
@@ -111,7 +146,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
 
             <div>
               <Input
-                label="Nombre"
+                label="Nombre *"
                 id="name"
                 type="text"
                 register={register}
@@ -130,7 +165,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States }) => {
 
               <div className="form-control w-full">
                 <label className="label">
-                  <span className="label-text">Estado</span>
+                  <span className="label-text">Estado *</span>
                   <span className="label-text-alt"></span>
                 </label>
                 <div className="dropdown-bottom dropdown">

@@ -76,6 +76,7 @@ export interface InputProps {
   id: string;
   label: string;
   type: string;
+  defaultValue?: string | null;
   required: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
