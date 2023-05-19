@@ -32,18 +32,18 @@ const HeaderTasksList = (
         className="btn btn-primary"
         onClick={() => {
           TaskModal.onOpen(
-            // {
-            //   id: 0,
-            //   name: "hola mundo perro",
-            //   description: "hola mundo gente",
-            //   endDate: null,
-            //   completed: false,
-            //   stateId: 0,
-            //   projectId: idProject,
-            //   userId: null,
-            //   archived: false,
-            //   createdDate: new Date(),
-            // }
+            {
+              id: 0,
+              name: "hola mundo perro",
+              description: "hola mundo gente",
+              endDate: new Date(),
+              completed: false,
+              stateId: 6,
+              projectId: idProject,
+              userId: 10,
+              archived: false,
+              createdDate: new Date(),
+            }
           );
         }}
 

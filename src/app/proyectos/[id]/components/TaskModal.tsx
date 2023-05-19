@@ -29,7 +29,11 @@ interface TaskModalProps {
 
 // const TaskModal FC<TaskModalProps> = ({ TeamMember, States }) => {
 
-const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject }) => {
+const TaskModal: React.FC<TaskModalProps> = ({
+  TeamMembers,
+  States,
+  idProject,
+}) => {
   const TaskModal = useTasksModal();
   const Task = TaskModal.Task;
 
@@ -38,6 +42,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
     handleSubmit,
     formState: { errors },
     setValue,
+    getValues,
   } = useForm<FieldValues>({
     defaultValues: {
       name: Task ? Task.name : "",
@@ -58,6 +63,16 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
     color: "grey",
   };
 
+  const emptyUser = {
+    id: 0,
+    projectId: 0,
+    userId: 0,
+    role: "viewer",
+    users: {
+      username: "Selecciona un usuario",
+    },
+  };
+
   const emptyTask = {
     id: 0,
     name: "",
@@ -72,6 +87,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
   };
 
   const [TaskState, setTaskState] = useState(emptyState);
+  const [TaskUser, setTaskUser] = useState(emptyUser);
 
   const [show, setShow] = useState(TaskModal.isOpen);
 
@@ -79,12 +95,28 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
     setShow(TaskModal.isOpen);
     setValue("name", Task ? Task.name : "");
     setValue("description", Task ? Task.description : "");
+    setValue("endDate", 
+      // Task ? Task.endDate?.toLocaleDateString("en-GB",) : ""
+      // "2021-10-10"
+      Task ? Task.endDate?.toISOString().split('T')[0] : ""
+    );
 
-  }, [TaskModal.isOpen, Task, setValue]);
+    if (Task) {
+      const CurrentState = States.find((state) => state.id === Task.stateId);
+      if (CurrentState) setTaskState(CurrentState);
+    }
+
+    if (Task) {
+      const CurrentUser = TeamMembers.find(
+        (member) => member.userId === Task.userId
+      );
+      if (CurrentUser) setTaskUser(CurrentUser);
+    }
+
+
+  }, [TaskModal.isOpen, Task, setValue, States, TeamMembers, getValues]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    
-
     const task: TaskProps = {
       id: Task ? Task.id : 0,
       name: data.name,
@@ -99,7 +131,6 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
     };
 
     console.log(task);
-
   };
 
   const onClose = () => {
@@ -108,9 +139,7 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
     setValue("endDate", "");
     setTaskState(emptyState);
 
-    TaskModal.setTask(
-      emptyTask
-    );
+    TaskModal.setTask(emptyTask);
 
     TaskModal.onClose();
   };
@@ -171,7 +200,9 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
                 <div className="dropdown-bottom dropdown">
                   <label
                     tabIndex={0}
-                    className="btn-ghost btn w-full justify-between border border-neutral-300/30"
+                    className={`btn-ghost btn w-full justify-between border ${
+                      TaskState.id === 0 && "!border-neutral-400/20"
+                    }`}
                     style={{
                       borderColor: getHexColor(TaskState.color),
                     }}
@@ -206,6 +237,58 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
                   </ul>
                 </div>
               </div>
+
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Usuario</span>
+                  <span className="label-text-alt"></span>
+                </label>
+                <div className="dropdown-bottom dropdown">
+                  <label
+                    tabIndex={0}
+                    className={`btn-ghost btn w-full justify-between border border-neutral-400/20`}
+                  >
+                    <span>{TaskUser.users.username}</span>
+                    <VscChevronDown />
+                  </label>
+
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu rounded-box w-full bg-base-100 pt-2 shadow"
+                  >
+                    <li className="border border-white/30">
+                      <Button
+                        label="Ninguno"
+                        theme="ghost"
+                        center
+                        fullWidth
+                        onClick={() => {
+                          setValue("userId", null);
+                          setTaskUser(emptyUser);
+                        }}
+                      />
+                    </li>
+
+                    {TeamMembers.map((member, index) => {
+                      return (
+                        <li key={index} className="border border-white/30">
+                          <Button
+                            label={member.users.username}
+                            theme="ghost"
+                            center
+                            fullWidth
+                            onClick={() => {
+                              setValue("userId", member.id);
+                              setTaskUser(member);
+                            }}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+
               <Input
                 label="Fecha de finalización"
                 id="endDate"
@@ -215,14 +298,6 @@ const TaskModal: React.FC<TaskModalProps> = ({ TeamMembers, States, idProject })
                 required={false}
               />
 
-              <Input
-                label="Usuario"
-                id="userId"
-                type="number"
-                register={register}
-                errors={errors}
-                required={false}
-              />
             </div>
 
             <div>
