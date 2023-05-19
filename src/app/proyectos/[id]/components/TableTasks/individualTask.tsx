@@ -1,12 +1,19 @@
 "use client";
 import { TaskProps, StateProps, TeamMemberProps } from "@/types";
 import { use, useState } from "react";
-import { VscKebabVertical, VscAccount } from "react-icons/vsc";
+import {
+  VscKebabVertical,
+  VscAccount,
+  VscEdit,
+  VscTrash,
+  VscInbox,
+} from "react-icons/vsc";
 import { useRouter } from "next/navigation";
 import { getBgColor, getHexColor } from "@/actions/getColors";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Button from "@/components/button";
+import useTasksModal from "@/hooks/useTasksModal";
 const IndividualTask = ({
   tarea,
   estados,
@@ -19,6 +26,7 @@ const IndividualTask = ({
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
   const router = useRouter();
+  const TaskModal = useTasksModal();
 
   const onChangeTask = ({
     completed,
@@ -108,7 +116,7 @@ const IndividualTask = ({
         </label>
         <ul
           tabIndex={0}
-          className="dropdown-content menu rounded-box w-full bg-base-100 mt-2 shadow outline outline-2 outline-slate-200"
+          className="dropdown-content menu rounded-box mt-2 w-full bg-base-100 shadow outline outline-2 outline-slate-200"
         >
           {estados.map((estado) => (
             <li key={estado.id}>
@@ -142,19 +150,29 @@ const IndividualTask = ({
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box w-52 bg-base-100 mt-2 shadow"
+            className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 shadow"
           >
             <li>
-              <button
+              <Button
+                label="Editar"
+                theme="ghost"
+                fullWidth
+                onClick={() => {
+                  TaskModal.onOpen(tarea);
+                }}
+                icon={VscEdit}
+              />
+            </li>
+            <li>
+              <Button
+                label={tarea.archived ? "Desarchivar" : "Archivar"}
+                theme="ghost"
+                fullWidth
                 onClick={() => {
                   onDeleteTask(tarea.archived ? "unarchive" : "archive");
                 }}
-              >
-                {tarea.archived ? "Desarchivar" : "Archivar"}
-              </button>
-            </li>
-            <li>
-              <button onClick={() => {}}>Editar</button>
+                icon={VscInbox}
+              />
             </li>
           </ul>
         </div>
