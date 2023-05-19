@@ -95,11 +95,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setShow(TaskModal.isOpen);
     setValue("name", Task ? Task.name : "");
     setValue("description", Task ? Task.description : "");
-    setValue("endDate", 
-      // Task ? Task.endDate?.toLocaleDateString("en-GB",) : ""
-      // "2021-10-10"
-      Task ? Task.endDate?.toISOString().split('T')[0] : ""
-    );
+    setValue("endDate", Task ? Task.endDate?.toISOString().split("T")[0] : "");
 
     if (Task) {
       const CurrentState = States.find((state) => state.id === Task.stateId);
@@ -112,8 +108,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
       );
       if (CurrentUser) setTaskUser(CurrentUser);
     }
-
-
   }, [TaskModal.isOpen, Task, setValue, States, TeamMembers, getValues]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -297,7 +291,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
                 errors={errors}
                 required={false}
               />
-
             </div>
 
             <div>
