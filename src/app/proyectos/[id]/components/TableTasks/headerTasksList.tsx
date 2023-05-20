@@ -31,24 +31,11 @@ const HeaderTasksList = (
       <button
         className="btn btn-primary"
         onClick={() => {
-          TaskModal.onOpen(
-            {
-              id: 0,
-              name: "hola mundo perro",
-              description: "hola mundo gente",
-              endDate: new Date(),
-              completed: false,
-              stateId: 6,
-              projectId: idProject,
-              userId: 10,
-              archived: false,
-              createdDate: new Date(),
-            }
-          );
+          TaskModal.onOpen();
         }}
 
       >
-        abrete sesamo
+        Nuevisima tarea
       </button>
     </div>
   );
