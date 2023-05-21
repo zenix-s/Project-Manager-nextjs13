@@ -96,7 +96,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setShow(TaskModal.isOpen);
     setValue("name", Task ? Task.name : "");
     setValue("description", Task ? Task.description : "");
-    setValue("endDate", Task ? Task.endDate?.toISOString().split('T')[0] : "");
+    setValue("endDate", Task ? Task.endDate?.toISOString().split("T")[0] : "");
 
     if (Task) {
       const CurrentState = States.find((state) => state.id === Task.stateId);
@@ -117,22 +117,19 @@ const TaskModal: React.FC<TaskModalProps> = ({
       name: data.name,
       description: data.description,
       endDate: new Date(data.endDate),
-      completed: false,
       stateId: TaskState.id,
       projectId: idProject,
       userId: data.userId,
-      archived: false,
-      createdDate: new Date(),
+      completed: Task ? Task.completed : false,
+      archived: Task ? Task.archived : false,
+      createdDate: Task ? Task.createdDate : new Date(),
     };
 
-    if  (task.id === 0) {
-    
+    if (task.id === 0) {
       toast.success("Tarea creada correctamente");
-    
     }
 
     if (task.id > 0) {
-      
       toast.success("Tarea actualizada correctamente");
     }
 
