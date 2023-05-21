@@ -7,6 +7,7 @@ import Button from "@/components/button";
 import Input from "@/components/inputs/input";
 import { FieldValues, SubmitHandler, set, useForm } from "react-hook-form";
 import { getHexColor, getBgColor } from "@/actions/getColors";
+import toast from "react-hot-toast";
 
 // export interface TaskProps {
 //   id: number;
@@ -95,7 +96,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setShow(TaskModal.isOpen);
     setValue("name", Task ? Task.name : "");
     setValue("description", Task ? Task.description : "");
-    setValue("endDate", Task ? Task.endDate?.toISOString().split("T")[0] : "");
+    setValue("endDate", Task ? Task.endDate?.toISOString().split('T')[0] : "");
 
     if (Task) {
       const CurrentState = States.find((state) => state.id === Task.stateId);
@@ -123,6 +124,17 @@ const TaskModal: React.FC<TaskModalProps> = ({
       archived: false,
       createdDate: new Date(),
     };
+
+    if  (task.id === 0) {
+    
+      toast.success("Tarea creada correctamente");
+    
+    }
+
+    if (task.id > 0) {
+      
+      toast.success("Tarea actualizada correctamente");
+    }
 
     console.log(task);
   };
@@ -222,6 +234,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
                             center
                             fullWidth
                             onClick={() => {
+                              setValue("stateId", state.id);
                               setTaskState(state);
                             }}
                           />
@@ -272,7 +285,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
                             center
                             fullWidth
                             onClick={() => {
-                              setValue("userId", member.id);
+                              setValue("userId", member.userId);
                               setTaskUser(member);
                             }}
                           />
