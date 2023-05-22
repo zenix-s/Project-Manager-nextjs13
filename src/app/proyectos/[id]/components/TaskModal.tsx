@@ -8,6 +8,8 @@ import Input from "@/components/inputs/input";
 import { FieldValues, SubmitHandler, set, useForm } from "react-hook-form";
 import { getHexColor, getBgColor } from "@/actions/getColors";
 import toast from "react-hot-toast";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 // export interface TaskProps {
 //   id: number;
@@ -37,6 +39,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
 }) => {
   const TaskModal = useTasksModal();
   const Task = TaskModal.Task;
+  const router = useRouter();
 
   const {
     register,
@@ -126,14 +129,46 @@ const TaskModal: React.FC<TaskModalProps> = ({
     };
 
     if (task.id === 0) {
+      axios
+        .post("/api/proyectos/tasks", {
+          name: data.name,
+          stateId: TaskState.id,
+          projectId: idProject,
+          description: data.description,
+          endDate: new Date(data.endDate),
+          userId: data.userId,
+        })
+        .then((res) => {
+          
+        })
+        .finally(() => {
+          onClose();
+        });
+
       toast.success("Tarea creada correctamente");
     }
 
     if (task.id > 0) {
       toast.success("Tarea actualizada correctamente");
-    }
 
-    console.log(task);
+      axios
+        .put("/api/proyectos/tasks", {
+          id: Task.id,
+          name: data.name,
+          stateId: TaskState.id,
+          projectId: idProject,
+          description: data.description,
+          endDate: new Date(data.endDate),
+          userId: data.userId,
+        })
+        .then((res) => {
+          
+        })
+        .finally(() => {
+          onClose();
+        })
+    }
+    router.refresh();
   };
 
   const onClose = () => {

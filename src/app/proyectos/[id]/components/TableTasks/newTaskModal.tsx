@@ -53,9 +53,12 @@ const NewTaskModal = ({ idProject, estados }: NewTaskFormProps) => {
 
     axios
       .post("/api/proyectos/tasks", {
-        nombre: data.TitleNewTaskInput,
-        id_estado: parseInt(data.stateFormNewTask),
-        id_proyecto: idProject,
+        name: data.TitleNewTaskInput,
+        stateId: parseInt(data.stateFormNewTask),
+        projectId: idProject,
+        description: null,
+        endDate: null,
+        userId: null,
       })
       .then((res) => {
         CleanInputs();

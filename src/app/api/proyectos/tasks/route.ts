@@ -5,13 +5,26 @@ import getCurrentUser from "@/actions/getCurrentUser";
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { nombre, id_proyecto, id_estado } = res;
+  const { 
+    name, 
+    projectId, 
+    stateId,
+    description,
+    endDate,
+    userId,
+  } = res;
 
   const nuevaTarea = await prisma.tasks.create({
     data: {
-      name: nombre,
-      projectId: id_proyecto,
-      stateId: id_estado,
+      name: name,
+      projectId: projectId,
+      stateId: stateId,
+      description: description,
+      endDate: endDate,
+      archived: false,
+      completed: false,
+      userId: userId,
+      createdDate: new Date(),
     },
   });
 
