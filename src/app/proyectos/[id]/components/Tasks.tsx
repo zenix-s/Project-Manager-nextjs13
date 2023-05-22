@@ -4,10 +4,19 @@ import TableTasks from "./TableTasks/tableTasks";
 import { StateProps, TaskProps, TeamMemberProps } from "@/types";
 import { useState } from "react";
 import Button from "@/components/button";
-import { VscTable, VscSymbolStructure, VscGraph, VscCalendar, VscProject, VscSettingsGear } from "react-icons/vsc";
+import {
+  VscTable,
+  VscSymbolStructure,
+  VscGraph,
+  VscCalendar,
+  VscProject,
+  VscSettingsGear,
+  VscPersonAdd,
+  VscOrganization,
+} from "react-icons/vsc";
 import EstadisticasProject from "./estadisticas/estadisticasProject";
 import EstadosSection from "./estados/EstadosSection";
-import ConfigSection from "./Configuraciones/ConfigSection";
+import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
 
 const Tasks = ({
@@ -28,18 +37,18 @@ const Tasks = ({
       name: "table",
       icon: VscTable,
     },
-    {
-      name: "kanban",
-      icon: VscProject,
-    },
+    // {
+    //   name: "kanban",
+    //   icon: VscProject,
+    // },
     {
       name: "estadisticas",
       icon: VscGraph,
     },
-    {
-      name: "calendario",
-      icon: VscCalendar,
-    },
+    // {
+    //   name: "calendario",
+    //   icon: VscCalendar,
+    // },
     {
       name: "Estados",
       icon: VscSymbolStructure,
@@ -47,6 +56,10 @@ const Tasks = ({
     {
       name: "Configuraciones",
       icon: VscSettingsGear,
+    },
+    {
+      name: "Miembros",
+      icon: VscOrganization,
     },
   ];
 
@@ -56,7 +69,12 @@ const Tasks = ({
         return <Kanban tareas={tareas} estados={estados} />;
       case "table":
         return (
-          <TableTasks tareas={tareas} estados={estados} idProject={idProject} teamMembers={teamMembers} />
+          <TableTasks
+            tareas={tareas}
+            estados={estados}
+            idProject={idProject}
+            teamMembers={teamMembers}
+          />
         );
       case "estadisticas":
         return (
@@ -67,27 +85,21 @@ const Tasks = ({
           />
         );
 
-      case "Configuraciones":
-        return <ConfigSection
-          tareas={tareas}
-          estados={estados}
-          teamMembers={teamMembers}
-          idProject={idProject}
-        />;
       case "Estados":
-        return <EstadosSection
-          estados={estados}
-          idProject={idProject}
-        />;
+        return <EstadosSection estados={estados} idProject={idProject} />;
       case "calendario":
-        return (
-          null
-        );
-        
+        return null;
+      case "Miembros":
+        return <TeamSection idProject={idProject} teamMembers={teamMembers} />;
 
       default:
         return (
-          <TableTasks tareas={tareas} estados={estados} idProject={idProject} teamMembers={teamMembers} />
+          <TableTasks
+            tareas={tareas}
+            estados={estados}
+            idProject={idProject}
+            teamMembers={teamMembers}
+          />
         );
     }
   };
