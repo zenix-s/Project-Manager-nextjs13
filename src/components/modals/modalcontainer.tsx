@@ -43,6 +43,9 @@ const ModalContainer: React.FC<FormContainerProps> = ({
             onClick={() => {
               onClose && onClose();
             }}
+            fontSize="lg"
+            circle
+            center
           />
         </div>
         <div className=" mb-8  h-16 w-full  border-b-2 border-slate-200/30  ">
