@@ -3,6 +3,7 @@ import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
 import NewTaskModal from "./newTaskModal";
 import { TaskProps, StateProps } from "@/types";
+import { VscAdd } from "react-icons/vsc";
 
 // export interface TaskProps {
 //   id: number;
@@ -28,15 +29,13 @@ const HeaderTasksList = (
         idProject={idProject}
         estados={estados}
       />
-      <button
-        className="btn btn-primary"
-        onClick={() => {
-          TaskModal.onOpen();
-        }}
-
-      >
-        Nuevisima tarea
-      </button>
+      <Button
+        theme="primary"
+        label="Nueva tarea avanzada"
+        onClick={() => TaskModal.onOpen()}
+        disabled={TaskModal.isOpen}
+        icon={VscAdd}
+      />
     </div>
   );
 };
