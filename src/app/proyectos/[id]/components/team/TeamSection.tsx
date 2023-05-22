@@ -13,12 +13,12 @@ const TeamSection = ({ idProject, teamMembers }: TeamSectionProps) => {
   
 
   return (
-    <div className="h-96 p-4">
+    <div className="h-96 p-4 w-full">
       <div>
         <InviteMemberForm idProject={idProject} />
       </div>
       <div className="divider" />
-      <div className="overflox-scroll h-full">
+      <div className="overflox-scroll h-full w-full">
         {teamMembers.map((member) => (
           <TeamMember
             key={member.userId}

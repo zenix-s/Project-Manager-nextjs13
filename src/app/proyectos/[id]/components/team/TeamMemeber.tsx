@@ -9,7 +9,7 @@ interface TeamMemberListProps {
 const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
   const isOwner = teamMember.role === "owner";
   return (
-    <div className="flex items-center gap-8 p-4">
+    <div className="flex items-center gap-8 p-4 w-full">
       <div>{teamMember.users.username}</div>
       <div>
         {isOwner ? (
