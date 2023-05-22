@@ -1,7 +1,12 @@
 import prisma from "../lib/prismadb";
+import getCurrentUser from "./getCurrentUser";
 
 const getTareas = async (id_proyecto: any) => {
+  const user = await getCurrentUser();
 
+  if (!user?.id) {
+    return [];
+  }
 
 
   if (!id_proyecto) {

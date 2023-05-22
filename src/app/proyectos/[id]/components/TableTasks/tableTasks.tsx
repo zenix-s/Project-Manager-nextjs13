@@ -2,6 +2,7 @@ import { TaskProps, StateProps, TeamMemberProps } from "@/types";
 import IndividualTask from "./individualTask";
 import HeaderTasksList from "./headerTasksList";
 import NewTaskModal from "./newTaskModal";
+import axios from "axios";
 
 const TableTasks = ({
   tareas,
@@ -14,7 +15,10 @@ const TableTasks = ({
   idProject: number;
   teamMembers: TeamMemberProps[];
 }) => {
-  // order the tasks by end date if endDate is null, put it at the end of the list
+  
+  
+  
+
   const tareasOrdenadas = tareas.sort((a, b) => {
     if (a.endDate && b.endDate) {
       return a.endDate > b.endDate ? 1 : -1;
