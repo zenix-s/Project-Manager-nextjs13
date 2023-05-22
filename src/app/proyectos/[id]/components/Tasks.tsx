@@ -42,6 +42,14 @@ const Tasks = ({
     //   icon: VscProject,
     // },
     {
+      name: "Estados",
+      icon: VscSymbolStructure,
+    },
+    {
+      name: "Miembros",
+      icon: VscOrganization,
+    },
+    {
       name: "estadisticas",
       icon: VscGraph,
     },
@@ -49,18 +57,6 @@ const Tasks = ({
     //   name: "calendario",
     //   icon: VscCalendar,
     // },
-    {
-      name: "Estados",
-      icon: VscSymbolStructure,
-    },
-    {
-      name: "Configuraciones",
-      icon: VscSettingsGear,
-    },
-    {
-      name: "Miembros",
-      icon: VscOrganization,
-    },
   ];
 
   const handleTasksView = () => {
