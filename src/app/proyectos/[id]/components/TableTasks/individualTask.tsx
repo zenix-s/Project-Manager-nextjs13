@@ -174,6 +174,17 @@ const IndividualTask = ({
                 icon={VscInbox}
               />
             </li>
+            <li>
+              <Button
+                label="Eliminar"
+                theme="error"
+                fullWidth
+                onClick={() => {
+                  onDeleteTask("delete");
+                }}
+                icon={VscTrash}
+              />
+            </li>
           </ul>
         </div>
       </div>
