@@ -47,7 +47,8 @@ export interface TeamMemberProps {
   id: number;
   projectId: number;
   userId: number;
-  role: "owner" | "admin" | "member" | "viewer";
+  // role: "owner" | "admin" | "member" | "viewer";
+  role: string;
   users: {
     username: string;
   };
