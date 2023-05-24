@@ -3,8 +3,13 @@ generator client {
 }
 
 datasource db {
+  // mysql
   provider = "mysql"
   url      = env("DATABASE_URL")
+
+  // sqlite
+  // provider = "sqlite"
+  // url = "file:./dev.db"
 }
 
 model assignments {

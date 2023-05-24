@@ -18,57 +18,71 @@ const IndividualTask = ({
   tarea,
   estados,
   teamMembers,
+  onChangeTask,
 }: {
   tarea: TaskProps;
   estados: StateProps[];
   teamMembers: TeamMemberProps[];
+  onChangeTask: ({
+    id,
+    state,
+    completed,
+    endDate,
+    userId,
+  }: {
+    id: number;
+    state: number;
+    completed: boolean;
+    endDate: Date | null;
+    userId: number | null;
+  }) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
   const router = useRouter();
   const TaskModal = useTasksModal();
 
-  const onChangeTask = ({
-    completed,
-    endDate,
-    stateId,
-    userId,
-  }: {
-    completed?: boolean;
-    endDate?: Date;
-    stateId?: number;
-    userId?: number | null;
-  }) => {
-    const newState = stateId || tarea.stateId;
-    const newEndDate = endDate || tarea.endDate;
-    const newUserId = userId === undefined ? tarea.userId : userId;
+  // const onChangeTask = ({
+  //   completed,
+  //   endDate,
+  //   stateId,
+  //   userId,
+  // }: {
+  //   completed?: boolean;
+  //   endDate?: Date;
+  //   stateId?: number;
+  //   userId?: number | null;
+  // }) => {
+  //   const newState = stateId || tarea.stateId;
+  //   const newEndDate = endDate || tarea.endDate;
+  //   const newUserId = userId === undefined ? tarea.userId : userId;
 
-    setLoading(true);
-    const NewTask = {
-      ...tarea,
-      stateId: newState,
-      endDate: newEndDate,
-      completed: completed,
-      userId: newUserId,
-    };
-    axios
-      .put("/api/proyectos/tasks", NewTask)
-      .then((res) => {
-        if (res.data.status === 200) {
-          toast.success(res.data.message);
-        }
-        if (res.data.status !== 200) {
-          toast.error(res.data.message);
-        }
-      })
-      .catch((err) => {
-        toast.error("Error al cambiar el estado de la tarea");
-      })
-      .finally(() => {
-        setLoading(false);
-        router.refresh();
-      });
-  };
+  //   setLoading(true);
+  //   const NewTask = {
+  //     ...tarea,
+  //     stateId: newState,
+  //     endDate: newEndDate,
+  //     completed: completed,
+  //     userId: newUserId,
+  //   };
+  //   axios
+  //     .put("/api/proyectos/tasks", NewTask)
+  //     .then((res) => {
+  //       if (res.data.status === 200) {
+  //         toast.success(res.data.message);
+  //       }
+  //       if (res.data.status !== 200) {
+  //         toast.error(res.data.message);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       toast.error("Error al cambiar el estado de la tarea");
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //       router.refresh();
+  //     });
+  // };
 
   const onDeleteTask = (
     action: "archive" | "unarchive" | "delete" = "archive"
@@ -127,8 +141,15 @@ const IndividualTask = ({
                 }}
                 onClick={() => {
                   setEstado(estado.name);
+                  // onChangeTask({
+                  //   stateId: estado.id,
+                  // });
                   onChangeTask({
-                    stateId: estado.id,
+                    id: tarea.id,
+                    state: estado.id,
+                    completed: tarea.completed,
+                    endDate: tarea.endDate,
+                    userId: tarea.userId,
                   });
                 }}
               >
@@ -218,8 +239,15 @@ const IndividualTask = ({
             defaultChecked={tarea.completed}
             className="checkbox"
             onChange={(e) => {
+              // onChangeTask({
+              //   completed: e.target.checked,
+              // });
               onChangeTask({
+                id: tarea.id,
+                state: tarea.stateId,
                 completed: e.target.checked,
+                endDate: tarea.endDate,
+                userId: tarea.userId,
               });
             }}
           />
@@ -253,8 +281,15 @@ const IndividualTask = ({
             }
             disabled={tarea.completed}
             onChange={(e) => {
+              // onChangeTask({
+              //   endDate: new Date(e.target.value),
+              // });
               onChangeTask({
+                id: tarea.id,
+                state: tarea.stateId,
+                completed: tarea.completed,
                 endDate: new Date(e.target.value),
+                userId: tarea.userId,
               });
             }}
           />
@@ -274,7 +309,14 @@ const IndividualTask = ({
               <li>
                 <button
                   onClick={() => {
+                    // onChangeTask({
+                    //   userId: null,
+                    // });
                     onChangeTask({
+                      id: tarea.id,
+                      state: tarea.stateId,
+                      completed: tarea.completed,
+                      endDate: tarea.endDate,
                       userId: null,
                     });
                   }}
@@ -286,7 +328,14 @@ const IndividualTask = ({
                 <li key={member.id}>
                   <button
                     onClick={() => {
+                      // onChangeTask({
+                      //   userId: member.userId,
+                      // });
                       onChangeTask({
+                        id: tarea.id,
+                        state: tarea.stateId,
+                        completed: tarea.completed,
+                        endDate: tarea.endDate,
                         userId: member.userId,
                       });
                     }}

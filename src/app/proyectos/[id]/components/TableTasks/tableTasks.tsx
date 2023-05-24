@@ -41,6 +41,27 @@ const TableTasks = ({
     (tarea) => tarea.completed
   );
 
+  const onChangeTask = async (
+    // id: number, state: number, completed: boolean, endDate: Date | null, userId: number | null
+    {
+      id,
+      state,
+      completed,
+      endDate,
+      userId,
+    }: {
+      id: number;
+      state: number;
+      completed: boolean;
+      endDate: Date | null;
+      userId: number | null;
+    }
+    ) => {
+
+
+
+  }
+
   return (
     <div className="flex w-full flex-col p-4">
       <div>
@@ -52,20 +73,20 @@ const TableTasks = ({
           <h2> Tareas Sin Completar </h2>
           {tareasSinCompletar.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers}  />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} onChangeTask={onChangeTask}  />
             );
           })}
           <h2>Tareas Completadas</h2>
           {tareasCompletadas.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} onChangeTask={onChangeTask} />
             );
           })}
 
           <h2>Tareas Archivadas</h2>
           {tareasArchivadas.map((tarea) => {
             return (
-              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} />
+              <IndividualTask key={tarea.id} tarea={tarea} estados={estados} teamMembers={teamMembers} onChangeTask={onChangeTask} />
             );
           })}
         </div>

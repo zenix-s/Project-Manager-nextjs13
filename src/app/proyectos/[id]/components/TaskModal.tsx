@@ -176,6 +176,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setValue("description", "");
     setValue("endDate", "");
     setTaskState(emptyState);
+    setTaskUser(emptyUser);
 
     TaskModal.setTask(emptyTask);
 
