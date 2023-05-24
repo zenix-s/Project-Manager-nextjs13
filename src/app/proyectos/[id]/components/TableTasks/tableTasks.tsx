@@ -67,7 +67,7 @@ const TableTasks = ({
       </div>
       <div className="divider" />
       <div className="relative h-full w-full">
-        <div className="absolute inset-0 flex flex-col gap-2 overflow-scroll">
+        <div className="absolute inset-0 flex flex-col gap-2 overflow-y-scroll">
           <h2> Tareas Sin Completar </h2>
 
           {tasks

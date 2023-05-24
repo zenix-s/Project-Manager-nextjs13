@@ -44,7 +44,7 @@ const AsideBar = ({ user }: { user: any }) => {
       } h-screen w-screen lg:relative  lg:flex lg:w-1/2 lg:min-w-[330px] lg:max-w-[400px] xl:w-1/4`}
     >
       <div className=" h-full w-full p-4">
-        <div className="relative flex h-full w-full flex-col justify-between overflow-scroll rounded-xl bg-slate-700">
+        <div className="relative flex h-full w-full flex-col justify-between rounded-xl bg-slate-700">
           <div>
             <Logo />
             <Nav links={links} />
