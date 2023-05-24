@@ -24,17 +24,9 @@ const IndividualTask = ({
   estados: StateProps[];
   teamMembers: TeamMemberProps[];
   onChangeTask: ({
-    id,
-    state,
-    completed,
-    endDate,
-    userId,
+    updatedTask,
   }: {
-    id: number;
-    state: number;
-    completed: boolean;
-    endDate: Date | null;
-    userId: number | null;
+    updatedTask: TaskProps;
   }) => void;
 }) => {
   const [loading, setLoading] = useState(false);
@@ -144,12 +136,16 @@ const IndividualTask = ({
                   // onChangeTask({
                   //   stateId: estado.id,
                   // });
+                  // onChangeTask({
+                  //   tarea...,
+                  //   stateId: estado.id,
+
+                  // });
                   onChangeTask({
-                    id: tarea.id,
-                    state: estado.id,
-                    completed: tarea.completed,
-                    endDate: tarea.endDate,
-                    userId: tarea.userId,
+                    updatedTask: {
+                      ...tarea,
+                      stateId: estado.id,
+                    },
                   });
                 }}
               >
@@ -190,7 +186,12 @@ const IndividualTask = ({
                 theme="ghost"
                 fullWidth
                 onClick={() => {
-                  onDeleteTask(tarea.archived ? "unarchive" : "archive");
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      archived: !tarea.archived,
+                    },
+                  });
                 }}
                 icon={VscInbox}
               />
@@ -243,11 +244,10 @@ const IndividualTask = ({
               //   completed: e.target.checked,
               // });
               onChangeTask({
-                id: tarea.id,
-                state: tarea.stateId,
-                completed: e.target.checked,
-                endDate: tarea.endDate,
-                userId: tarea.userId,
+                updatedTask: {
+                  ...tarea,
+                  completed: e.target.checked,
+                },
               });
             }}
           />
@@ -285,17 +285,16 @@ const IndividualTask = ({
               //   endDate: new Date(e.target.value),
               // });
               onChangeTask({
-                id: tarea.id,
-                state: tarea.stateId,
-                completed: tarea.completed,
-                endDate: new Date(e.target.value),
-                userId: tarea.userId,
+                updatedTask: {
+                  ...tarea,
+                  endDate: new Date(e.target.value),
+                },
               });
             }}
           />
 
           <div className="dropdown">
-            <label tabIndex={0} className="btn-ghost btn m-1 gap-2">
+            <label tabIndex={0} className="btn-ghost btn m-1 gap-2 w-56 justify-start">
               <VscAccount />{" "}
               {tarea.userId
                 ? teamMembers.find((member) => member.userId === tarea.userId)
@@ -313,11 +312,10 @@ const IndividualTask = ({
                     //   userId: null,
                     // });
                     onChangeTask({
-                      id: tarea.id,
-                      state: tarea.stateId,
-                      completed: tarea.completed,
-                      endDate: tarea.endDate,
-                      userId: null,
+                      updatedTask: {
+                        ...tarea,
+                        userId: null,
+                      },
                     });
                   }}
                 >
@@ -332,11 +330,10 @@ const IndividualTask = ({
                       //   userId: member.userId,
                       // });
                       onChangeTask({
-                        id: tarea.id,
-                        state: tarea.stateId,
-                        completed: tarea.completed,
-                        endDate: tarea.endDate,
-                        userId: member.userId,
+                        updatedTask: {
+                          ...tarea,
+                          userId: member.userId,
+                        },
                       });
                     }}
                   >

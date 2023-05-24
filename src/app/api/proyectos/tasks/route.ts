@@ -2,21 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 import getCurrentUser from "@/actions/getCurrentUser";
 
-  
-
-
-
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { 
-    name, 
-    projectId, 
-    stateId,
-    description,
-    endDate,
-    userId,
-  } = res;
+  const { name, projectId, stateId, description, endDate, userId } = res;
 
   const nuevaTarea = await prisma.tasks.create({
     data: {
@@ -99,6 +88,7 @@ export async function PUT(request: NextRequest) {
         userId: userId,
         stateId: stateId,
         completed: completed,
+        archived: archived,
       },
     });
   } catch (e) {
@@ -106,6 +96,20 @@ export async function PUT(request: NextRequest) {
       status: 400,
       message: "Error al Actualizar Tarea",
     });
+  }
+
+  if (archived !== tarea?.archived) {
+    if (archived) {
+      return NextResponse.json({
+        status: 200,
+        message: "Tarea Archivada",
+      });
+    } else {
+      return NextResponse.json({
+        status: 200,
+        message: "Tarea Desarchivada",
+      });
+    }
   }
 
   return NextResponse.json({
@@ -157,36 +161,6 @@ export async function DELETE(request: NextRequest) {
     });
   }
 
-  if (action === "archive") {
-    const tareaArchivada = await prisma.tasks.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        archived: true,
-      },
-    });
-    return NextResponse.json({
-      status: 200,
-      message: "Tarea Archivada",
-    });
-  }
-
-  if (action === "unarchive") {
-    const tareaArchivada = await prisma.tasks.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        archived: false,
-      },
-    });
-    return NextResponse.json({
-      status: 200,
-      message: "Tarea Desarchivada",
-    });
-  }
-
   if (permisos?.role !== "owner" && permisos?.role !== "admin") {
     return NextResponse.json({
       status: 401,
@@ -194,20 +168,13 @@ export async function DELETE(request: NextRequest) {
     });
   }
 
-  if (action === "delete") {
-    const tareaEliminada = await prisma.tasks.delete({
-      where: {
-        id: Number(id),
-      },
-    });
-    return NextResponse.json({
-      status: 200,
-      message: "Tarea Eliminada",
-    });
-  }
-
+  const tareaEliminada = await prisma.tasks.delete({
+    where: {
+      id: Number(id),
+    },
+  });
   return NextResponse.json({
     status: 200,
-    message: "Endpoint Alcanzado",
+    message: "Tarea Eliminada",
   });
 }
