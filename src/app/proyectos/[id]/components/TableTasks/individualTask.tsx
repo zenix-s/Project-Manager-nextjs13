@@ -23,11 +23,7 @@ const IndividualTask = ({
   tarea: TaskProps;
   estados: StateProps[];
   teamMembers: TeamMemberProps[];
-  onChangeTask: ({
-    updatedTask,
-  }: {
-    updatedTask: TaskProps;
-  }) => void;
+  onChangeTask: ({ updatedTask }: { updatedTask: TaskProps }) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
@@ -113,12 +109,19 @@ const IndividualTask = ({
       <div className="dropdown">
         <label
           tabIndex={0}
-          className="btn w-48"
+          className="btn w-48 justify-start"
           style={{
             backgroundColor: getHexColor(Estado()?.color || "gray"),
           }}
         >
-          {estado}
+          <span
+            className="text-lg text-white"
+            style={{
+              textShadow: "0px 0px 2px #000000",
+            }}
+          >
+            {estado}
+          </span>
         </label>
         <ul
           tabIndex={0}
@@ -127,7 +130,7 @@ const IndividualTask = ({
           {estados.map((estado) => (
             <li key={estado.id}>
               <button
-                className=""
+                className="uppercase"
                 style={{
                   backgroundColor: getHexColor(estado.color),
                 }}
@@ -294,7 +297,10 @@ const IndividualTask = ({
           />
 
           <div className="dropdown">
-            <label tabIndex={0} className="btn-ghost btn m-1 gap-2 w-56 justify-start">
+            <label
+              tabIndex={0}
+              className="btn-ghost btn m-1 w-56 justify-start gap-2"
+            >
               <VscAccount />{" "}
               {tarea.userId
                 ? teamMembers.find((member) => member.userId === tarea.userId)

@@ -53,11 +53,11 @@ const IndividualInvitation = ({
 
     return (
       <>
-        <Button
+        {/* <Button
           theme="error"
           label="Eliminar"
           onClick={() => console.log("Eliminar invitacion")}
-        />
+        /> */}
       </>
     );
   };
