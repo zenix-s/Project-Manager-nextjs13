@@ -34,6 +34,8 @@ const Tasks = ({
 }) => {
   const [TasksView, setTasksView] = useState("table");
   const [tasks, setTasks] = useState(tareas);
+  const [states, setStates] = useState(estados);
+  const [team, setTeam] = useState(teamMembers);
 
   const Views = [
     {
@@ -87,6 +89,34 @@ const Tasks = ({
         });
     }
   };
+  const onChangeState = async ({
+    updatedState,
+  }: {
+    updatedState: StateProps;
+  }) => {
+    const index = states.findIndex((state) => state.id === updatedState.id);
+    if (index !== -1) {
+      const newStates = [...states];
+      newStates[index] = updatedState;
+      setStates(newStates);
+
+      axios
+        .put("/api/proyectos/states", updatedState)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 200) {
+            toast.success(res.data.message);
+          }
+          if (res.data.status !== 200) {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error al actualizar el estado");
+        });
+    }
+  };
 
   const handleTasksView = () => {
     switch (TasksView) {
@@ -106,13 +136,21 @@ const Tasks = ({
         return (
           <EstadisticasProject
             tareas={tasks}
-            estados={estados}
+            estados={states}
             idProject={idProject}
           />
         );
 
       case "Estados":
-        return <EstadosSection estados={estados} idProject={idProject} />;
+        return (
+          <>
+            <EstadosSection
+              estados={states}
+              idProject={idProject}
+              onChangeState={onChangeState}
+            />
+          </>
+        );
       case "calendario":
         return null;
       case "Miembros":
@@ -122,7 +160,7 @@ const Tasks = ({
         return (
           <TableTasks
             tareas={tasks}
-            estados={estados}
+            estados={states}
             idProject={idProject}
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}

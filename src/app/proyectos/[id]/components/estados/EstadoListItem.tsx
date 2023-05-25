@@ -12,32 +12,45 @@ import axios from "axios";
 interface EstadoListItemProps {
   estado: StateProps;
   idProject: number;
+  onChangeState: ({ updatedState }: { updatedState: StateProps }) => void;
 }
 
-const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
+const EstadoListItem = ({
+  estado,
+  idProject,
+  onChangeState,
+}: EstadoListItemProps) => {
   const [estadoLoading, setEstadoLoading] = useState(false);
   const router = useRouter();
-  const onChangeColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setEstadoLoading(true);
-    const color = e.target.value;
-    estado = {
-      ...estado,
-      color,
-    };
 
-    axios
-      .put("/api/proyectos/estado", estado)
-      .then((res) => {
-        setEstadoLoading(false);
-        router.refresh();
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        setEstadoLoading(false);
-      })
-      .finally(() => {
-        setEstadoLoading(false);
-      });
+  const onChangeColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onChangeState({
+      updatedState: {
+        ...estado,
+        color: e.target.value,
+      },
+    });
+
+    // setEstadoLoading(true);
+    // const color = e.target.value;
+    // estado = {
+    //   ...estado,
+    //   color,
+    // };
+
+    // axios
+    //   .put("/api/proyectos/estado", estado)
+    //   .then((res) => {
+    //     setEstadoLoading(false);
+    //     router.refresh();
+    //   })
+    //   .catch((err) => {
+    //     console.error("Error:", err);
+    //     setEstadoLoading(false);
+    //   })
+    //   .finally(() => {
+    //     setEstadoLoading(false);
+    //   });
   };
 
   const onDeleteEstado = () => {
