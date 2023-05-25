@@ -40,7 +40,6 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
       });
   };
 
-
   const onDeleteEstado = () => {
     setEstadoLoading(true);
 
@@ -54,10 +53,9 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
         if (res.data.status === 200) {
           toast.success(res.data.message);
         }
-        if(res.data.status !== 200){
+        if (res.data.status !== 200) {
           toast.error(res.data.message);
         }
-
       })
       .catch((err) => {
         console.error("Error:", err);
@@ -75,7 +73,7 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
         <div className="w-60">{estado.name}</div>
         <select
           defaultValue={estado.color}
-          className="select-bordered select w-52"
+          className="select-bordered select w-52 text-lg uppercase "
           style={{
             backgroundColor: getHexColor(estado.color),
           }}
@@ -88,6 +86,8 @@ const EstadoListItem = ({ estado, idProject }: EstadoListItemProps) => {
               value={color}
               style={{
                 backgroundColor: getHexColor(color),
+                fontSize: "1.5rem",
+                textShadow: "0 0 1px black",
               }}
             >
               {estadoLoading ? "cargando..." : color}
