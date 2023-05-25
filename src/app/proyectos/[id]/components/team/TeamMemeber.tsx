@@ -9,7 +9,7 @@ interface TeamMemberListProps {
 const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
   const isOwner = teamMember.role === "owner";
   return (
-    <div className="flex items-center gap-8 p-4 w-full">
+    <div className="flex w-full items-center gap-8 p-4">
       <div>{teamMember.users.username}</div>
       <div>
         {isOwner ? (
@@ -30,7 +30,7 @@ const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
       <div></div>
       <div className="">
         {!isOwner && (
-          <button className="btn-error btn flex gap-2">
+          <button className="btn-error btn w-36 items-center  gap-2">
             <VscChromeMinimize /> Eliminar
           </button>
         )}
