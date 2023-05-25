@@ -4,6 +4,8 @@ import TableTasks from "./TableTasks/tableTasks";
 import { StateProps, TaskProps, TeamMemberProps } from "@/types";
 import { useState } from "react";
 import Button from "@/components/button";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import {
   VscTable,
   VscSymbolStructure,
@@ -31,6 +33,7 @@ const Tasks = ({
   idProject: number;
 }) => {
   const [TasksView, setTasksView] = useState("table");
+  const [tasks, setTasks] = useState(tareas);
 
   const Views = [
     {
@@ -59,23 +62,50 @@ const Tasks = ({
     // },
   ];
 
+  const onChangeTask = async ({ updatedTask }: { updatedTask: TaskProps }) => {
+    const index = tasks.findIndex((task) => task.id === updatedTask.id);
+
+    if (index !== -1) {
+      const newTasks = [...tasks];
+      newTasks[index] = updatedTask;
+      setTasks(newTasks);
+
+      axios
+        .put("/api/proyectos/tasks", updatedTask)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 200) {
+            toast.success(res.data.message);
+          }
+          if (res.data.status !== 200) {
+            toast.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error al actualizar la tarea");
+        });
+    }
+  };
+
   const handleTasksView = () => {
     switch (TasksView) {
       case "kanban":
-        return <Kanban tareas={tareas} estados={estados} />;
+        return <Kanban tareas={tasks} estados={estados} />;
       case "table":
         return (
           <TableTasks
-            tareas={tareas}
+            tareas={tasks}
             estados={estados}
             idProject={idProject}
             teamMembers={teamMembers}
+            onChangeTask={onChangeTask}
           />
         );
       case "estadisticas":
         return (
           <EstadisticasProject
-            tareas={tareas}
+            tareas={tasks}
             estados={estados}
             idProject={idProject}
           />
@@ -91,10 +121,11 @@ const Tasks = ({
       default:
         return (
           <TableTasks
-            tareas={tareas}
+            tareas={tasks}
             estados={estados}
             idProject={idProject}
             teamMembers={teamMembers}
+            onChangeTask={onChangeTask}
           />
         );
     }
