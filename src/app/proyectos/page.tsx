@@ -11,9 +11,7 @@ const Page = async () => {
     <section className="flex h-full w-full flex-col overflow-hidden">
       <HeaderProjects />
       <NewProjectForm />
-      <BodyProjects 
-        proyectos={proyectos}
-      />
+      <BodyProjects proyectos={proyectos} />
     </section>
   );
 };
