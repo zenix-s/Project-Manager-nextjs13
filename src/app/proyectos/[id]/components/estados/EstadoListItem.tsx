@@ -23,6 +23,8 @@ const EstadoListItem = ({
   const [estadoLoading, setEstadoLoading] = useState(false);
   const router = useRouter();
 
+  const [estadoColor, setEstadoColor] = useState(estado.color);
+
   const onChangeColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChangeState({
       updatedState: {
@@ -80,11 +82,65 @@ const EstadoListItem = ({
       });
   };
 
+
+  const DropdownColor = () => {
+    return (
+      <div className="dropdown">
+        <label
+          tabIndex={0}
+          className="btn w-56 justify-start"
+          style={{
+            backgroundColor: getHexColor(estadoColor),
+          }}
+        >
+          <span
+            className="text-lg text-white"
+            style={{
+              textShadow: "0px 0px 2px #000000",
+            }}
+          >
+            {estado.name}
+          </span>
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content bg-slate-800 h-60 overflow-y-auto w-full grid grid-cols-2 gap-4 p-3"
+        >
+          {Colors.map((color) => (
+            <li key={estado.id}>
+              <button
+                className={`
+                  w-20
+                  h-20
+                  ${estadoColor === color ? "ring-2 ring-offset-2 ring-white" : ""}
+                `}
+                style={{
+                  backgroundColor: getHexColor(color),
+                }}
+                onClick={() => {
+                  setEstadoColor(color);
+                  onChangeState({
+                    updatedState: {
+                      ...estado,
+                      color,
+                    },
+                  });
+                }}
+              >
+                
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
         <div className="w-60">{estado.name}</div>
-        <select
+        {/* <select
           defaultValue={estado.color}
           className="select-bordered select w-52 text-lg uppercase "
           style={{
@@ -106,7 +162,8 @@ const EstadoListItem = ({
               {estadoLoading ? "cargando..." : color}
             </option>
           ))}
-        </select>
+        </select> */}
+        <DropdownColor />
       </div>
       <div>
         <Button

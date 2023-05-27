@@ -50,9 +50,12 @@ export async function PUT(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({
-    estadoActualizado,
-  });
+  return NextResponse.json(
+    {
+      status: 200,
+      message: "Estado actualizado correctamente",
+    }
+  );
 }
 
 export async function DELETE(request: NextRequest) {

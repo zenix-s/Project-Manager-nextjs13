@@ -64,6 +64,11 @@ const Tasks = ({
     // },
   ];
 
+  /**
+   * @param updatedTask 
+   * El parametro updatedTask es un objeto que contiene la tarea actualizada.
+   * Actualiza una tarea en la base de datos y en el estado local.
+   */ 
   const onChangeTask = async ({ updatedTask }: { updatedTask: TaskProps }) => {
     const index = tasks.findIndex((task) => task.id === updatedTask.id);
 
@@ -89,6 +94,12 @@ const Tasks = ({
         });
     }
   };
+  
+ /**
+  * @param updatedState
+  * El parametro updatedState es un objeto que contiene el estado actualizado.1
+  * Actualiza un estado en la base de datos y en el estado local.
+  */
   const onChangeState = async ({
     updatedState,
   }: {
@@ -101,7 +112,7 @@ const Tasks = ({
       setStates(newStates);
 
       axios
-        .put("/api/proyectos/states", updatedState)
+        .put("/api/proyectos/estado", updatedState)
         .then((res) => {
           console.log(res.data);
           if (res.data.status === 200) {
@@ -121,12 +132,12 @@ const Tasks = ({
   const handleTasksView = () => {
     switch (TasksView) {
       case "kanban":
-        return <Kanban tareas={tasks} estados={estados} />;
+        return <Kanban tareas={tasks} estados={states} />;
       case "table":
         return (
           <TableTasks
             tareas={tasks}
-            estados={estados}
+            estados={states}
             idProject={idProject}
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}
@@ -173,7 +184,7 @@ const Tasks = ({
     <>
       <TaskModal
         TeamMembers={teamMembers}
-        States={estados}
+        States={states}
         idProject={idProject}
       />
       <section className="flex h-full w-full flex-col">
