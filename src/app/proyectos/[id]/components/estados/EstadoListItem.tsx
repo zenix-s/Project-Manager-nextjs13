@@ -13,12 +13,14 @@ interface EstadoListItemProps {
   estado: StateProps;
   idProject: number;
   onChangeState: ({ updatedState }: { updatedState: StateProps }) => void;
+  onDeleteState: ({ stateId }: { stateId: number }) => void;
 }
 
 const EstadoListItem = ({
   estado,
   idProject,
   onChangeState,
+  onDeleteState,
 }: EstadoListItemProps) => {
   const [estadoLoading, setEstadoLoading] = useState(false);
   const router = useRouter();
@@ -55,32 +57,32 @@ const EstadoListItem = ({
     //   });
   };
 
-  const onDeleteEstado = () => {
-    setEstadoLoading(true);
+  // const onDeleteEstado = () => {
+  //   setEstadoLoading(true);
 
-    axios
-      .delete("/api/proyectos/estado", {
-        headers: {
-          id_estado: estado.id.toString(),
-        },
-      })
-      .then((res) => {
-        if (res.data.status === 200) {
-          toast.success(res.data.message);
-        }
-        if (res.data.status !== 200) {
-          toast.error(res.data.message);
-        }
-      })
-      .catch((err) => {
-        console.error("Error:", err);
-        setEstadoLoading(false);
-      })
-      .finally(() => {
-        setEstadoLoading(false);
-        router.refresh();
-      });
-  };
+  //   axios
+  //     .delete("/api/proyectos/estado", {
+  //       headers: {
+  //         id_estado: estado.id.toString(),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.status === 200) {
+  //         toast.success(res.data.message);
+  //       }
+  //       if (res.data.status !== 200) {
+  //         toast.error(res.data.message);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error:", err);
+  //       setEstadoLoading(false);
+  //     })
+  //     .finally(() => {
+  //       setEstadoLoading(false);
+  //       router.refresh();
+  //     });
+  // };
 
 
   const DropdownColor = () => {
@@ -168,7 +170,7 @@ const EstadoListItem = ({
       <div>
         <Button
           onClick={() => {
-            onDeleteEstado();
+            onDeleteState({ stateId: estado.id });
           }}
           loading={estadoLoading}
           label="eliminar"

@@ -6,12 +6,14 @@ interface EstadosSectionProps {
   estados: StateProps[];
   idProject: number;
   onChangeState: ({ updatedState }: { updatedState: StateProps }) => void;
+  onDeleteState: ({ stateId }: { stateId: number }) => void;
 }
 
 const EstadosSection = ({
   estados,
   idProject,
   onChangeState,
+  onDeleteState,
 }: EstadosSectionProps) => {
   return (
     <section className="min-h-96 flex w-full flex-col p-4">
@@ -26,6 +28,7 @@ const EstadosSection = ({
             estado={estado}
             idProject={idProject}
             onChangeState={onChangeState}
+            onDeleteState={onDeleteState}
           />
         ))}
       </div>

@@ -5,15 +5,20 @@ import InviteMemberForm from "./InviteMemeberForm";
 interface TeamSectionProps {
   idProject: number;
   teamMembers: TeamMemberProps[];
+  onUpdateTeamMember: ({
+    updatedTeamMember,
+  }: {
+    updatedTeamMember: TeamMemberProps;
+  }) => void;
 }
 
-
-const TeamSection = ({ idProject, teamMembers }: TeamSectionProps) => {
-
-  
-
+const TeamSection = ({
+  idProject,
+  teamMembers,
+  onUpdateTeamMember,
+}: TeamSectionProps) => {
   return (
-    <div className="h-96 p-4 w-full">
+    <div className="h-96 w-full p-4">
       <div>
         <InviteMemberForm idProject={idProject} />
       </div>
@@ -24,6 +29,7 @@ const TeamSection = ({ idProject, teamMembers }: TeamSectionProps) => {
             key={member.userId}
             idProject={idProject}
             teamMember={member}
+            onUpdateTeamMember={onUpdateTeamMember}
           />
         ))}
       </div>

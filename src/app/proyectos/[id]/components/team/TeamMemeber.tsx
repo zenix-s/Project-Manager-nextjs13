@@ -5,9 +5,24 @@ import { VscKebabVertical, VscChromeMinimize } from "react-icons/vsc";
 interface TeamMemberListProps {
   idProject: number;
   teamMember: TeamMemberProps;
+  onUpdateTeamMember: ({
+    updatedTeamMember,
+  }: {
+    updatedTeamMember: TeamMemberProps;
+  }) => void;
 }
-const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
+const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberListProps) => {
   const isOwner = teamMember.role === "owner";
+
+  const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onUpdateTeamMember({
+      updatedTeamMember: {
+        ...teamMember,
+        role: e.target.value,
+      },
+    });
+  };
+
   return (
     <div className="flex w-full items-center gap-8 p-4">
       <div>{teamMember.users.username}</div>
@@ -20,6 +35,7 @@ const TeamMember = ({ idProject, teamMember }: TeamMemberListProps) => {
           <select
             className="select-bordered select w-full max-w-xs"
             defaultValue={teamMember.role}
+            onChange={onChangeRole}
           >
             <option>admin</option>
             <option>member</option>

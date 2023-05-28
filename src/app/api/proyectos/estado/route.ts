@@ -59,7 +59,7 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const id = request.headers.get("id_estado");
+  const id = request.headers.get("stateId");
   const user = await getCurrentUser();
 
   if (!user?.id) {

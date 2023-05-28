@@ -94,6 +94,42 @@ const Tasks = ({
         .catch((err) => {
           console.log(err);
           toast.error("Error al actualizar la tarea");
+          setTasks(oldTasks);
+        });
+    }
+  };
+
+  /**
+   * @param taskId
+   * El parametro taskId es el id de la tarea a eliminar.
+   * Elimina una tarea de la base de datos y del estado local.
+   *
+   */
+  const onDeleteTask = async ({ taskId }: { taskId: number }) => {
+    const index = tasks.findIndex((task) => task.id === taskId);
+    if (index !== -1) {
+      const newTasks = [...tasks];
+      const oldTasks = [...tasks];
+      const deletedTask = newTasks[index];
+      newTasks.splice(index, 1);
+      setTasks(newTasks);
+
+      axios
+        .delete("/api/proyectos/tasks", { headers: { taskId: taskId } })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 200) {
+            toast.success(res.data.message);
+          }
+          if (res.data.status !== 200) {
+            toast.error(res.data.message);
+            setTasks([...newTasks, deletedTask]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error al eliminar la tarea");
+          setTasks(oldTasks);
         });
     }
   };
@@ -130,26 +166,27 @@ const Tasks = ({
         .catch((err) => {
           console.log(err);
           toast.error("Error al actualizar el estado");
+          setStates(oldStates);
         });
     }
   };
 
   /**
-   * @param taskId
-   * El parametro taskId es el id de la tarea a eliminar.
-   * Elimina una tarea de la base de datos y del estado local.
-   *
-   */
-  const onDeleteTask = async ({ taskId }: { taskId: number }) => {
-    const index = tasks.findIndex((task) => task.id === taskId);
+   * @param stateId
+   * El parametro stateId es el id del estado a eliminar.
+   * Elimina un estado de la base de datos y del estado local.
+   * */
+  const onDeleteState = async ({ stateId }: { stateId: number }) => {
+    const index = states.findIndex((state) => state.id === stateId);
     if (index !== -1) {
-      const newTasks = [...tasks];
-      const deletedTask = newTasks[index];
-      newTasks.splice(index, 1);
-      setTasks(newTasks);
+      const newStates = [...states];
+      const oldStates = [...states];
+      const deletedState = newStates[index];
+      newStates.splice(index, 1);
+      setStates(newStates);
 
       axios
-        .delete("/api/proyectos/tasks", { headers: { taskId: taskId } })
+        .delete("/api/proyectos/estado", { headers: { stateId: stateId } })
         .then((res) => {
           console.log(res.data);
           if (res.data.status === 200) {
@@ -157,12 +194,47 @@ const Tasks = ({
           }
           if (res.data.status !== 200) {
             toast.error(res.data.message);
-            setTasks([...newTasks, deletedTask]);
+            setStates([...newStates, deletedState]);
           }
         })
         .catch((err) => {
           console.log(err);
-          toast.error("Error al eliminar la tarea");
+          toast.error("Error al eliminar el estado");
+          setStates(oldStates);
+        });
+    }
+  };
+
+  const onUpdateTeamMember = async ({
+    updatedTeamMember,
+  }: {
+    updatedTeamMember: TeamMemberProps;
+  }) => {
+    const index = teamMembers.findIndex(
+      (teamMember) => teamMember.id === updatedTeamMember.id
+    );
+    if (index !== -1) {
+      const newTeamMembers = [...teamMembers];
+      const oldTeamMembers = [...teamMembers];
+      newTeamMembers[index] = updatedTeamMember;
+      setTeam(newTeamMembers);
+
+      axios
+        .put("/api/proyectos/team", updatedTeamMember)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 200) {
+            toast.success(res.data.message);
+          }
+          if (res.data.status !== 200) {
+            toast.error(res.data.message);
+            setTeam(oldTeamMembers);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error al actualizar el miembro");
+          setTeam(oldTeamMembers);
         });
     }
   };
@@ -198,13 +270,20 @@ const Tasks = ({
               estados={states}
               idProject={idProject}
               onChangeState={onChangeState}
+              onDeleteState={onDeleteState}
             />
           </>
         );
       case "calendario":
         return null;
       case "Miembros":
-        return <TeamSection idProject={idProject} teamMembers={teamMembers} />;
+        return (
+          <TeamSection
+            idProject={idProject}
+            teamMembers={teamMembers}
+            onUpdateTeamMember={onUpdateTeamMember}
+          />
+        );
 
       default:
         return (
