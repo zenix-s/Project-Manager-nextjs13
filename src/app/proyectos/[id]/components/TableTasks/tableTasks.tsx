@@ -13,12 +13,14 @@ const TableTasks = ({
   idProject,
   teamMembers,
   onChangeTask,
+  onDeleteTask,
 }: {
   tareas: TaskProps[];
   estados: StateProps[];
   idProject: number;
   teamMembers: TeamMemberProps[];
   onChangeTask: ({ updatedTask }: { updatedTask: TaskProps }) => void;
+  onDeleteTask: ({ taskId }: { taskId: number }) => void;
 }) => {
   return (
     <div className="flex w-full flex-col p-4">
@@ -41,6 +43,7 @@ const TableTasks = ({
                   estados={estados}
                   teamMembers={teamMembers}
                   onChangeTask={onChangeTask}
+                  onDeleteTask={onDeleteTask}
                 />
               );
             })}
@@ -58,6 +61,7 @@ const TableTasks = ({
                   estados={estados}
                   teamMembers={teamMembers}
                   onChangeTask={onChangeTask}
+                  onDeleteTask={onDeleteTask}
                 />
               );
             })}
@@ -74,6 +78,7 @@ const TableTasks = ({
                   estados={estados}
                   teamMembers={teamMembers}
                   onChangeTask={onChangeTask}
+                  onDeleteTask={onDeleteTask}
                 />
               );
             })}

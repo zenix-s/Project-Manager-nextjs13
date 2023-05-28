@@ -20,6 +20,7 @@ import EstadisticasProject from "./estadisticas/estadisticasProject";
 import EstadosSection from "./estados/EstadosSection";
 import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
+import { headers } from "next/dist/client/components/headers";
 
 const Tasks = ({
   tareas,
@@ -65,15 +66,16 @@ const Tasks = ({
   ];
 
   /**
-   * @param updatedTask 
+   * @param updatedTask
    * El parametro updatedTask es un objeto que contiene la tarea actualizada.
    * Actualiza una tarea en la base de datos y en el estado local.
-   */ 
+   */
   const onChangeTask = async ({ updatedTask }: { updatedTask: TaskProps }) => {
     const index = tasks.findIndex((task) => task.id === updatedTask.id);
 
     if (index !== -1) {
       const newTasks = [...tasks];
+      const oldTasks = [...tasks];
       newTasks[index] = updatedTask;
       setTasks(newTasks);
 
@@ -86,6 +88,7 @@ const Tasks = ({
           }
           if (res.data.status !== 200) {
             toast.error(res.data.message);
+            setTasks(oldTasks);
           }
         })
         .catch((err) => {
@@ -94,12 +97,12 @@ const Tasks = ({
         });
     }
   };
-  
- /**
-  * @param updatedState
-  * El parametro updatedState es un objeto que contiene el estado actualizado.1
-  * Actualiza un estado en la base de datos y en el estado local.
-  */
+
+  /**
+   * @param updatedState
+   * El parametro updatedState es un objeto que contiene el estado actualizado.1
+   * Actualiza un estado en la base de datos y en el estado local.
+   */
   const onChangeState = async ({
     updatedState,
   }: {
@@ -108,6 +111,7 @@ const Tasks = ({
     const index = states.findIndex((state) => state.id === updatedState.id);
     if (index !== -1) {
       const newStates = [...states];
+      const oldStates = [...states];
       newStates[index] = updatedState;
       setStates(newStates);
 
@@ -120,11 +124,45 @@ const Tasks = ({
           }
           if (res.data.status !== 200) {
             toast.error(res.data.message);
+            setStates(oldStates);
           }
         })
         .catch((err) => {
           console.log(err);
           toast.error("Error al actualizar el estado");
+        });
+    }
+  };
+
+  /**
+   * @param taskId
+   * El parametro taskId es el id de la tarea a eliminar.
+   * Elimina una tarea de la base de datos y del estado local.
+   *
+   */
+  const onDeleteTask = async ({ taskId }: { taskId: number }) => {
+    const index = tasks.findIndex((task) => task.id === taskId);
+    if (index !== -1) {
+      const newTasks = [...tasks];
+      const deletedTask = newTasks[index];
+      newTasks.splice(index, 1);
+      setTasks(newTasks);
+
+      axios
+        .delete("/api/proyectos/tasks", { headers: { taskId: taskId } })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.status === 200) {
+            toast.success(res.data.message);
+          }
+          if (res.data.status !== 200) {
+            toast.error(res.data.message);
+            setTasks([...newTasks, deletedTask]);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Error al eliminar la tarea");
         });
     }
   };
@@ -141,6 +179,7 @@ const Tasks = ({
             idProject={idProject}
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}
+            onDeleteTask={onDeleteTask}
           />
         );
       case "estadisticas":
@@ -175,6 +214,7 @@ const Tasks = ({
             idProject={idProject}
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}
+            onDeleteTask={onDeleteTask}
           />
         );
     }

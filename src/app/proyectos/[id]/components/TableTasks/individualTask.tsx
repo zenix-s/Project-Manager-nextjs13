@@ -19,11 +19,13 @@ const IndividualTask = ({
   estados,
   teamMembers,
   onChangeTask,
+  onDeleteTask,
 }: {
   tarea: TaskProps;
   estados: StateProps[];
   teamMembers: TeamMemberProps[];
   onChangeTask: ({ updatedTask }: { updatedTask: TaskProps }) => void;
+  onDeleteTask: ({taskId}:{taskId:number}) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const [stateLoading, setStateLoading] = useState(false);
@@ -72,31 +74,31 @@ const IndividualTask = ({
   //     });
   // };
 
-  const onDeleteTask = (
-    action: "archive" | "unarchive" | "delete" = "archive"
-  ) => {
-    setLoading(true);
-    axios
-      .delete("/api/proyectos/tasks", {
-        headers: {
-          id_task: tarea.id.toString(),
-          action: action,
-        },
-      })
-      .then((res) => {
-        if (res.data.status === 200) {
-          toast.success(res.data.message);
-        }
-        if (res.data.status !== 200) {
-          toast.error(res.data.message);
-        }
-      })
-      .catch((err) => {})
-      .finally(() => {
-        setLoading(false);
-        router.refresh();
-      });
-  };
+  // const onDeleteTask = (
+  //   action: "archive" | "unarchive" | "delete" = "archive"
+  // ) => {
+  //   setLoading(true);
+  //   axios
+  //     .delete("/api/proyectos/tasks", {
+  //       headers: {
+  //         id_task: tarea.id.toString(),
+  //         action: action,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.data.status === 200) {
+  //         toast.success(res.data.message);
+  //       }
+  //       if (res.data.status !== 200) {
+  //         toast.error(res.data.message);
+  //       }
+  //     })
+  //     .catch((err) => {})
+  //     .finally(() => {
+  //       setLoading(false);
+  //       router.refresh();
+  //     });
+  // };
 
   const Estado = () => {
     const estado = estados.find((estado) => estado.id === tarea.stateId);
@@ -205,7 +207,9 @@ const IndividualTask = ({
                 theme="error"
                 fullWidth
                 onClick={() => {
-                  onDeleteTask("delete");
+                  onDeleteTask({
+                    taskId: tarea.id,
+                  });
                 }}
                 icon={VscTrash}
               />
