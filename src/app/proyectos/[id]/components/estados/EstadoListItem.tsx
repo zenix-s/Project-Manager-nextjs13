@@ -3,13 +3,18 @@ import { StateProps } from "@/types";
 import { Colors, getBgColor, getHexColor } from "@/actions/getColors";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { VscKebabVertical, VscChromeMinimize, VscEdit, VscSave } from "react-icons/vsc";
+import {
+  VscKebabVertical,
+  VscChromeMinimize,
+  VscEdit,
+  VscSave,
+} from "react-icons/vsc";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "@/components/button";
-import { set } from "react-hook-form";
 import axios from "axios";
 import useStateModal from "@/hooks/useStateModal";
 import Input from "@/components/inputs/input";
+import { FieldValues, SubmitHandler, set, useForm } from "react-hook-form";
 
 interface EstadoListItemProps {
   estado: StateProps;
@@ -31,128 +36,129 @@ const EstadoListItem = ({
 
   const [estadoColor, setEstadoColor] = useState(estado.color);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = useForm<FieldValues>({
+    defaultValues: {
+      name: estado.name,
+      color: estado.color,
+    },
+  });
 
-  const DropdownColor = () => {
-    return (
-      <div className="dropdown">
-        <label
-          tabIndex={0}
-          className="btn w-56 justify-start"
-          style={{
-            backgroundColor: getHexColor(estadoColor),
-          }}
-        >
-          <span
-            className="text-lg text-white"
-            style={{
-              textShadow: "0px 0px 2px #000000",
-            }}
-          >
-            {estado.name}
-          </span>
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content bg-slate-800 h-60 overflow-y-auto w-full grid grid-cols-2 gap-4 p-3"
-        >
-          {Colors.map((color) => (
-            <li key={estado.id}>
-              <button
-                className={`
-                  w-20
-                  h-20
-                  ${estadoColor === color ? "ring-2 ring-offset-2 ring-white" : ""}
-                `}
-                style={{
-                  backgroundColor: getHexColor(color),
-                }}
-                onClick={() => {
-                  setEstadoColor(color);
-                  onChangeState({
-                    updatedState: {
-                      ...estado,
-                      color,
-                    },
-                  });
-                }}
-              >
-                
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    onChangeState({
+      updatedState: {
+        ...estado,
+        name: data.name,
+        color: data.color,
+      },
+    });
+  };
 
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-center gap-4">
-        <div className="w-60 flex">
-          <div className="w-full h-full flex items-center">
-            <span 
-              className={`w-full ${editingName ? "hidden" : "text-lg"}`}
-              onClick={() => {
-                setEditingName(!editingName);
-              }}
-            >
+    <tr>
+        <td>
+          <div className="flex">
+            <div className="flex h-full w-full items-center">
+              <span
+                className={`w-full ${editingName ? "hidden" : "text-lg"}`}
+                onClick={() => {
+                  setEditingName(!editingName);
+                }}
+              >
                 {estado.name}
-            </span>
-            <input 
-              type={editingName ? "text" : "hidden"} 
-              className="input input-bordered w-full text-lg"
-              defaultValue={estado.name}
-            />
-              
+              </span>
+              <input
+                type={editingName ? "text" : "hidden"}
+                className="input-bordered input w-full text-lg"
+                defaultValue={estado.name}
+                {...register("name", { required: true })}
+              />
+            </div>
+            <div
+              className={`
+              ${editingName ? "flex" : "hidden"}
+            `}
+            >
+              <Button
+                theme="primary"
+                icon={editingName ? VscSave : VscEdit}
+                onClick={() => {
+                  setEditingName(!editingName);
+                  handleSubmit(onSubmit)();
+                }}
+              />
+            </div>
+          </div>
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            className={`
+              checkbox-primary
+              checkbox
+              ${estado.autoComplete ? "checkbox-checked" : ""}
+            `}
+          />
+        </td>
 
-              
-          </div>
-          <div className={`
-            ${editingName ? "flex" : "hidden"}
-          `}>
-            <Button
-              theme="primary"
-              icon={ editingName ? VscSave : VscEdit}
-              onClick={() => {
-                setEditingName(!editingName);
-              }}
-            />
-          </div>
-        </div>
-        {/* <select
-          defaultValue={estado.color}
-          className="select-bordered select w-52 text-lg uppercase "
-          style={{
-            backgroundColor: getHexColor(estado.color),
-          }}
-          onChange={onChangeColor}
-          disabled={estadoLoading}
-        >
-          {Colors.map((color) => (
-            <option
-              key={color}
-              value={color}
+        <td>
+          <div className="dropdown">
+            <label
+              tabIndex={0}
+              className="btn w-56 justify-start"
               style={{
-                backgroundColor: getHexColor(color),
-                fontSize: "1.5rem",
-                textShadow: "0 0 1px black",
+                backgroundColor: getHexColor(estadoColor),
               }}
             >
-              {estadoLoading ? "cargando..." : color}
-            </option>
-          ))}
-        </select> */}
-        <DropdownColor />
-      </div>
-      <div className="flex">
-        <Button
-          theme="primary"
-          label="editar"
-          icon={VscKebabVertical}
-          onClick={() => {
-            StateModal.onOpen(estado);    
-          }}
-        />
+              <span
+                className="text-lg text-white"
+                style={{
+                  textShadow: "0px 0px 2px #000000",
+                }}
+              >
+                {estado.name}
+              </span>
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content grid h-60 w-full grid-cols-2 gap-4 overflow-y-auto bg-slate-800 p-3"
+            >
+              {Colors.map((color) => (
+                <li key={color}>
+                  <button
+                    className={`
+                    h-20
+                    w-20
+                    ${
+                      estadoColor === color
+                        ? "ring-2 ring-white ring-offset-2"
+                        : ""
+                    }
+                  `}
+                    style={{
+                      backgroundColor: getHexColor(color),
+                    }}
+                    onClick={() => {
+                      setEstadoColor(color);
+                      onChangeState({
+                        updatedState: {
+                          ...estado,
+                          color,
+                        },
+                      });
+                    }}
+                  ></button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </td>
+      <td>
         <Button
           onClick={() => {
             onDeleteState({ stateId: estado.id });
@@ -162,8 +168,8 @@ const EstadoListItem = ({
           icon={VscChromeMinimize}
           theme="error"
         />
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 };
 

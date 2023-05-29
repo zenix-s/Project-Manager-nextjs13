@@ -206,6 +206,17 @@ const Tasks = ({
     }
   };
 
+  const onAddState = async ({ newState }: { newState: StateProps }) => {
+    console.log(newState);
+  }
+
+
+  /**
+   * @param updatedTeamMember
+   * El parametro updatedTeamMember es un objeto que contiene el miembro actualizado.
+   * Actualiza un miembro en la base de datos y en el estado local.
+   * 
+   * */ 
   const onUpdateTeamMember = async ({
     updatedTeamMember,
   }: {
@@ -240,6 +251,12 @@ const Tasks = ({
     }
   };
 
+
+  /**
+   * @param teamMemberId
+   * El parametro teamMemberId es el id del miembro a eliminar.
+   * Elimina un miembro de la base de datos y del estado local.
+   * */
   const handleTasksView = () => {
     switch (TasksView) {
       case "kanban":
@@ -272,6 +289,7 @@ const Tasks = ({
               idProject={idProject}
               onChangeState={onChangeState}
               onDeleteState={onDeleteState}
+              onAddState={onAddState}
             />
           </>
         );

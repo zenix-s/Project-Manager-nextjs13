@@ -12,9 +12,10 @@ const { Colors, getBgColor, getHexColor } = require("@/actions/getColors");
 
 interface FormNewEstadoProps {
   idProject: Number;
+  onAddState: ({ newState }: { newState: StateProps }) => void;
 }
 
-const FormNewEstado: React.FC<FormNewEstadoProps> = ({ idProject }) => {
+const FormNewEstado: React.FC<FormNewEstadoProps> = ({ idProject, onAddState }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
