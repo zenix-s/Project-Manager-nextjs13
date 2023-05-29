@@ -60,6 +60,7 @@ export interface StateProps {
   name: string;
   projectId: number;
   color: string;
+  autoComplete: boolean;
 }
 
 export interface InvitationProps {

@@ -3,11 +3,13 @@ import { StateProps } from "@/types";
 import { Colors, getBgColor, getHexColor } from "@/actions/getColors";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { VscKebabVertical, VscChromeMinimize } from "react-icons/vsc";
+import { VscKebabVertical, VscChromeMinimize, VscEdit, VscSave } from "react-icons/vsc";
 import toast, { Toaster } from "react-hot-toast";
 import Button from "@/components/button";
 import { set } from "react-hook-form";
 import axios from "axios";
+import useStateModal from "@/hooks/useStateModal";
+import Input from "@/components/inputs/input";
 
 interface EstadoListItemProps {
   estado: StateProps;
@@ -22,67 +24,12 @@ const EstadoListItem = ({
   onChangeState,
   onDeleteState,
 }: EstadoListItemProps) => {
+  const StateModal = useStateModal();
   const [estadoLoading, setEstadoLoading] = useState(false);
+  const [editingName, setEditingName] = useState(false);
   const router = useRouter();
 
   const [estadoColor, setEstadoColor] = useState(estado.color);
-
-  const onChangeColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    onChangeState({
-      updatedState: {
-        ...estado,
-        color: e.target.value,
-      },
-    });
-
-    // setEstadoLoading(true);
-    // const color = e.target.value;
-    // estado = {
-    //   ...estado,
-    //   color,
-    // };
-
-    // axios
-    //   .put("/api/proyectos/estado", estado)
-    //   .then((res) => {
-    //     setEstadoLoading(false);
-    //     router.refresh();
-    //   })
-    //   .catch((err) => {
-    //     console.error("Error:", err);
-    //     setEstadoLoading(false);
-    //   })
-    //   .finally(() => {
-    //     setEstadoLoading(false);
-    //   });
-  };
-
-  // const onDeleteEstado = () => {
-  //   setEstadoLoading(true);
-
-  //   axios
-  //     .delete("/api/proyectos/estado", {
-  //       headers: {
-  //         id_estado: estado.id.toString(),
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.data.status === 200) {
-  //         toast.success(res.data.message);
-  //       }
-  //       if (res.data.status !== 200) {
-  //         toast.error(res.data.message);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error:", err);
-  //       setEstadoLoading(false);
-  //     })
-  //     .finally(() => {
-  //       setEstadoLoading(false);
-  //       router.refresh();
-  //     });
-  // };
 
 
   const DropdownColor = () => {
@@ -141,7 +88,37 @@ const EstadoListItem = ({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex items-center gap-4">
-        <div className="w-60">{estado.name}</div>
+        <div className="w-60 flex">
+          <div className="w-full h-full flex items-center">
+            <span 
+              className={`w-full ${editingName ? "hidden" : "text-lg"}`}
+              onClick={() => {
+                setEditingName(!editingName);
+              }}
+            >
+                {estado.name}
+            </span>
+            <input 
+              type={editingName ? "text" : "hidden"} 
+              className="input input-bordered w-full text-lg"
+              defaultValue={estado.name}
+            />
+              
+
+              
+          </div>
+          <div className={`
+            ${editingName ? "flex" : "hidden"}
+          `}>
+            <Button
+              theme="primary"
+              icon={ editingName ? VscSave : VscEdit}
+              onClick={() => {
+                setEditingName(!editingName);
+              }}
+            />
+          </div>
+        </div>
         {/* <select
           defaultValue={estado.color}
           className="select-bordered select w-52 text-lg uppercase "
@@ -167,7 +144,15 @@ const EstadoListItem = ({
         </select> */}
         <DropdownColor />
       </div>
-      <div>
+      <div className="flex">
+        <Button
+          theme="primary"
+          label="editar"
+          icon={VscKebabVertical}
+          onClick={() => {
+            StateModal.onOpen(estado);    
+          }}
+        />
         <Button
           onClick={() => {
             onDeleteState({ stateId: estado.id });

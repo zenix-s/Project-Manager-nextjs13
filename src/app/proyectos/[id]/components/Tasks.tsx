@@ -20,7 +20,8 @@ import EstadisticasProject from "./estadisticas/estadisticasProject";
 import EstadosSection from "./estados/EstadosSection";
 import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
-import { headers } from "next/dist/client/components/headers";
+import StateModal from "./StateModal";
+import { ST } from "next/dist/shared/lib/utils";
 
 const Tasks = ({
   tareas,
@@ -305,6 +306,9 @@ const Tasks = ({
         TeamMembers={teamMembers}
         States={states}
         idProject={idProject}
+      />
+      <StateModal
+        projectId={idProject}
       />
       <section className="flex h-full w-full flex-col">
         <div>
