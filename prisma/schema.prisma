@@ -29,6 +29,7 @@ model states {
   color     String   @db.VarChar(25)
   order     Int
   name      String   @db.VarChar(50)
+  autoComplete Boolean @default(false)
   projectId Int
   projects  projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
   tasks     tasks[]
