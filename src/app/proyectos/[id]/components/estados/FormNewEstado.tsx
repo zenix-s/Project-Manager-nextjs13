@@ -8,6 +8,7 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "@/components/button";
 import { toast } from "react-hot-toast";
+import Input from "@/components/inputs/input";
 const { Colors, getBgColor, getHexColor } = require("@/actions/getColors");
 
 interface FormNewEstadoProps {
@@ -38,42 +39,62 @@ const FormNewEstado: React.FC<FormNewEstadoProps> = ({ idProject, onAddState }) 
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setLoading(true);
-
-    const newEstado = {
-      nombre: data.nombre,
+    const newState:StateProps = {
+      id: 0,
+      name: data.nombre,
       color: data.color,
-      id_proyecto: idProject,
-    };
+      projectId: parseInt(idProject.toString()),
+      autoComplete: false,
+    }
+    onAddState({ newState });
 
-    axios
-      .post("/api/proyectos/estado", newEstado)
-      .then((res) => {
-        toast.success("Estado creado correctamente");
-        CleanInputs();
-      })
-      .catch((err) => {
-        toast.error("Error al crear el estado");
-        setLoading(false);
-      })
-      .finally(() => {
-        setLoading(false);
-        router.refresh();
-      });
+    // setLoading(true);
+
+    // const newEstado = {
+    //   nombre: data.nombre,
+    //   color: data.color,
+    //   id_proyecto: idProject,
+    // };
+
+    // axios
+    //   .post("/api/proyectos/estado", newEstado)
+    //   .then((res) => {
+    //     toast.success("Estado creado correctamente");
+    //     CleanInputs();
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Error al crear el estado");
+    //     setLoading(false);
+    //   })
+    //   .finally(() => {
+    //     setLoading(false);
+    //     router.refresh();
+    //   });
   };
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4 items-end">
         <div>
-          <input
+          {/* <input
             type="text"
             className="input-bordered input"
             placeholder="Nombre del estado"
             {...register("nombre", { required: true })}
+          /> */}
+          <Input
+            label="Nombre del estado"
+            id="nombre"
+            type="text"
+            required
+            errors={errors}
+            register={register}
           />
         </div>
-        <div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Color</span>
+          </label>
           <select
             {...register("color", { required: true })}
             className="select-bordered select"

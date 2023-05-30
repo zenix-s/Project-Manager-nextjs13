@@ -5,11 +5,15 @@ import getCurrentUser from "@/actions/getCurrentUser";
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { id_proyecto, nombre, color } = res;
+  const { 
+    name,
+    color,
+    projectId,
+  } = res;
 
   const lastOrder = await prisma.states.findFirst({
     where: {
-      projectId: id_proyecto,
+      projectId: projectId,
     },
     orderBy: {
       order: "desc",
@@ -20,18 +24,20 @@ export async function POST(request: NextRequest) {
 
 
 
-  const nuevoEstado = await prisma.states.create({
+  const newState = await prisma.states.create({
     data: {
-      name: nombre,
+      name: name,
       color: color,
-      projectId: id_proyecto,
-      // new order must be the last one + 1
+      projectId: projectId,
       order: newOrder,
     },
   });
 
   return NextResponse.json({
-    nuevoEstado,
+    status: 200,
+    message: "Estado creado correctamente",
+    newState: newState,
+    
   });
 }
 

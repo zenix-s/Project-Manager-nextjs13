@@ -95,7 +95,6 @@ const EstadoListItem = ({
               checkbox
             `}
           defaultChecked={estado.autoComplete}
-          checked={estado.autoComplete}
           onChange={(e) => {
             onChangeState({
               updatedState: {

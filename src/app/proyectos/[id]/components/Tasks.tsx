@@ -77,23 +77,21 @@ const Tasks = ({
     if (index !== -1) {
       const newTasks = [...tasks];
       const oldTasks = [...tasks];
-      
-      const stateAutoComplete = () =>  {
+
+      const stateAutoComplete = () => {
         const state = states.find((state) => state.id === updatedTask.stateId);
         if (state) {
           return state.autoComplete;
         }
         return false;
-      }
-      
+      };
+
       if (stateAutoComplete()) {
         updatedTask.completed = true;
       }
-      
+
       newTasks[index] = updatedTask;
       setTasks(newTasks);
-      
-        
 
       axios
         .put("/api/proyectos/tasks", updatedTask)
@@ -178,8 +176,6 @@ const Tasks = ({
         setTasks(newTasks);
       }
 
-
-
       axios
         .put("/api/proyectos/estado", updatedState)
         .then((res) => {
@@ -191,7 +187,6 @@ const Tasks = ({
             toast.error(res.data.message);
             setStates(oldStates);
             setTasks(oldTasks);
-
           }
         })
         .catch((err) => {
@@ -237,16 +232,43 @@ const Tasks = ({
   };
 
   const onAddState = async ({ newState }: { newState: StateProps }) => {
-    console.log(newState);
-  }
+    const newStates = [...states];
+    const oldStates = [...states];
+    newStates.push(newState);
+    setStates(newStates);
 
+    axios
+      .post("/api/proyectos/estado", newState)
+      .then((res) => {
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+          // update the id of the new state with the id from the database
+          const index = newStates.findIndex(
+            (state) => state.name === newState.name
+          );
+          if (index !== -1) {
+            newStates[index].id = res.data.newState.id;
+            setStates(newStates);
+          }
+        }
+        if (res.data.status !== 200) {
+          toast.error(res.data.message);
+          setStates(oldStates);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al agregar el estado");
+        setStates(oldStates);
+      });
+  };
 
   /**
    * @param updatedTeamMember
    * El parametro updatedTeamMember es un objeto que contiene el miembro actualizado.
    * Actualiza un miembro en la base de datos y en el estado local.
-   * 
-   * */ 
+   *
+   * */
   const onUpdateTeamMember = async ({
     updatedTeamMember,
   }: {
@@ -280,7 +302,6 @@ const Tasks = ({
         });
     }
   };
-
 
   /**
    * @param teamMemberId
@@ -355,9 +376,7 @@ const Tasks = ({
         States={states}
         idProject={idProject}
       />
-      <StateModal
-        projectId={idProject}
-      />
+      <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">
         <div>
           <div className="flex gap-4">
