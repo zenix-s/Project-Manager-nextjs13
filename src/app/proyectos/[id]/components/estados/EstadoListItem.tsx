@@ -2,18 +2,12 @@
 import { StateProps } from "@/types";
 import { Colors, getBgColor, getHexColor } from "@/actions/getColors";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
-  VscKebabVertical,
   VscChromeMinimize,
   VscEdit,
   VscSave,
 } from "react-icons/vsc";
-import toast, { Toaster } from "react-hot-toast";
 import Button from "@/components/button";
-import axios from "axios";
-import useStateModal from "@/hooks/useStateModal";
-import Input from "@/components/inputs/input";
 import { FieldValues, SubmitHandler, set, useForm } from "react-hook-form";
 
 interface EstadoListItemProps {
@@ -29,10 +23,8 @@ const EstadoListItem = ({
   onChangeState,
   onDeleteState,
 }: EstadoListItemProps) => {
-  const StateModal = useStateModal();
   const [estadoLoading, setEstadoLoading] = useState(false);
   const [editingName, setEditingName] = useState(false);
-  const router = useRouter();
 
   const [estadoColor, setEstadoColor] = useState(estado.color);
 
