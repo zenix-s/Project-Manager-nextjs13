@@ -77,8 +77,23 @@ const Tasks = ({
     if (index !== -1) {
       const newTasks = [...tasks];
       const oldTasks = [...tasks];
+      
+      const stateAutoComplete = () =>  {
+        const state = states.find((state) => state.id === updatedTask.stateId);
+        if (state) {
+          return state.autoComplete;
+        }
+        return false;
+      }
+      
+      if (stateAutoComplete()) {
+        updatedTask.completed = true;
+      }
+      
       newTasks[index] = updatedTask;
       setTasks(newTasks);
+      
+        
 
       axios
         .put("/api/proyectos/tasks", updatedTask)
@@ -124,7 +139,7 @@ const Tasks = ({
           }
           if (res.data.status !== 200) {
             toast.error(res.data.message);
-            setTasks([...newTasks, deletedTask]);
+            setTasks(oldTasks);
           }
         })
         .catch((err) => {
@@ -151,6 +166,19 @@ const Tasks = ({
       const oldStates = [...states];
       newStates[index] = updatedState;
       setStates(newStates);
+      const oldTasks = [...tasks];
+
+      if (updatedState.autoComplete === true) {
+        const newTasks = [...tasks];
+        newTasks.forEach((task) => {
+          if (task.stateId === updatedState.id) {
+            task.completed = true;
+          }
+        });
+        setTasks(newTasks);
+      }
+
+
 
       axios
         .put("/api/proyectos/estado", updatedState)
@@ -162,12 +190,15 @@ const Tasks = ({
           if (res.data.status !== 200) {
             toast.error(res.data.message);
             setStates(oldStates);
+            setTasks(oldTasks);
+
           }
         })
         .catch((err) => {
           console.log(err);
           toast.error("Error al actualizar el estado");
           setStates(oldStates);
+          setTasks(oldTasks);
         });
     }
   };
@@ -182,7 +213,6 @@ const Tasks = ({
     if (index !== -1) {
       const newStates = [...states];
       const oldStates = [...states];
-      const deletedState = newStates[index];
       newStates.splice(index, 1);
       setStates(newStates);
 
@@ -195,7 +225,7 @@ const Tasks = ({
           }
           if (res.data.status !== 200) {
             toast.error(res.data.message);
-            setStates([...newStates, deletedState]);
+            setStates(oldStates);
           }
         })
         .catch((err) => {
@@ -337,9 +367,7 @@ const Tasks = ({
                   key={index}
                   className={`
                   pb-1
-                  ${
-                    TasksView === view.name ? "border-b-2 border-blue-500 " : ""
-                  }
+                  ${TasksView === view.name && "border-b-2 border-blue-500"}
                 `}
                 >
                   <Button

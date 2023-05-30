@@ -37,18 +37,42 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   const res = await request.json();
+  console.log(res);
 
-  const { id, id_proyecto, nombre, color } = res;
+  const { 
+    id, 
+    projectId, 
+    name, 
+    color,
+    autoComplete 
+  } = res;
 
   const estadoActualizado = await prisma.states.update({
     where: {
       id: id,
     },
     data: {
-      name: nombre,
+      name: name,
       color: color,
+      autoComplete: autoComplete,
     },
   });
+
+  if (autoComplete === true) {
+    const tasks = await prisma.tasks.updateMany({
+      where: {
+        stateId: id,
+      },
+      data: {
+        completed: true,
+      },
+    });
+  }
+
+  
+
+
+
 
   return NextResponse.json(
     {
