@@ -24,9 +24,9 @@ const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberLis
   };
 
   return (
-    <div className="flex w-full items-center gap-8 p-4">
-      <div>{teamMember.users.username}</div>
-      <div>
+    <tr>
+      <td>{teamMember.users.username}</td>
+      <td>
         {isOwner ? (
           <span className="rounded border border-white/50 p-3  text-gray-400">
             Dueño del proyecto
@@ -42,16 +42,15 @@ const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberLis
             <option>viewer</option>
           </select>
         )}
-      </div>
-      <div></div>
-      <div className="">
+      </td>
+      <td >
         {!isOwner && (
           <button className="btn-error btn w-36 items-center  gap-2">
             <VscChromeMinimize /> Eliminar
           </button>
         )}
-      </div>
-    </div>
+      </td>
+    </tr>
   );
 };
 

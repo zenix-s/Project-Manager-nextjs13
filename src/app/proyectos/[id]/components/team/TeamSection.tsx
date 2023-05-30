@@ -24,14 +24,25 @@ const TeamSection = ({
       </div>
       <div className="divider" />
       <div className="overflox-scroll h-full w-full">
-        {teamMembers.map((member) => (
-          <TeamMember
-            key={member.userId}
-            idProject={idProject}
-            teamMember={member}
-            onUpdateTeamMember={onUpdateTeamMember}
-          />
-        ))}
+        <table className="table w-full">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {teamMembers.map((member) => (
+              <TeamMember
+                key={member.userId}
+                idProject={idProject}
+                teamMember={member}
+                onUpdateTeamMember={onUpdateTeamMember}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
