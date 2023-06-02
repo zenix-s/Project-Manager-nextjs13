@@ -2,6 +2,65 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 import getCurrentUser from "@/actions/getCurrentUser";
 
+
+export async function GET(request: NextRequest) {
+  const id = request.headers.get("projectId");
+  const user = await getCurrentUser();
+
+  if (!id) {
+    return NextResponse.json({
+      status: 400,
+      message: "Faltan Parametros",
+    });
+  }
+
+  // if (!user?.id || !user?.email) {
+  //   return NextResponse.json({
+  //     status: 401,
+  //     message: "No Autorizado",
+  //   });
+  // }
+
+  // const permisos = await prisma.assignments.findFirst({
+  //   where: {
+  //     userId: user.id,
+  //     projectId: Number(id),
+  //   },
+  // });
+
+  // if (
+  //   permisos?.role !== "owner" &&
+  //   permisos?.role !== "admin" &&
+  //   permisos?.role !== "member"
+  // ) {
+  //   return NextResponse.json({
+  //     status: 401,
+  //     message: "No Autorizado",
+  //   });
+  // }
+
+  const tareas = await prisma.tasks.findMany({
+    where: {
+      projectId: Number(id),
+    },
+    include: {
+      states: true,
+      projects: true,
+      users: true,
+    },
+  });
+
+  return NextResponse.json(
+    {
+      tasks: tareas,
+      status: 200,
+      message: "Tareas Obtenidas",
+    }
+  );
+  
+}
+
+
 export async function POST(request: NextRequest) {
   const res = await request.json();
 

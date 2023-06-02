@@ -2,7 +2,7 @@
 import Kanban from "./kanban/kanban";
 import TableTasks from "./TableTasks/tableTasks";
 import { StateProps, TaskProps, TeamMemberProps } from "@/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/components/button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -23,6 +23,8 @@ import TaskModal from "./TaskModal";
 import StateModal from "./StateModal";
 import { ST } from "next/dist/shared/lib/utils";
 
+export const revalidate = 10;
+
 const Tasks = ({
   tareas,
   estados,
@@ -35,9 +37,72 @@ const Tasks = ({
   idProject: number;
 }) => {
   const [TasksView, setTasksView] = useState("table");
-  const [tasks, setTasks] = useState(tareas);
+  const [tasks, setTasks] = useState([] as TaskProps[]);
   const [states, setStates] = useState(estados);
   const [team, setTeam] = useState(teamMembers);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      fetch("/api/proyectos/tasks", {
+        method: "GET",
+        headers: {
+          projectId: idProject.toString(),
+        },
+        next: {
+          revalidate: 30000,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setTasks(data.tasks);
+          });
+        }
+      });
+
+      fetch("/api/proyectos/estado", {
+        method: "GET",
+        headers: {
+          projectId: idProject.toString(),
+        },
+        next: {
+          revalidate: 30000,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setStates(data.states);
+          });
+        }
+      }
+      );
+
+      fetch("/api/proyectos/team", {
+        method: "GET",
+        headers: {
+          projectId: idProject.toString(),
+        },
+        next: {
+          revalidate: 30000,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          res.json().then((data) => {
+            setTeam(data.team);
+          });
+        }
+      }
+      );
+
+
+    };
+
+    fetchTasks();
+
+    const interval = setInterval(fetchTasks, 10000);
+
+    return () => clearInterval(interval);
+
+  }, [idProject]);
 
   const Views = [
     {
