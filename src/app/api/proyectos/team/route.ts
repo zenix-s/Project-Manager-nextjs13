@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
   //   });
   // }
 
-  const miembros = await prisma?.assignments.findMany({
+  const team = await prisma?.assignments.findMany({
     where: {
       projectId: Number(id),
     },
@@ -56,7 +56,7 @@ export async function GET(request: NextRequest) {
   
   return NextResponse.json(
     {
-      members: miembros,
+      team: team,
       status: 200,
       message: "Miembros Obtenidos",
     }

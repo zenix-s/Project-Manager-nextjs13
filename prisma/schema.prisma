@@ -3,13 +3,8 @@ generator client {
 }
 
 datasource db {
-  // mysql
   provider = "mysql"
   url      = env("DATABASE_URL")
-
-  // sqlite
-  // provider = "sqlite"
-  // url = "file:./dev.db"
 }
 
 model assignments {
@@ -25,14 +20,14 @@ model assignments {
 }
 
 model states {
-  id        Int      @id @default(autoincrement())
-  color     String   @db.VarChar(25)
-  order     Int
-  name      String   @db.VarChar(50)
-  autoComplete Boolean @default(false)
-  projectId Int
-  projects  projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
-  tasks     tasks[]
+  id           Int      @id @default(autoincrement())
+  color        String   @db.VarChar(25)
+  order        Int
+  name         String   @db.VarChar(50)
+  projectId    Int
+  autoComplete Boolean  @default(false)
+  projects     projects @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "states_ibfk_1")
+  tasks        tasks[]
 
   @@index([projectId], map: "projectId")
 }
@@ -52,13 +47,13 @@ model projects {
 
 model tasks {
   id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(50)
   description String?   @db.VarChar(255)
   endDate     DateTime? @db.DateTime(0)
   completed   Boolean   @default(false)
-  name        String    @db.VarChar(50)
+  userId      Int?
   projectId   Int
   stateId     Int
-  userId      Int?
   archived    Boolean   @default(false)
   createdDate DateTime  @default(now()) @db.DateTime(0)
   users       users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "tasks_ibfk_1")

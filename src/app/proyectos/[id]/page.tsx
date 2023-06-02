@@ -41,10 +41,10 @@ const Page = async ({ params }: { params: paramsProps }) => {
     <>
       <section className="flex h-full flex-col">
         <Tasks
+          idProject={parseInt(id.toString())}
           tareas={tareas}
           estados={estados}
-          teamMembers={teamMembers}
-          idProject={parseInt(id.toString())}
+          team={teamMembers}
         />
       </section>
     </>

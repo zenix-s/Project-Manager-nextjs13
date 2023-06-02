@@ -22,7 +22,7 @@ const IndividualTask = ({
   estados: StateProps[];
   teamMembers: TeamMemberProps[];
   onChangeTask: ({ updatedTask }: { updatedTask: TaskProps }) => void;
-  onDeleteTask: ({taskId}:{taskId:number}) => void;
+  onDeleteTask: ({ taskId }: { taskId: number }) => void;
 }) => {
   const [loading, setLoading] = useState(false);
   const TaskModal = useTasksModal();
@@ -84,54 +84,53 @@ const IndividualTask = ({
           </div>
 
           <div className="dropdown">
-        <label
-          tabIndex={0}
-          className="btn w-48 justify-start"
-          style={{
-            // backgroundColor: getHexColor(Estado()?.color || "gray"),
-            backgroundColor: getHexColor(
-              estados.find((estado) => estado.id === tarea.stateId)?.color ||
-                "gray"
-            ),
-          }}
-        >
-          <span
-            className="text-lg text-white"
-            style={{
-              textShadow: "0px 0px 2px #000000",
-            }}
-          >
-            {
-              estados.find((estado) => estado.id === tarea.stateId)?.name || "Cargando"
-            }
-          </span>
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu rounded-box mt-2 w-full bg-base-100 shadow outline outline-2 outline-slate-200"
-        >
-          {estados.map((estado) => (
-            <li key={estado.id}>
-              <button
-                className="uppercase"
+            <label
+              tabIndex={0}
+              className="btn w-48 justify-start"
+              style={{
+                // backgroundColor: getHexColor(Estado()?.color || "gray"),
+                backgroundColor: getHexColor(
+                  estados.find((estado) => estado.id === tarea.stateId)
+                    ?.color || "gray"
+                ),
+              }}
+            >
+              <span
+                className="text-lg text-white"
                 style={{
-                  backgroundColor: getHexColor(estado.color),
-                }}
-                onClick={() => {
-                  onChangeTask({
-                    updatedTask: {
-                      ...tarea,
-                      stateId: estado.id,
-                    },
-                  });
+                  textShadow: "0px 0px 2px #000000",
                 }}
               >
-                {estado.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+                {estados.find((estado) => estado.id === tarea.stateId)?.name ||
+                  "Cargando"}
+              </span>
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu rounded-box mt-2 w-full bg-base-100 shadow outline outline-2 outline-slate-200"
+            >
+              {estados.map((estado) => (
+                <li key={estado.id}>
+                  <button
+                    className="uppercase"
+                    style={{
+                      backgroundColor: getHexColor(estado.color),
+                    }}
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          stateId: estado.id,
+                        },
+                      });
+                    }}
+                  >
+                    {estado.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <input
             type="date"
@@ -211,57 +210,57 @@ const IndividualTask = ({
           <div></div>
         </div>
         <div className="flex justify-end">
-        <div className="dropdown dropdown-bottom dropdown-end">
-          <label tabIndex={0} className="btn m-1 border-none bg-transparent">
-            <VscKebabVertical />
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 shadow"
-          >
-            <li>
-              <Button
-                label="Editar"
-                theme="ghost"
-                fullWidth
-                onClick={() => {
-                  TaskModal.onOpen(tarea);
-                }}
-                icon={VscEdit}
-              />
-            </li>
-            <li>
-              <Button
-                label={tarea.archived ? "Desarchivar" : "Archivar"}
-                theme="ghost"
-                fullWidth
-                onClick={() => {
-                  onChangeTask({
-                    updatedTask: {
-                      ...tarea,
-                      archived: !tarea.archived,
-                    },
-                  });
-                }}
-                icon={VscInbox}
-              />
-            </li>
-            <li>
-              <Button
-                label="Eliminar"
-                theme="error"
-                fullWidth
-                onClick={() => {
-                  onDeleteTask({
-                    taskId: tarea.id,
-                  });
-                }}
-                icon={VscTrash}
-              />
-            </li>
-          </ul>
+          <div className="dropdown-bottom dropdown-end dropdown">
+            <label tabIndex={0} className="btn m-1 border-none bg-transparent">
+              <VscKebabVertical />
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 shadow"
+            >
+              <li>
+                <Button
+                  label="Editar"
+                  theme="ghost"
+                  fullWidth
+                  onClick={() => {
+                    TaskModal.onOpen(tarea);
+                  }}
+                  icon={VscEdit}
+                />
+              </li>
+              <li>
+                <Button
+                  label={tarea.archived ? "Desarchivar" : "Archivar"}
+                  theme="ghost"
+                  fullWidth
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        archived: !tarea.archived,
+                      },
+                    });
+                  }}
+                  icon={VscInbox}
+                />
+              </li>
+              <li>
+                <Button
+                  label="Eliminar"
+                  theme="error"
+                  fullWidth
+                  onClick={() => {
+                    onDeleteTask({
+                      taskId: tarea.id,
+                    });
+                  }}
+                  icon={VscTrash}
+                />
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );

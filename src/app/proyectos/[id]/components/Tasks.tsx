@@ -21,25 +21,24 @@ import EstadosSection from "./estados/EstadosSection";
 import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
 import StateModal from "./StateModal";
-import { ST } from "next/dist/shared/lib/utils";
 
 export const revalidate = 10;
 
 const Tasks = ({
+  idProject,
   tareas,
   estados,
-  teamMembers,
-  idProject,
+  team,
 }: {
+  idProject: number;
   tareas: TaskProps[];
   estados: StateProps[];
-  teamMembers: TeamMemberProps[];
-  idProject: number;
+  team: TeamMemberProps[];
 }) => {
   const [TasksView, setTasksView] = useState("table");
-  const [tasks, setTasks] = useState([] as TaskProps[]);
+  const [tasks, setTasks] = useState(tareas);
   const [states, setStates] = useState(estados);
-  const [team, setTeam] = useState(teamMembers);
+  const [teamMembers, setTeam] = useState(team);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -55,6 +54,7 @@ const Tasks = ({
         if (res.status === 200) {
           res.json().then((data) => {
             setTasks(data.tasks);
+            console.log("tasks", data.tasks);
           });
         }
       });
@@ -71,6 +71,7 @@ const Tasks = ({
         if (res.status === 200) {
           res.json().then((data) => {
             setStates(data.states);
+            console.log("states", data.states);
           });
         }
       }
@@ -88,6 +89,7 @@ const Tasks = ({
         if (res.status === 200) {
           res.json().then((data) => {
             setTeam(data.team);
+            console.log("team", data.team);
           });
         }
       }
