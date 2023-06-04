@@ -33,11 +33,9 @@ const IndividualTask = ({
         <input
           type="checkbox"
           defaultChecked={tarea.completed}
-          className="checkbox"
+          className="checkbox tooltip tooltip-right"
+          data-tip={tarea.completed ? "Marcar como incompleta" : "Marcar como completa"}
           onChange={(e) => {
-            // onChangeTask({
-            //   completed: e.target.checked,
-            // });
             onChangeTask({
               updatedTask: {
                 ...tarea,
@@ -58,7 +56,6 @@ const IndividualTask = ({
             tabIndex={0}
             className="btn w-48 justify-start"
             style={{
-              // backgroundColor: getHexColor(Estado()?.color || "gray"),
               backgroundColor: getHexColor(
                 estados.find((estado) => estado.id === tarea.stateId)?.color ||
                   "gray"
@@ -114,9 +111,6 @@ const IndividualTask = ({
           }
           disabled={tarea.completed}
           onChange={(e) => {
-            // onChangeTask({
-            //   endDate: new Date(e.target.value),
-            // });
             onChangeTask({
               updatedTask: {
                 ...tarea,
@@ -146,9 +140,6 @@ const IndividualTask = ({
             <li>
               <button
                 onClick={() => {
-                  // onChangeTask({
-                  //   userId: null,
-                  // });
                   onChangeTask({
                     updatedTask: {
                       ...tarea,
@@ -164,9 +155,6 @@ const IndividualTask = ({
               <li key={member.id}>
                 <button
                   onClick={() => {
-                    // onChangeTask({
-                    //   userId: member.userId,
-                    // });
                     onChangeTask({
                       updatedTask: {
                         ...tarea,
