@@ -13,7 +13,6 @@ export async function POST(request: Request) {
 
   const { email, projectId } = body;
 
-  console.log(email, projectId);
 
   const newInvitation = await prisma.invitations.create({
     data: {

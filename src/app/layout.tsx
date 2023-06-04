@@ -41,7 +41,7 @@ export default async function RootLayout({
         <ToasterProvider />
         
         {/* <UserProvider user={user} /> */}
-        <main className="z-40 h-full w-full p-4">
+        <main className="z-40 h-full w-full p-1 lg:p-4">
           <div className="flex h-full w-full flex-col overflow-hidden">
             <Header />
             {children}

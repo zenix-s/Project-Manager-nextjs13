@@ -81,7 +81,9 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({
-    nuevaTarea,
+    status: 200,
+    message: "Tarea Creada",
+    newTask: nuevaTarea,
   });
 }
 
@@ -134,7 +136,6 @@ export async function PUT(request: NextRequest) {
   }
 
   try {
-    console.log(userId);
     const tareaActualizada = await prisma.tasks.update({
       where: {
         id: id,

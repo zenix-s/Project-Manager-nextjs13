@@ -88,7 +88,6 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   const res = await request.json();
-  console.log(res);
 
   const { id, projectId, name, color, autoComplete } = res;
 

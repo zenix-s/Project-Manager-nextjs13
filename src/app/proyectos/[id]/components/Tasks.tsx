@@ -22,8 +22,6 @@ import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
 import StateModal from "./StateModal";
 
-export const revalidate = 10;
-
 const Tasks = ({
   idProject,
   tareas,
@@ -53,8 +51,15 @@ const Tasks = ({
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            setTasks(data.tasks);
-            console.log("tasks", data.tasks);
+
+
+            // setTasks(data.tasks);
+
+            // if data.tasks is not equal to tasks, then update tasks
+            if (JSON.stringify(data.tasks) !== JSON.stringify(tasks)) {
+              setTasks(data.tasks);
+            }
+
           });
         }
       });
@@ -70,12 +75,15 @@ const Tasks = ({
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            setStates(data.states);
-            console.log("states", data.states);
+            // setStates(data.states);
+
+            if (JSON.stringify(data.states) !== JSON.stringify(states)) {
+              setStates(data.states);
+            }
+
           });
         }
-      }
-      );
+      });
 
       fetch("/api/proyectos/team", {
         method: "GET",
@@ -88,23 +96,23 @@ const Tasks = ({
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-            setTeam(data.team);
-            console.log("team", data.team);
+            // setTeam(data.team);
+
+            if (JSON.stringify(data.team) !== JSON.stringify(teamMembers)) {
+              setTeam(data.team);
+            }
+
           });
         }
-      }
-      );
-
-
+      });
     };
 
-    fetchTasks();
+    // fetchTasks();
 
-    const interval = setInterval(fetchTasks, 10000);
+    const interval = setInterval(fetchTasks, 1000);
 
     return () => clearInterval(interval);
-
-  }, [idProject]);
+  }, [idProject, tasks, teamMembers, states]);
 
   const Views = [
     {
@@ -132,6 +140,42 @@ const Tasks = ({
     //   icon: VscCalendar,
     // },
   ];
+
+
+
+  const onAddTask = async ({ newTask }: { newTask: TaskProps }) => {
+    console.log(newTask);
+    const newTasks = [...tasks];
+    const oldTasks = [...tasks];
+    newTasks.push(newTask);
+    setTasks(newTasks);
+
+    axios
+      .post("/api/proyectos/tasks", newTask)
+      .then((res) => {
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+          const newTask = res.data.newTask;
+          oldTasks.push(newTask);
+          setTasks(oldTasks);
+        }
+        if (res.data.status !== 200) {
+          toast.error(res.data.message);
+          setTasks(oldTasks);
+        }
+      }
+      )
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al agregar la tarea");
+        setTasks(oldTasks);
+      }
+      );
+
+
+
+
+  };
 
   /**
    * @param updatedTask
@@ -163,7 +207,7 @@ const Tasks = ({
       axios
         .put("/api/proyectos/tasks", updatedTask)
         .then((res) => {
-          console.log(res.data);
+
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -198,7 +242,7 @@ const Tasks = ({
       axios
         .delete("/api/proyectos/tasks", { headers: { taskId: taskId } })
         .then((res) => {
-          console.log(res.data);
+
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -246,7 +290,7 @@ const Tasks = ({
       axios
         .put("/api/proyectos/estado", updatedState)
         .then((res) => {
-          console.log(res.data);
+
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -281,7 +325,7 @@ const Tasks = ({
       axios
         .delete("/api/proyectos/estado", { headers: { stateId: stateId } })
         .then((res) => {
-          console.log(res.data);
+
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -353,7 +397,6 @@ const Tasks = ({
       axios
         .put("/api/proyectos/team", updatedTeamMember)
         .then((res) => {
-          console.log(res.data);
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -388,6 +431,7 @@ const Tasks = ({
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}
             onDeleteTask={onDeleteTask}
+            onAddTask={onAddTask}
           />
         );
       case "estadisticas":
@@ -431,6 +475,7 @@ const Tasks = ({
             teamMembers={teamMembers}
             onChangeTask={onChangeTask}
             onDeleteTask={onDeleteTask}
+            onAddTask={onAddTask}
           />
         );
     }
@@ -442,6 +487,7 @@ const Tasks = ({
         TeamMembers={teamMembers}
         States={states}
         idProject={idProject}
+        onAddTask={onAddTask}
       />
       <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">

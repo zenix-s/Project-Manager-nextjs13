@@ -28,6 +28,7 @@ interface TaskModalProps {
   TeamMembers: TeamMemberProps[];
   States: StateProps[];
   idProject: number;
+  onAddTask: ({ newTask }: { newTask: TaskProps }) => void;
 }
 
 // const TaskModal FC<TaskModalProps> = ({ TeamMember, States }) => {
@@ -36,6 +37,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   TeamMembers,
   States,
   idProject,
+  onAddTask,
 }) => {
   const TaskModal = useTasksModal();
   const Task = TaskModal.Task;
@@ -129,23 +131,37 @@ const TaskModal: React.FC<TaskModalProps> = ({
     };
 
     if (task.id === 0) {
-      axios
-        .post("/api/proyectos/tasks", {
+      // axios
+      //   .post("/api/proyectos/tasks", {
+      //     name: data.name,
+      //     stateId: TaskState.id,
+      //     projectId: idProject,
+      //     description: data.description,
+      //     endDate: new Date(data.endDate),
+      //     userId: data.userId,
+      //   })
+      //   .then((res) => {
+          
+      //   })
+      //   .finally(() => {
+      //     onClose();
+      //   });
+
+      // toast.success("Tarea creada correctamente");
+      onAddTask({
+        newTask: {
+          id: 0,
           name: data.name,
-          stateId: TaskState.id,
-          projectId: idProject,
           description: data.description,
           endDate: new Date(data.endDate),
+          stateId: TaskState.id,
+          projectId: idProject,
           userId: data.userId,
-        })
-        .then((res) => {
-          
-        })
-        .finally(() => {
-          onClose();
-        });
-
-      toast.success("Tarea creada correctamente");
+          completed: false,
+          archived: false,
+          createdDate: new Date(),
+        }
+      });
     }
 
     if (task.id > 0) {

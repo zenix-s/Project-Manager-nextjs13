@@ -18,20 +18,29 @@ import { VscAdd } from "react-icons/vsc";
 //   createdDate: Date;
 // }
 
-const HeaderTasksList = (
-  { estados, idProject }: { estados: StateProps[]; idProject: number },
-) => {
+interface HeaderTasksListProps {
+  estados: StateProps[];
+  idProject: number;
+  onAddTask: ({ newTask }: { newTask: TaskProps }) => void;
+}
+
+const HeaderTasksList = ({
+  estados,
+  idProject,
+  onAddTask,
+}: HeaderTasksListProps) => {
   const TaskModal = useTasksModal();
 
+
+
   return (
-    <div className="flex items-center justify-start">
-      <NewTaskModal 
-        idProject={idProject}
-        estados={estados}
-      />
+    <div className="flex flex-col items-end justify-between gap-4 lg:flex-row">
+      <div className="hidden lg:block">
+        <NewTaskModal idProject={idProject} estados={estados} onAddTask={onAddTask} />
+      </div>
       <Button
         theme="primary"
-        label="Nueva tarea avanzada"
+        label="Nueva tarea"
         onClick={() => TaskModal.onOpen()}
         disabled={TaskModal.isOpen}
         icon={VscAdd}

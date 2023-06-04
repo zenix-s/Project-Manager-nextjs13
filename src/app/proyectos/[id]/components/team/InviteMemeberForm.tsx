@@ -26,7 +26,6 @@ const InviteMemberForm = ({ idProject }: InviteMemberFormProps) => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true)
-    console.log(data)
     axios.post("/api/proyectos/invitations", data)
     .then(res => {
       toasts.success("Invitación enviada")
