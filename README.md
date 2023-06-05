@@ -2,18 +2,40 @@ Este es un proyecto creado con Next.js
 
 ## Como ejecutarlo
 
-1- Lo primero que debes hacer es instalar las dependencias con el siguiente comando:
+1- Lo primero ha de ser clonar el repositorio con el siguiente comando:
+
+```bash
+  git clone https://github.com/zenix-s/Project-Manager-nextjs13.git
+```
+
+2- Lo siguiente ha de ser instalar las dependencias con el siguiente comando:
 
 ```bash
 npm install
 ```
-2- Luego debes ejecutar el siguiente comando para correr el proyecto:
+
+4- Establecer las variables en el fichero .env
+
+```bash
+  DATABASE_URL=
+  NEXTAUTH_SECRET=
+  NEXTAUTH_URL=
+```
+
+5- Crear la base de datos con el siguiente comando:
+
+```bash
+  npx prisma migrate dev --name init
+```
+
+
+6- Luego debes ejecutar el siguiente comando para correr el proyecto:
 
 ```bash
 npm run dev
 ```
 
-3- Por ultimo debes abrir [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
+7- Por ultimo debes abrir [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
 ## Guia del proyecto
 
