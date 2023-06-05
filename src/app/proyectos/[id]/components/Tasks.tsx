@@ -39,6 +39,7 @@ const Tasks = ({
   const [teamMembers, setTeam] = useState(team);
 
   useEffect(() => {
+    const revalidateTime = 30000;
     const fetchTasks = async () => {
       fetch("/api/proyectos/tasks", {
         method: "GET",
@@ -46,7 +47,7 @@ const Tasks = ({
           projectId: idProject.toString(),
         },
         next: {
-          revalidate: 30000,
+          revalidate: revalidateTime,
         },
       }).then((res) => {
         if (res.status === 200) {
@@ -70,7 +71,7 @@ const Tasks = ({
           projectId: idProject.toString(),
         },
         next: {
-          revalidate: 30000,
+          revalidate: revalidateTime,
         },
       }).then((res) => {
         if (res.status === 200) {
@@ -91,7 +92,7 @@ const Tasks = ({
           projectId: idProject.toString(),
         },
         next: {
-          revalidate: 30000,
+          revalidate: revalidateTime,
         },
       }).then((res) => {
         if (res.status === 200) {
@@ -492,7 +493,7 @@ const Tasks = ({
       <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">
         <div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 overflow-x-auto w-full ">
             {Views.map((view, index) => {
               return (
                 <div

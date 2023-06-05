@@ -27,6 +27,17 @@ const IndividualTask = ({
   const [loading, setLoading] = useState(false);
   const TaskModal = useTasksModal();
 
+
+  const defaultDate = () => {
+    try {
+      if (tarea.endDate !== null) {
+        return new Date(tarea.endDate).toISOString().split("T")[0];
+      }
+    } catch (error) {
+      return "";
+    }
+  }
+
   return (
     <tr>
       <th>
@@ -105,9 +116,7 @@ const IndividualTask = ({
           type="date"
           className="input-bordered input w-56"
           defaultValue={
-            tarea.endDate
-              ? new Date(tarea.endDate).toISOString().split("T")[0]
-              : ""
+            defaultDate()
           }
           disabled={tarea.completed}
           onChange={(e) => {

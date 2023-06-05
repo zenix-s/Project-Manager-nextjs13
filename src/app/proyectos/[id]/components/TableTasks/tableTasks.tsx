@@ -27,7 +27,7 @@ const TableTasks = ({
   const [state, setState] = useState(0);
 
   return (
-    <div className="flex w-full flex-col p-4">
+    <div className="flex w-full flex-col p-1">
       <div>
         <HeaderTasksList
           estados={estados}
@@ -38,7 +38,7 @@ const TableTasks = ({
       <div className="divider" />
       <div className="relative h-full w-full">
         <div className="absolute inset-0 flex flex-col gap-2 overflow-y-auto">
-          <select
+          {/* <select
             onChange={(e) => {
               setState(parseInt(e.target.value));
             }}
@@ -47,9 +47,9 @@ const TableTasks = ({
             <option value="0">Todas</option>
             <option value="1">Completadas</option>
             <option value="2">Archivadas</option>
-          </select>
+          </select> */}
           <div className="h-full w-full overflow-x-auto">
-            <table className="relative table w-full">
+            <table className="relative table table-compact w-full">
               <thead className="sticky top-0 z-30">
                 <tr>
                   <th></th>
@@ -62,20 +62,31 @@ const TableTasks = ({
               </thead>
               <tbody>
                 {tareas
-                  .filter((tarea) => {
-                    if (state === 0) {
-                      return (
-                        tarea.archived === false && tarea.completed === false
-                      );
-                    } else if (state === 1) {
-                      return tarea.completed === true;
-                    } else if (state === 2) {
-                      return tarea.archived === true;
-                    } else {
-                      return true;
-                    }
-                  })
+                  .filter((tarea) => tarea.completed === false)
+                  .filter((tarea) => tarea.archived === false)
 
+                  .map((tarea) => {
+                    return (
+                      <IndividualTask
+                        key={tarea.id}
+                        tarea={tarea}
+                        estados={estados}
+                        teamMembers={teamMembers}
+                        onChangeTask={onChangeTask}
+                        onDeleteTask={onDeleteTask}
+                      />
+                    );
+                  })}
+
+                <tr>
+                  <td colSpan={6} className="text-center">
+                    <span>Tareas Completadas</span>
+                  </td>
+                </tr>
+
+                {tareas
+                  .filter((tarea) => tarea.completed === true)
+                  .filter((tarea) => tarea.archived === false)
                   .map((tarea) => {
                     return (
                       <IndividualTask
@@ -92,25 +103,7 @@ const TableTasks = ({
             </table>
           </div>
 
-          {/* <h2>Tareas Completadas</h2>
-
-          {tareas
-            .filter((tarea) => tarea.completed === true)
-            .filter((tarea) => tarea.archived === false)
-            .map((tarea) => {
-              return (
-                <IndividualTask
-                  key={tarea.id}
-                  tarea={tarea}
-                  estados={estados}
-                  teamMembers={teamMembers}
-                  onChangeTask={onChangeTask}
-                  onDeleteTask={onDeleteTask}
-                />
-              );
-            })}
-
-          <h2>Tareas Archivadas</h2>
+          {/* <h2>Tareas Archivadas</h2>
 
           {tareas
             .filter((tarea) => tarea.archived === true)

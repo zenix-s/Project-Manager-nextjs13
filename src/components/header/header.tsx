@@ -9,7 +9,7 @@ const Header = () => {
   const aside = useAside();
 
   return (
-    <div className="py-3 px-2 flex justify-between">
+    <div className="flex justify-between">
       <BreadCrumbs />
       <div className="flex lg:hidden">
         <Button
