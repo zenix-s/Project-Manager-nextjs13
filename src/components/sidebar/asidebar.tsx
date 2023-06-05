@@ -1,13 +1,20 @@
 "use client";
 import Logo from "./logo";
 import { VscGraphLine } from "react-icons/vsc";
-import { CiHome, CiAlignTop, CiCircleRemove, CiBellOn } from "react-icons/ci";
-import SessionSection from "./sessionSection";
+import {
+  CiHome,
+  CiAlignTop,
+  CiCircleRemove,
+  CiBellOn,
+  CiUser,
+  CiLogout,
+} from "react-icons/ci";
 import Button from "../button";
 import { NavBarLinkProps } from "@/types";
 import useAside from "@/hooks/useAside";
 import Nav from "./NavBar";
 import { useState } from "react";
+import { signOut } from "next-auth/react";
 interface AsideBarProps {
   id?: string;
 }
@@ -32,16 +39,17 @@ const links: NavBarLinkProps[] = [
     label: "Notificaciones",
     href: "/notificaciones",
     icon: CiBellOn,
-  }
+  },
 ];
 
 const AsideBar = ({ user }: { user: any }) => {
   const aside = useAside();
   return (
     <aside
-      className={`z-50 ${
-        aside.isOpen ? "absolute" : "hidden"
-      } h-screen w-screen lg:relative  lg:flex lg:w-1/2 lg:min-w-[330px] lg:max-w-[400px] xl:w-1/4`}
+      className={`
+      z-50 
+      ${aside.isOpen ? "absolute" : "hidden"} 
+      h-screen w-screen sm:relative sm:flex sm:w-min`}
     >
       <div className=" h-full w-full p-4">
         <div className="relative flex h-full w-full flex-col justify-between rounded-xl bg-slate-700">
@@ -49,8 +57,35 @@ const AsideBar = ({ user }: { user: any }) => {
             <Logo />
             <Nav links={links} />
           </div>
-          <SessionSection user={user} />
-          <div className={`absolute right-0 top-0 flex lg:hidden  `}>
+          <div className="flex flex-col gap-1.5 border-t border-white/50 p-4">
+            <div
+              className="tooltip tooltip-right"
+              data-tip={user?.name || "Usuario"}
+            >
+              <Button
+                label=""
+                theme="ghost"
+                icon={CiUser}
+                onClick={() => {}}
+                fontSize="lg"
+              />
+            </div>
+            <div
+              className="tooltip tooltip-right"
+              data-tip="Cerrar sesion"
+            >
+              <Button
+                label=""
+                theme="ghost"
+                icon={CiLogout}
+                onClick={() => {
+                  signOut();
+                }}
+                fontSize="lg"
+              />
+            </div>
+          </div>
+          <div className={`absolute right-0 top-0 flex sm:hidden  `}>
             <Button
               theme="ghost"
               icon={CiCircleRemove}

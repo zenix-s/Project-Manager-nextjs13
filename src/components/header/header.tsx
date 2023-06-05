@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <div className="flex justify-between">
       <BreadCrumbs />
-      <div className="flex lg:hidden">
+      <div className="flex sm:hidden">
         <Button
           theme="ghost"
           icon={SlMenu}
