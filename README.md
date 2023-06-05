@@ -16,7 +16,7 @@ npm install
 
 4- Establecer las variables en el fichero .env
 
-```bash
+```typescript
   DATABASE_URL=
   NEXTAUTH_SECRET=
   NEXTAUTH_URL=
@@ -60,3 +60,4 @@ En el desarrollo de Varbas se han utilizado las siguientes tecnologías frontend
 
 ##### Base de datos
 - **MySQL**: Sistema de gestión de bases de datos relacional de código abierto.
+
