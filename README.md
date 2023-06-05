@@ -1,14 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Este es un proyecto creado con Next.js
 
-## Getting Started
+## Como ejecutarlo
 
-First, run the development server:
+1- Lo primero que debes hacer es instalar las dependencias con el siguiente comando:
+
+```bash
+npm install
+```
+2- Luego debes ejecutar el siguiente comando para correr el proyecto:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
+
+3- Por ultimo debes abrir [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
