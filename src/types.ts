@@ -2,7 +2,7 @@ import { IconType } from "react-icons";
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 export interface UserProps {
-  id: string;
+  id: number;
   name: string;
   email: string;
 }

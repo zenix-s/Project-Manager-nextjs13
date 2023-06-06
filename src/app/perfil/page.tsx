@@ -1,11 +1,16 @@
 import getCurrentUser from "@/actions/getCurrentUser";
+import ProfileSection from "./components/ProfileSection";
 
 const perfilPage = async () => {
   const user = await getCurrentUser();
+
+  if (!user) {
+    return <div>loading...</div>;
+  }
+
   return (
     <section className="h-ful w-full ">
-      <h1>{user?.name}</h1>
-      <h2>{user?.email}</h2>
+      <ProfileSection user={user} />
     </section>
   );
 };
