@@ -1,5 +1,6 @@
-import { CiEdit } from "react-icons/ci";
-import { FiEdit } from "react-icons/fi";
+import { BsSave } from "react-icons/bs";
+import { CiEdit, CiSaveDown1 } from "react-icons/ci";
+import { FiEdit, FiSave } from "react-icons/fi";
 
 interface HeaderProfileProps {
   isEditMode: boolean;
@@ -17,8 +18,17 @@ const HeaderProfile = ({ isEditMode, setIsEditMode }: HeaderProfileProps) => {
         className="btn-primary btn w-full sm:w-auto"
         onClick={onToggleMode}
       >
-        <FiEdit className="mr-2" />
-        Editar perfil
+        {isEditMode ? (
+          <>
+            <FiSave className="mr-2" />
+            <span>Guardar perfil</span>
+          </>
+        ) : (
+          <>
+            <FiEdit className="mr-2" />
+            <span>Editar perfil</span>
+          </>
+        )}
       </button>
     </div>
   );

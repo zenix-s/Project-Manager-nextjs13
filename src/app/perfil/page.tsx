@@ -9,7 +9,7 @@ const perfilPage = async () => {
   }
 
   return (
-    <section className="h-ful w-full ">
+    <section className="h-ful w-full flex-grow sm:p-3 ">
       <ProfileSection user={user} />
     </section>
   );
