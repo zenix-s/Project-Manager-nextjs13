@@ -21,7 +21,7 @@ const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
 
   return (
     <div
-      className=" flex w-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" flex w-full h-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}

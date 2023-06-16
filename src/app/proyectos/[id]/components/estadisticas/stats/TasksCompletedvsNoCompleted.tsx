@@ -47,10 +47,11 @@ const TasksCompletedvsNoCompleted = ({ tareas, estados }: Props) => {
       return {
         name: estado.name,
         value: tareas.filter((tarea) => tarea.stateId === estado.id).length,
-        completed: tareas.filter(
+        Completadas: tareas.filter(
           (tarea) => tarea.stateId === estado.id && tarea.completed
         ).length,
-        noCompleted: tareas.filter(
+        No_Completadas
+        : tareas.filter(
           (tarea) => tarea.stateId === estado.id && !tarea.completed
         ).length,
       };
@@ -59,12 +60,14 @@ const TasksCompletedvsNoCompleted = ({ tareas, estados }: Props) => {
 
   return (
     <div
-      className=" flex w-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" flex w-full h-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}
     >
-      
+      <h2 className="text-2xl font-bold">
+        Tareas Completadas vs No Completadas por Estado
+      </h2>
         <BarChart
           width={500}
           height={400}
@@ -83,8 +86,8 @@ const TasksCompletedvsNoCompleted = ({ tareas, estados }: Props) => {
           <Legend />
           {/* <Bar dataKey="pv" stackId="a" fill="#8884d8" />
           <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
-          <Bar dataKey="noCompleted"  stackId="a" fill="#8884d8" />
-          <Bar dataKey="completed" stackId="a" fill="#82ca9d" />
+          <Bar dataKey="No_Completadas"  stackId="a" fill="#8884d8" />
+          <Bar dataKey="Completadas" stackId="a" fill="#82ca9d" />
         </BarChart>
       
     </div>

@@ -52,13 +52,13 @@ const AsideBar = ({ user }: { user: any }) => {
       ${aside.isOpen ? "absolute" : "hidden"} 
       h-screen w-screen sm:relative sm:flex sm:w-min`}
     >
-      <div className=" h-full w-full p-4">
+      <div className=" h-full w-full p-2">
         <div className="relative flex h-full w-full flex-col justify-between rounded-xl bg-slate-700">
           <div>
             <Logo />
             <Nav links={links} />
           </div>
-          <div className="flex flex-col gap-1.5 border-t border-white/50 p-4">
+          <div className="flex flex-col gap-1.5 border-t border-white/50 p-2">
             <div
               className="tooltip tooltip-right"
               data-tip={user?.name || "Usuario"}

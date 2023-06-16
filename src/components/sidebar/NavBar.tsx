@@ -10,7 +10,7 @@ const Nav = (
 ) => {
   const pathname = usePathname();
   return (
-    <nav className="flex flex-col gap-1.5 p-4">
+    <nav className="flex flex-col gap-1.5 p-2">
       {links.map((link:any, index:any) => (
         <div
           key={index}
