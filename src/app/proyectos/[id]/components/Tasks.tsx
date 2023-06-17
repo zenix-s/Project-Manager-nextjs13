@@ -440,6 +440,7 @@ const Tasks = ({
           <EstadisticasProject
             tareas={tasks}
             estados={states}
+            teamMembers={teamMembers}
             idProject={idProject}
           />
         );

@@ -26,17 +26,31 @@ const TimeToCompleteATask = ({ tareas, estados }: TasksPerStatusProps) => {
 
   return (
     <div
-      className=" flex h-full w-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" justify-between flex h-full w-full items-center rounded-xl bg-slate-900 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}
     >
-      <h2 className="w-full text-center text-2xl font-bold">
-        Tiempo para completar una tarea
-      </h2>
+      <div className="flex flex-col text-2xl font-bold">
+        <h2 className="w-full text-center text-2xl font-bold">
+          Tiempo medio para completar una tarea
+        </h2>
+        <div>
+          {TimeToCompleteATask()}
+          <span> dias</span>
+        </div>
+      </div>
       <div>
-        {TimeToCompleteATask()}
-        <span> dias</span>
+        <div className="flex flex-col text-2xl font-bold">
+          <h2 className="font-bold">Tareas sin Fecha Limite:</h2>{" "}
+          {tareas.filter((task) => task.endDate === null).length}
+        </div>
+      </div>
+      <div>
+        <div className="flex flex-col text-2xl font-bold">
+          <h2 className="font-bold">Tareas con Fecha Limite:</h2>{" "}
+          {tareas.filter((task) => task.endDate !== null).length}
+        </div>
       </div>
     </div>
   );
