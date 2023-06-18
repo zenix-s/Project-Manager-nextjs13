@@ -10,6 +10,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import LinkComponent from "../link";
+import { BiEdit } from "react-icons/bi";
+import { VscInbox } from "react-icons/vsc";
+import { BsArchive } from "react-icons/bs";
 
 // interface CardProyectoProps {
 //   name: String;
@@ -68,7 +71,7 @@ const CardProyecto = ({
   };
 
   return (
-    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between rounded-xl bg-white p-4 text-black shadow-md">
+    <div className="relative m-2 flex h-52 cursor-pointer flex-col items-start justify-between rounded-xl border border-white/20 p-4 text-white/90 shadow-md">
       <div
         className={`
       ${isDeleting ? "flex" : "hidden"} 
@@ -76,39 +79,53 @@ const CardProyecto = ({
       >
         <Image src={loadingLogo} alt="Loading..." width={100} height={100} />
       </div>
-      <div className="absolute bottom-0 right-0 z-10 ">
+      <div className="absolute bottom-2 right-2 z-10 ">
         <Link href={`/proyectos/${id}`} className="btn-ghost btn">
           <FiExternalLink />
         </Link>
       </div>
 
-      <div className={`dropdown dropdown-end absolute right-0 top-0`}>
+      <div className={`dropdown dropdown-end absolute right-2 top-2`}>
         <label tabIndex={0} className="btn-ghost btn">
           <FiMenu />
         </label>
 
-        <ul className="dropdown-content menu flex w-52 flex-col gap-2 rounded-lg bg-slate-400 p-4">
+        <ul className="dropdown-content menu flex w-52 flex-col bg-base-100 rounded-md border border-white/30">
           {role === "admin" ||
             (role === "owner" && (
               <li>
-                <Button label="Editar" onClick={() => {}} theme="accent" />
+                <button
+                  onClick={() => {}}
+                >
+                  <span>
+                    <BiEdit />
+                  </span> 
+                  <span>Editar</span>
+                </button>
               </li>
             ))}
           {role === "admin" ||
             (role === "owner" && (
               <li>
-                <Button
-                  label={archived === true ? "Desarchivar" : "Archivar"}
+                <button 
                   onClick={() => {
                     deleteProject(archived === true ? "unarchive" : "archive");
                   }}
-                  theme="accent"
-                />
+                
+                >
+                  <span>
+                    <BsArchive />
+                  </span>
+                  <span>{archived === true ? "Desarchivar" : "Archivar"}</span>
+                </button>
               </li>
             ))}
           <li>
-            <Link href={`/proyectos/${id}`} className="btn-accent btn justify-start">
-              Abrir
+            <Link href={`/proyectos/${id}`} className="">
+              <span>
+                <FiExternalLink />
+              </span>
+              <span>Ver</span>
             </Link>
           </li>
           {role === "owner" && (
@@ -124,9 +141,13 @@ const CardProyecto = ({
           )} 
         </ul>
       </div>
-      <div className="">
-        <h3>{name}</h3>
-        <p>{description}</p>
+      <div className="w-full">
+        <h3 className="text-lg">
+          {name}
+        </h3>
+        <p className="w-full ">
+          {description}
+        </p>
         <div>
           <p>Role: {role}</p>
         </div>

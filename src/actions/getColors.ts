@@ -58,7 +58,7 @@ export const getHexColor = (color: string) => {
     case "rose":
       return "#f43f5e";
     default:
-      return "#000000";
+      return "#eeeeee";
   }
 };
 

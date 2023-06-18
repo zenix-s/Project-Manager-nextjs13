@@ -64,13 +64,14 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { name, projectId, stateId, description, endDate, userId } = res;
+  const { name, projectId, stateId, priority, description, endDate, userId } = res;
 
   const nuevaTarea = await prisma.tasks.create({
     data: {
       name: name,
       projectId: projectId,
       stateId: stateId,
+      priority: priority,
       description: description,
       endDate: endDate,
       archived: false,
@@ -98,6 +99,7 @@ export async function PUT(request: NextRequest) {
     projectId,
     userId,
     stateId,
+    priority,
     completed,
     archived,
   } = res;
@@ -146,6 +148,7 @@ export async function PUT(request: NextRequest) {
         endDate: endDate,
         projectId: projectId,
         userId: userId,
+        priority: priority,
         stateId: stateId,
         completed: completed,
         archived: archived,

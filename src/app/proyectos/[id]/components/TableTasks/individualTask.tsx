@@ -1,5 +1,12 @@
 "use client";
 import { TaskProps, StateProps, TeamMemberProps } from "@/types";
+import {
+  MdOutlineSignalCellularAlt1Bar,
+  MdOutlineSignalCellularAlt2Bar,
+  MdOutlineSignalCellularAlt,
+  MdPriorityHigh,
+} from "react-icons/md";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { use, useState } from "react";
 import {
   VscKebabVertical,
@@ -11,6 +18,8 @@ import {
 import { getBgColor, getHexColor } from "@/actions/getColors";
 import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
+import { BsArchive, BsCheck, BsCircle, BsCircleFill } from "react-icons/bs";
+
 const IndividualTask = ({
   tarea,
   estados,
@@ -27,7 +36,6 @@ const IndividualTask = ({
   const [loading, setLoading] = useState(false);
   const TaskModal = useTasksModal();
 
-
   const defaultDate = () => {
     try {
       if (tarea.endDate !== null) {
@@ -36,88 +44,305 @@ const IndividualTask = ({
     } catch (error) {
       return "";
     }
-  }
+  };
 
   return (
-    <tr>
-      <th>
-        <input
-          type="checkbox"
-          defaultChecked={tarea.completed}
-          className="checkbox tooltip tooltip-right"
-          data-tip={tarea.completed ? "Marcar como incompleta" : "Marcar como completa"}
-          onChange={(e) => {
-            onChangeTask({
-              updatedTask: {
-                ...tarea,
-                completed: e.target.checked,
-              },
-            });
-          }}
-        />
-      </th>
-
-      <td className="w-56">
-        <h3>{tarea.name}</h3>
-      </td>
-
-      <td>
-        <div className="dropdown">
-          <label
-            tabIndex={0}
-            className="btn w-48 justify-start"
-            style={{
-              backgroundColor: getHexColor(
-                estados.find((estado) => estado.id === tarea.stateId)?.color ||
-                  "gray"
-              ),
-            }}
-          >
-            <span
-              className="text-lg text-white"
-              style={{
-                textShadow: "0px 0px 2px #000000",
+    <div className="flex items-center gap-2 border-b border-white/20">
+      <div>
+        <div className="flex items-center gap-4">
+          {/* Seccion Completar Estado */}
+          <div>
+            <input
+              type="checkbox"
+              defaultChecked={tarea.completed}
+              className="checkbox tooltip tooltip-right"
+              data-tip={
+                tarea.completed
+                  ? "Marcar como incompleta"
+                  : "Marcar como completa"
+              }
+              onChange={(e) => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    completed: e.target.checked,
+                  },
+                });
               }}
+            />
+          </div>
+          {/* Indicar Prioridad de la tarea */}
+          <div className="dropdown">
+            <label
+              tabIndex={0}
+              className=" aspect-square items-center justify-center rounded-full"
             >
-              {estados.find((estado) => estado.id === tarea.stateId)?.name ||
-                "Cargando"}
-            </span>
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box mt-2 w-full bg-base-100 shadow outline outline-2 outline-slate-200"
-          >
-            {estados.map((estado) => (
-              <li key={estado.id}>
+              {tarea.priority === 0 && <BiDotsHorizontalRounded />}
+              {tarea.priority === 1 && <MdOutlineSignalCellularAlt1Bar />}
+              {tarea.priority === 2 && <MdOutlineSignalCellularAlt2Bar />}
+              {tarea.priority === 3 && <MdOutlineSignalCellularAlt />}
+              {tarea.priority === 4 && <MdPriorityHigh />}
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu mt-2 w-64 rounded-md bg-base-100 shadow outline outline-1 outline-white/30"
+            >
+              <li
+                className={`
+                  ${tarea.priority === 0 ? "bg-white/10" : ""}
+                `}
+              >
                 <button
-                  className="uppercase"
-                  style={{
-                    backgroundColor: getHexColor(estado.color),
-                  }}
                   onClick={() => {
                     onChangeTask({
                       updatedTask: {
                         ...tarea,
-                        stateId: estado.id,
+                        priority: 0,
                       },
                     });
                   }}
                 >
-                  {estado.name}
+                  <div className="flex w-full items-center gap-2">
+                    <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                      <BiDotsHorizontalRounded />
+                    </span>
+                    <span>Sin Prioridad</span>
+                    <span className="flex flex-grow justify-end">
+                      {tarea.priority === 0 && <BsCheck />}
+                    </span>
+                  </div>
                 </button>
               </li>
-            ))}
-          </ul>
+              <li
+                className={`
+                  ${tarea.priority === 1 ? "bg-white/10" : ""}
+                `}
+              >
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        priority: 1,
+                      },
+                    });
+                  }}
+                >
+                  <div className="flex w-full items-center gap-2">
+                    <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                      <MdOutlineSignalCellularAlt1Bar />
+                    </span>
+                    <span>Prioridad Baja</span>
+                    <span className="flex flex-grow justify-end">
+                      {tarea.priority === 1 && <BsCheck />}
+                    </span>
+                  </div>
+                </button>
+              </li>
+              <li
+                className={`
+                  ${tarea.priority === 2 ? "bg-white/10" : ""}
+                `}
+              >
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        priority: 2,
+                      },
+                    });
+                  }}
+                >
+                  <div className="flex w-full items-center gap-2">
+                    <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                      <MdOutlineSignalCellularAlt2Bar />
+                    </span>
+                    <span>Prioridad Media</span>
+                    <span className="flex flex-grow justify-end">
+                      {tarea.priority === 2 && <BsCheck />}
+                    </span>
+                  </div>
+                </button>
+              </li>
+              <li
+                className={`
+                  ${tarea.priority === 3 ? "bg-white/10" : ""}
+                `}
+              >
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        priority: 3,
+                      },
+                    });
+                  }}
+                >
+                  <div className="flex w-full items-center gap-2">
+                    <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                      <MdOutlineSignalCellularAlt />
+                    </span>
+                    <span>Prioridad Alta</span>
+                    <span className="flex flex-grow justify-end">
+                      {tarea.priority === 3 && <BsCheck />}
+                    </span>
+                  </div>
+                </button>
+              </li>
+              <li
+                className={`
+                  ${tarea.priority === 4 ? "bg-white/10" : ""}
+                `}
+              >
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        priority: 4,
+                      },
+                    });
+                  }}
+                >
+                  <div className="flex w-full items-center gap-2">
+                    <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                      <MdPriorityHigh />
+                    </span>
+                    <span>Prioridad Urgente</span>
+                    <span className="flex flex-grow justify-end">
+                      {tarea.priority === 4 && <BsCheck />}
+                    </span>
+                  </div>
+                </button>
+              </li>
+            </ul>
+          </div>
+          {/* Indicar el estado de la tarea */}
+          <div className="dropdown">
+            <label
+              tabIndex={0}
+              className=" aspect-square items-center justify-center rounded-full"
+            >
+              <BsCircleFill
+                style={{
+                  color: getHexColor(
+                    estados.find((estado) => estado.id === tarea.stateId)
+                      ?.color || "grey"
+                  ),
+                }}
+              />
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content  menu mt-2 w-56 rounded-md bg-base-100 shadow outline outline-1 outline-white/30"
+            >
+              <li
+                className={`
+                  ${tarea.stateId === null ? "bg-white/10" : ""}
+                `}
+              >
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        stateId: null,
+                      },
+                    });
+                  }}
+                >
+                  <div className="flex w-full items-center gap-2">
+                    <BsCircleFill
+                      style={{
+                        color: getHexColor("grey"),
+                      }}
+                    />
+                    <span>Sin estado</span>
+                    <span className="float-right">
+                      {tarea.stateId === null && <BsCheck />}
+                    </span>
+                  </div>
+                </button>
+              </li>
+              {estados.map((estado) => (
+                <li
+                  key={estado.id}
+                  className={`
+                    ${estado.id === tarea.stateId ? "bg-white/10" : ""}
+                  `}
+                >
+                  <button
+                    // style={{
+                    //   backgroundColor: getHexColor(estado.color),
+                    // }}
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          stateId: estado.id,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      {/* <span
+                        className="mr-2 inline-block h-5 w-5 rounded-full"
+                        style={{
+                          backgroundColor: getHexColor(estado.color),
+                        }}
+                      /> */}
+                      <BsCircleFill
+                        style={{
+                          color: getHexColor(estado.color),
+                        }}
+                      />
+                      <span>{estado.name}</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.stateId === estado.id && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </td>
+      </div>
 
-      <td>
+      <div className="ml-4 w-full">
+        <p>{tarea.name}</p>
+      </div>
+
+      <div></div>
+
+      <div>
         <input
           type="date"
-          className="input-bordered input w-56"
-          defaultValue={
-            defaultDate()
-          }
+          // className="input-ghost input w-56"
+          className={`
+            input-ghost
+            input
+            w-56
+            ${tarea.completed ? "text-white" : ""}
+            ${tarea.endDate !== null ? "text-white" : ""}
+            ${
+              tarea.endDate !== null &&
+              new Date(tarea.endDate).getTime() - new Date().getTime() < 0
+                ? "text-error"
+                : ""
+            }
+            ${
+              tarea.endDate !== null &&
+              new Date(tarea.endDate).getTime() - new Date().getTime() <=
+                259200000 &&
+              new Date(tarea.endDate).getTime() - new Date().getTime() > 0
+                ? "text-yellow-300"
+                : ""
+            }
+            `}
+          defaultValue={defaultDate()}
           disabled={tarea.completed}
           onChange={(e) => {
             onChangeTask({
@@ -128,15 +353,15 @@ const IndividualTask = ({
             });
           }}
         />
-      </td>
+      </div>
 
-      <td>
+      <div>
         <div className="dropdown">
           <label
             tabIndex={0}
-            className="btn-ghost btn m-1 w-56 justify-start gap-2"
+            className="btn-ghost btn m-1 w-56 flex-row-reverse justify-start gap-2"
           >
-            <VscAccount />{" "}
+            <VscAccount />
             {tarea.userId
               ? teamMembers.find((member) => member.userId === tarea.userId)
                   ?.users.username
@@ -178,15 +403,15 @@ const IndividualTask = ({
             ))}
           </ul>
         </div>
-      </td>
-      <th>
+      </div>
+      <div>
         <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
             <VscKebabVertical />
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-box mt-2 w-52 bg-base-100 shadow"
+            className="dropdown-content menu rounded-md mt-2 w-52 bg-base-100 shadow"
           >
             <li>
               <Button
@@ -212,7 +437,7 @@ const IndividualTask = ({
                     },
                   });
                 }}
-                icon={VscInbox}
+                icon={BsArchive}
               />
             </li>
             <li>
@@ -230,8 +455,8 @@ const IndividualTask = ({
             </li>
           </ul>
         </div>
-      </th>
-    </tr>
+      </div>
+    </div>
   );
 };
 

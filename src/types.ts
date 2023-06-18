@@ -36,7 +36,8 @@ export interface TaskProps {
   description: string | null;
   endDate: Date | null;
   completed: boolean;
-  stateId: number;
+  stateId: number | null;
+  priority: number;
   projectId: number;
   userId: number | null;
   archived: boolean;

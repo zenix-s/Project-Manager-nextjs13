@@ -49,18 +49,8 @@ const TableTasks = ({
             <option value="2">Archivadas</option>
           </select> */}
           <div className="h-full w-full overflow-x-auto">
-            <table className="relative table table-compact w-full">
-              <thead className="sticky top-0 z-30">
-                <tr>
-                  <th></th>
-                  <th>Titulo</th>
-                  <th>Estado</th>
-                  <th>Fecha Finalización</th>
-                  <th>Asignado</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
+            <div className="relative w-full">
+              <div className="flex flex-col">
                 {tareas
                   .filter((tarea) => tarea.completed === false)
                   .filter((tarea) => tarea.archived === false)
@@ -78,11 +68,11 @@ const TableTasks = ({
                     );
                   })}
 
-                <tr>
-                  <td colSpan={6} className="text-center">
+                <div className="mt-4">
+                  <div className="text-center">
                     <span>Tareas Completadas</span>
-                  </td>
-                </tr>
+                  </div>
+                </div>
 
                 {tareas
                   .filter((tarea) => tarea.completed === true)
@@ -99,8 +89,8 @@ const TableTasks = ({
                       />
                     );
                   })}
-              </tbody>
-            </table>
+              </div>
+            </div>
           </div>
 
           {/* <h2>Tareas Archivadas</h2>

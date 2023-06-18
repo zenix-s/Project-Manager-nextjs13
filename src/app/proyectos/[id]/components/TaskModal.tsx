@@ -11,27 +11,12 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-// export interface TaskProps {
-//   id: number;
-//   name: string;
-//   description: string | null;
-//   endDate: Date | null;
-//   completed: boolean;
-//   stateId: number;
-//   projectId: number;
-//   userId: number | null;
-//   archived: boolean;
-//   createdDate: Date;
-// }
-
 interface TaskModalProps {
   TeamMembers: TeamMemberProps[];
   States: StateProps[];
   idProject: number;
   onAddTask: ({ newTask }: { newTask: TaskProps }) => void;
 }
-
-// const TaskModal FC<TaskModalProps> = ({ TeamMember, States }) => {
 
 const TaskModal: React.FC<TaskModalProps> = ({
   TeamMembers,
@@ -56,6 +41,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       endDate: Task ? Task.endDate : "",
       completed: Task ? Task.completed : false,
       stateId: Task ? Task.stateId : 0,
+      priority: Task ? Task.priority : 0,
       projectId: Task ? Task.projectId : 0,
       userId: Task ? Task.userId : 0,
       archived: Task ? Task.archived : false,
@@ -86,6 +72,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
     endDate: null,
     completed: false,
     stateId: 0,
+    priority: 0,
     projectId: 0,
     userId: null,
     archived: true,
@@ -104,7 +91,8 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
     try {
       setValue("endDate", "");
-      if (Task.endDate !== null) setValue("endDate", new Date(Task.endDate).toISOString().split("T")[0]);
+      if (Task.endDate !== null)
+        setValue("endDate", new Date(Task.endDate).toISOString().split("T")[0]);
     } catch (error) {
       setValue("endDate", "");
     }
@@ -120,7 +108,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
       );
       if (CurrentUser) setTaskUser(CurrentUser);
     }
-
   }, [TaskModal.isOpen, Task, setValue, States, TeamMembers, getValues]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -130,6 +117,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
       description: data.description,
       endDate: new Date(data.endDate),
       stateId: TaskState.id,
+      priority: 0,
       projectId: idProject,
       userId: data.userId,
       completed: Task ? Task.completed : false,
@@ -138,37 +126,39 @@ const TaskModal: React.FC<TaskModalProps> = ({
     };
 
     if (task.id === 0) {
-      // axios
-      //   .post("/api/proyectos/tasks", {
-      //     name: data.name,
-      //     stateId: TaskState.id,
-      //     projectId: idProject,
-      //     description: data.description,
-      //     endDate: new Date(data.endDate),
-      //     userId: data.userId,
-      //   })
-      //   .then((res) => {
-          
-      //   })
-      //   .finally(() => {
-      //     onClose();
-      //   });
 
-      // toast.success("Tarea creada correctamente");
+      const newTask = {
+        name: data.name,
+        description: data.description,
+        endDate: new Date(data.endDate),
+        stateId: TaskState.id,
+        projectId: idProject,
+        userId: data.userId,
+        completed: false,
+        archived: false,
+        createdDate: new Date(),
+      };
+
+      const stateId = () => {
+        if (newTask.stateId === 0) return null;
+        else return newTask.stateId;
+      }
+
       onAddTask({
         newTask: {
           id: 0,
           name: data.name,
           description: data.description,
           endDate: new Date(data.endDate),
-          stateId: TaskState.id,
+          stateId: stateId(),
+          priority: 0,
           projectId: idProject,
           userId: data.userId,
           completed: false,
           archived: false,
           createdDate: new Date(),
         }
-      });
+      })
     }
 
     if (task.id > 0) {
@@ -179,17 +169,16 @@ const TaskModal: React.FC<TaskModalProps> = ({
           id: Task.id,
           name: data.name,
           stateId: TaskState.id,
+          priority: 0,
           projectId: idProject,
           description: data.description,
           endDate: new Date(data.endDate),
           userId: data.userId,
         })
-        .then((res) => {
-          
-        })
+        .then((res) => {})
         .finally(() => {
           onClose();
-        })
+        });
     }
     router.refresh();
   };

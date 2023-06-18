@@ -21,6 +21,7 @@ import EstadosSection from "./estados/EstadosSection";
 import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
 import StateModal from "./StateModal";
+import { MdLabel } from "react-icons/md";
 
 const Tasks = ({
   idProject,
@@ -52,15 +53,12 @@ const Tasks = ({
       }).then((res) => {
         if (res.status === 200) {
           res.json().then((data) => {
-
-
             // setTasks(data.tasks);
 
             // if data.tasks is not equal to tasks, then update tasks
             if (JSON.stringify(data.tasks) !== JSON.stringify(tasks)) {
               setTasks(data.tasks);
             }
-
           });
         }
       });
@@ -81,7 +79,6 @@ const Tasks = ({
             if (JSON.stringify(data.states) !== JSON.stringify(states)) {
               setStates(data.states);
             }
-
           });
         }
       });
@@ -102,7 +99,6 @@ const Tasks = ({
             if (JSON.stringify(data.team) !== JSON.stringify(teamMembers)) {
               setTeam(data.team);
             }
-
           });
         }
       });
@@ -126,7 +122,7 @@ const Tasks = ({
     // },
     {
       name: "Estados",
-      icon: VscSymbolStructure,
+      icon: MdLabel,
     },
     {
       name: "Miembros",
@@ -141,8 +137,6 @@ const Tasks = ({
     //   icon: VscCalendar,
     // },
   ];
-
-
 
   const onAddTask = async ({ newTask }: { newTask: TaskProps }) => {
     console.log(newTask);
@@ -164,18 +158,12 @@ const Tasks = ({
           toast.error(res.data.message);
           setTasks(oldTasks);
         }
-      }
-      )
+      })
       .catch((err) => {
         console.log(err);
-        toast.error("Error al agregar la tarea");
+        toast.error("Error al agregar la tarea ppp");
         setTasks(oldTasks);
-      }
-      );
-
-
-
-
+      });
   };
 
   /**
@@ -208,7 +196,6 @@ const Tasks = ({
       axios
         .put("/api/proyectos/tasks", updatedTask)
         .then((res) => {
-
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -243,7 +230,6 @@ const Tasks = ({
       axios
         .delete("/api/proyectos/tasks", { headers: { taskId: taskId } })
         .then((res) => {
-
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -291,7 +277,6 @@ const Tasks = ({
       axios
         .put("/api/proyectos/estado", updatedState)
         .then((res) => {
-
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -326,7 +311,6 @@ const Tasks = ({
       axios
         .delete("/api/proyectos/estado", { headers: { stateId: stateId } })
         .then((res) => {
-
           if (res.data.status === 200) {
             toast.success(res.data.message);
           }
@@ -494,23 +478,23 @@ const Tasks = ({
       <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">
         <div>
-          <div className="flex gap-4 overflow-x-auto w-full ">
+          <div className="flex w-full gap-4 overflow-x-auto ">
             {Views.map((view, index) => {
               return (
                 <div
                   key={index}
                   className={`
                   pb-1
-                  ${TasksView === view.name && "border-b-2 border-blue-500"}
+                  ${TasksView === view.name && "border-b-2 border-primary"}
                 `}
                 >
-                  <Button
+                  <button
                     onClick={() => setTasksView(view.name)}
-                    label={view.name}
-                    theme="ghost"
-                    center
-                    icon={view.icon}
-                  />
+                    className="flex flex-row-reverse items-center  gap-2 px-2 py-1 capitalize text-gray-300 hover:text-gray-200 focus:outline-none"
+                  >
+                    <span>{view.name}</span>
+                    <span>{<view.icon />}</span>
+                  </button>
                 </div>
               );
             })}

@@ -46,6 +46,7 @@ const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
         userId: null,
         archived: false,
         createdDate: new Date(),
+        priority: 0,
       },
     });
 
@@ -61,32 +62,6 @@ const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
         register={register}
         errors={errors}
       />
-
-      <div className="form-control">
-        <label className="label">
-          <label className="label-text">
-            Estado
-          </label>
-        </label>
-        <select
-          {...register("stateFormNewTask")}
-          className={`select-bordered select ${StateError ? "select-error" : ""}`}
-          defaultValue="Selecciona un estado"
-        >
-          <option disabled>Selecciona un estado</option>
-          {estados.map((estado) => (
-            <option
-              key={estado.id}
-              value={estado.id}
-              style={{
-                backgroundColor: getHexColor(estado.color),
-              }}
-            >
-              {estado.name}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <Button
         onClick={handleSubmit(onSubmit)}
