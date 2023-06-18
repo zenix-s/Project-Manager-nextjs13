@@ -17,12 +17,16 @@ const TimeToCompleteATask = ({ tareas, estados }: TasksPerStatusProps) => {
         time += diffTime;
       }
     });
+    if (time < 1 ) {
+      return 0;
+    }
     time = time / tareas.length / 1000 / 60 / 60 / 24;
     time = Math.round(time * 100) / 100;
+    
     return time;
   };
 
-  console.log(TimeToCompleteATask());
+  
 
   return (
     <div
