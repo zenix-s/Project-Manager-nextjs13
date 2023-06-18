@@ -1,4 +1,4 @@
-import Tasks from "./components/Tasks";
+import Tasks from "@/components/proyectos/components/Tasks";
 import getTareas from "@/actions/getTareas";
 import getEstados from "@/actions/getEstados";
 import getTeamMembers from "@/actions/getTeamMembers";

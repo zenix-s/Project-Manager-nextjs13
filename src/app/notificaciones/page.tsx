@@ -2,7 +2,7 @@ import getInvitations from "@/actions/getInvitations";
 import { InvitationProps } from "@/types";
 import Button from "@/components/button";
 import getCurrentUser from "@/actions/getCurrentUser";
-import IndividualInvitation from "./components/IndividualInvitation";
+import IndividualInvitation from "@/components/notifications/components/IndividualInvitation"
 
 const NotificacionesPage = async () => {
   const Invitations = (await getInvitations()) || [];

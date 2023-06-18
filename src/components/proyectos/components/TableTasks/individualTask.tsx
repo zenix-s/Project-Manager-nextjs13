@@ -19,6 +19,7 @@ import { getBgColor, getHexColor } from "@/actions/getColors";
 import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
 import { BsArchive, BsCheck, BsCircle, BsCircleFill } from "react-icons/bs";
+import Link from "next/link";
 
 const IndividualTask = ({
   tarea,
@@ -47,7 +48,7 @@ const IndividualTask = ({
   };
 
   return (
-    <div className="flex items-center gap-2 border-b border-white/20">
+    <div className="flex items-center gap-2 border-b border-white/20 px-2">
       <div>
         <div className="flex items-center gap-4">
           {/* Seccion Completar Estado */}
@@ -311,34 +312,83 @@ const IndividualTask = ({
         </div>
       </div>
 
-      <div className="ml-4 w-full">
+      <Link 
+        className="ml-4 w-full"
+        href={`/proyectos/${tarea.projectId}/${tarea.id}`}
+      >
         <p>{tarea.name}</p>
-      </div>
+      </Link>
 
-      <div></div>
+      <div className="w-24 flex">
+        <label htmlFor={`endDate${tarea.id}`} className={`
+          ${tarea.completed ? "text-white" : ""}
+            
+          ${
+            tarea.endDate !== null &&
+            new Date(tarea.endDate).getTime() < new Date().getTime()
+              ? "text-red-400"
+              : ""
+          }
+          ${
+            tarea.endDate !== null &&
+            new Date(tarea.endDate).getTime() > new Date().getTime() &&
+            new Date(tarea.endDate).getTime() - new Date().getTime() <
+              259200000 &&
+            new Date(tarea.endDate).getTime() - new Date().getTime() > 0
+              ? "text-yellow-200"
+              : ""
+          }
+          ${
+            tarea.endDate !== null &&
+            new Date(tarea.endDate).getTime() > new Date().getTime() &&
+            new Date(tarea.endDate).getTime() - new Date().getTime() >
+              259200000
+              ? "text-white/70"
+              : ""
+          }
+        `}>
+          {
+            tarea.endDate !== null &&
+            new Date(tarea.endDate).toLocaleDateString("es-ES", {
+              month: "short",
+              day: "numeric",
+            })
+          }
+        </label>
+      </div>
 
       <div>
         <input
           type="date"
+          id={`endDate${tarea.id}`}
           // className="input-ghost input w-56"
           className={`
             input-ghost
             input
             w-56
             ${tarea.completed ? "text-white" : ""}
-            ${tarea.endDate !== null ? "text-white" : ""}
+            
             ${
               tarea.endDate !== null &&
-              new Date(tarea.endDate).getTime() - new Date().getTime() < 0
+              new Date(tarea.endDate).getTime() < new Date().getTime()
                 ? "text-error"
                 : ""
             }
             ${
               tarea.endDate !== null &&
-              new Date(tarea.endDate).getTime() - new Date().getTime() <=
+              new Date(tarea.endDate).getTime() > new Date().getTime() &&
+              new Date(tarea.endDate).getTime() - new Date().getTime() <
                 259200000 &&
               new Date(tarea.endDate).getTime() - new Date().getTime() > 0
                 ? "text-yellow-300"
+                : ""
+            }
+            ${
+              tarea.endDate !== null &&
+              new Date(tarea.endDate).getTime() > new Date().getTime() &&
+              new Date(tarea.endDate).getTime() - new Date().getTime() >
+                259200000
+                ? "text-white"
                 : ""
             }
             `}
@@ -404,6 +454,14 @@ const IndividualTask = ({
           </ul>
         </div>
       </div>
+      <div className="flex w-24 text-gray-500 tooltip tooltip-bottom" data-tip={`
+        Creado ${new Date(tarea.createdDate).toLocaleDateString("es-ES")} ${new Date(tarea.createdDate).toLocaleTimeString("es-ES")}
+      `}>
+        {new Date(tarea.createdDate).toLocaleDateString("es-ES", {
+          month: "short",
+          day: "numeric",
+        })}
+      </div>
       <div>
         <div className="dropdown dropdown-bottom dropdown-end">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
@@ -411,7 +469,7 @@ const IndividualTask = ({
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu rounded-md mt-2 w-52 bg-base-100 shadow"
+            className="dropdown-content menu mt-2 w-52 rounded-md bg-base-100 shadow"
           >
             <li>
               <Button

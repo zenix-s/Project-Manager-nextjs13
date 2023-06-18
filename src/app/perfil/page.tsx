@@ -1,5 +1,5 @@
 import getCurrentUser from "@/actions/getCurrentUser";
-import ProfileSection from "./components/ProfileSection";
+import ProfileSection from "@/components/perfil/components/ProfileSection";
 
 const perfilPage = async () => {
   const user = await getCurrentUser();

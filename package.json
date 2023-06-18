@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "daisyui": "^2.52.0",
+    "dayjs": "^1.11.8",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
     "next": "^13.4.4",

@@ -9,18 +9,21 @@ interface TasksPerStatusProps {
 const TimeToCompleteATask = ({ tareas, estados }: TasksPerStatusProps) => {
   const TimeToCompleteATask = () => {
     let time = 0;
-    tareas.forEach((tarea) => {
+    const tareasFilter = tareas.filter((tarea) => tarea.endDate !== null);
+    tareasFilter.forEach((tarea) => {
       if (tarea.endDate !== null) {
         const createdDate = new Date(tarea.createdDate);
         const endDate = new Date(tarea.endDate);
         const diffTime = Math.abs(endDate.getTime() - createdDate.getTime());
-        time += diffTime;
+        if (diffTime > 0) {
+          time += diffTime;
+        }
       }
     });
-    if (time < 1 ) {
+    if (time <= 1 ) {
       return 0;
     }
-    time = time / tareas.length / 1000 / 60 / 60 / 24;
+    time = time / tareasFilter.length / 1000 / 60 / 60 / 24;
     time = Math.round(time * 100) / 100;
     
     return time;
