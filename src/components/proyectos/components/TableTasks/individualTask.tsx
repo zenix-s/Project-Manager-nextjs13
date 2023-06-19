@@ -25,6 +25,7 @@ import {
   BsArchive,
   BsCalendarXFill,
   BsCheck,
+  BsCheckSquare,
   BsCircle,
   BsCircleFill,
   BsFillCalendarFill,
@@ -323,20 +324,19 @@ const IndividualTask = ({
         </div>
       </div>
 
-      <Link
-        className="min-w-52 ml-4 w-full overflow-hidden truncate"
-        href={`/proyectos/${tarea.projectId}/${tarea.id}`}
-      >
+      <div className="min-w-52 ml-4 w-full overflow-hidden truncate">
         <p>{tarea.name}</p>
-      </Link>
+      </div>
 
       {tarea.userId && (
         <div className="dropdown dropdown-end min-w-[60px] justify-center">
           <label tabIndex={0} className="rounded-full border border-white p-1">
             {
               // just the first two letters
-              (teamMembers.find((member) => member.userId === tarea.userId)
-                ?.users.username || "").slice(0, 2)
+              (
+                teamMembers.find((member) => member.userId === tarea.userId)
+                  ?.users.username || ""
+              ).slice(0, 2)
             }
           </label>
           <ul
@@ -386,12 +386,11 @@ const IndividualTask = ({
         </div>
       )}
 
-      {
-        tarea.endDate !== null &&
-        <div className="dropdown dropdown-end min-w-[60px] justify-center items-center hidden sm:block">
-        <label
-          tabIndex={0}
-          className={`
+      {tarea.endDate !== null && (
+        <div className="dropdown dropdown-end hidden min-w-[60px] items-center justify-center sm:block">
+          <label
+            tabIndex={0}
+            className={`
           ${tarea.completed ? "text-white" : ""}
             
           ${
@@ -418,106 +417,108 @@ const IndividualTask = ({
           }
           tooltip tooltip-bottom
         `}
-          data-tip={`
+            data-tip={`
            Fecha de finalización: ${new Date(
              tarea.endDate || new Date()
            ).toLocaleDateString("es-ES")}
 
           `}
-        >
-          {tarea.endDate !== null &&
-            new Date(tarea.endDate).toLocaleDateString("es-ES", {
-              month: "short",
-              day: "numeric",
-            })}
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
-        >
-          <li>
-            <button
-              onClick={() => {
-                onChangeTask({
-                  updatedTask: {
-                    ...tarea,
-                    endDate: null,
-                  },
-                });
-              }}
-            >
-              <span>
-                <LuCalendarX2 />
-              </span>
-              <span>Eliminar fecha</span>
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                onChangeTask({
-                  updatedTask: {
-                    ...tarea,
-                    endDate: new Date(
-                      new Date(tarea.endDate || new Date()).getTime() + 86400000
-                    ),
-                  },
-                });
-              }}
-            >
-              <span>
-                <LuCalendarDays />
-              </span>
-              <span>Mañana</span>
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => {
-                onChangeTask({
-                  updatedTask: {
-                    ...tarea,
-                    endDate: new Date(
-                      new Date(tarea.endDate || new Date()).getTime() +
-                        604800000
-                    ),
-                  },
-                });
-              }}
-            >
-              <span>
-                <LuCalendarDays />
-              </span>
-              <span>Una semana</span>
-            </button>
-          </li>
-          <li>
-            <Link href={`/proyectos/${tarea.projectId}/${tarea.id}`}>
-              <span>
-                <MdOutlineEditCalendar />
-              </span>
-              <span>Personalizar</span>
-            </Link>
-          </li>
-          <li>
-            <input
-              type="date"
-              className="bg-base-100 text-white/70"
-              onChange={(e) => {
-                onChangeTask({
-                  updatedTask: {
-                    ...tarea,
-                    endDate: new Date(e.target.value),
-                  },
-                });
-              }}
-            />
-          </li>
-        </ul>
-      </div>}
+          >
+            {tarea.endDate !== null &&
+              new Date(tarea.endDate).toLocaleDateString("es-ES", {
+                month: "short",
+                day: "numeric",
+              })}
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
+          >
+            <li>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      endDate: null,
+                    },
+                  });
+                }}
+              >
+                <span>
+                  <LuCalendarX2 />
+                </span>
+                <span>Eliminar fecha</span>
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      endDate: new Date(
+                        new Date(tarea.endDate || new Date()).getTime() +
+                          86400000
+                      ),
+                    },
+                  });
+                }}
+              >
+                <span>
+                  <LuCalendarDays />
+                </span>
+                <span>Mañana</span>
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      endDate: new Date(
+                        new Date(tarea.endDate || new Date()).getTime() +
+                          604800000
+                      ),
+                    },
+                  });
+                }}
+              >
+                <span>
+                  <LuCalendarDays />
+                </span>
+                <span>Una semana</span>
+              </button>
+            </li>
+            <li>
+              <Link href={`/proyectos/${tarea.projectId}/${tarea.id}`}>
+                <span>
+                  <MdOutlineEditCalendar />
+                </span>
+                <span>Personalizar</span>
+              </Link>
+            </li>
+            <li>
+              <input
+                type="date"
+                className="bg-base-100 text-white/70"
+                onChange={(e) => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      endDate: new Date(e.target.value),
+                    },
+                  });
+                }}
+              />
+            </li>
+          </ul>
+        </div>
+      )}
 
       <div
-        className="tooltip tooltip-bottom min-w-[60px] justify-center items-center text-gray-500 hidden sm:flex"
+        className="tooltip tooltip-bottom hidden min-w-[60px] items-center justify-center text-gray-500 sm:flex"
         data-tip={`
         Creado ${new Date(tarea.createdDate).toLocaleDateString(
           "es-ES"
@@ -557,33 +558,24 @@ const IndividualTask = ({
                   onChangeTask({
                     updatedTask: {
                       ...tarea,
-                      archived: !tarea.archived,
+                      completed: !tarea.completed,
                     },
                   });
                 }}
                 className=""
               >
                 <span>
-                  <BsArchive />
+                  <BsCheckSquare />
                 </span>
-                <span>{tarea.archived ? "Desarchivar" : "Archivar"}</span>
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  onDeleteTask({
-                    taskId: tarea.id,
-                  });
-                }}
-                className=""
-              >
                 <span>
-                  <VscTrash />
+                  {tarea.completed
+                    ? "Descompletar"
+                    : "Completar"}
                 </span>
-                <span>Eliminar</span>
               </button>
             </li>
+            <span className="my-1 block h-px bg-white/10" />
+
             <li tabIndex={0} className="">
               <span>
                 <span>
@@ -591,17 +583,15 @@ const IndividualTask = ({
                 </span>
                 <span>Fecha límite</span>
                 <span>
-                  {
-                    tarea.endDate !== null &&
+                  {tarea.endDate !== null &&
                     new Date(tarea.endDate).toLocaleDateString("es-ES", {
                       month: "short",
                       day: "numeric",
-                    })
-                  }
+                    })}
                 </span>
               </span>
               <ul
-                className="!right-0 sm:!right-full top-10 sm:top-0 z-20 rounded-md border border-white/10 bg-base-100"
+                className="!right-0 top-10 z-20 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
                 style={{
                   left: "initial",
                 }}
@@ -695,22 +685,18 @@ const IndividualTask = ({
                 </li>
               </ul>
             </li>
-            <li
-              tabIndex={0}
-            >
+            <li tabIndex={0}>
               <span>
                 <span>
                   <BsPersonCircle />
                 </span>
                 <span>
-                  {
-                    teamMembers.find((member) => member.userId === tarea.userId)
-                      ?.users.username || "Asignar"
-                  }
+                  {teamMembers.find((member) => member.userId === tarea.userId)
+                    ?.users.username || "Asignar"}
                 </span>
               </span>
               <ul
-                className="!right-0 sm:!right-full top-10 sm:top-0 rounded-md border border-white/10 bg-base-100"
+                className="!right-0 top-10 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
                 style={{
                   left: "initial",
                 }}
@@ -758,6 +744,198 @@ const IndividualTask = ({
                 ))}
               </ul>
             </li>
+            <li>
+              {/* priority */}
+              <span>
+                <span>
+                  {tarea.priority === 0 && <BiDotsHorizontalRounded />}
+                  {tarea.priority === 1 && <MdOutlineSignalCellularAlt1Bar />}
+                  {tarea.priority === 2 && <MdOutlineSignalCellularAlt2Bar />}
+                  {tarea.priority === 3 && <MdOutlineSignalCellularAlt />}
+                  {tarea.priority === 4 && <MdPriorityHigh />}
+                </span>
+                <span>
+                  {tarea.priority === 0 && "Sin prioridad"}
+                  {tarea.priority === 1 && "Prioridad baja"}
+                  {tarea.priority === 2 && "Prioridad media"}
+                  {tarea.priority === 3 && "Prioridad alta"}
+                  {tarea.priority === 4 && "Prioridad urgente"}
+                </span>
+              </span>
+              <ul
+                className="!right-0 top-10 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
+                style={{
+                  left: "initial",
+                }}
+              >
+                <li
+                  className={`
+                    ${tarea.priority === 0 ? "bg-white/10" : ""}
+                  `}
+                >
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          priority: 0,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                        <BiDotsHorizontalRounded />
+                      </span>
+                      <span>Sin Prioridad</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.priority === 0 && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className={`
+                      ${tarea.priority === 1 ? "bg-white/10" : ""}
+                    `}
+                >
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          priority: 1,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                        <MdOutlineSignalCellularAlt1Bar />
+                      </span>
+                      <span>Prioridad Baja</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.priority === 1 && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className={`
+                      ${tarea.priority === 2 ? "bg-white/10" : ""}
+                    `}
+                >
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          priority: 2,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                        <MdOutlineSignalCellularAlt2Bar />
+                      </span>
+                      <span>Prioridad Media</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.priority === 2 && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className={`
+                      ${tarea.priority === 3 ? "bg-white/10" : ""}
+                    `}
+                >
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          priority: 3,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                        <MdOutlineSignalCellularAlt />
+                      </span>
+                      <span>Prioridad Alta</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.priority === 3 && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className={`
+                      ${tarea.priority === 4 ? "bg-white/10" : ""}
+                    `}
+                >
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          priority: 4,
+                        },
+                      });
+                    }}
+                  >
+                    <div className="flex w-full items-center gap-2">
+                      <span className="mr-2 inline-block h-5 w-5 rounded-full">
+                        <MdPriorityHigh />
+                      </span>
+                      <span>Prioridad Urgente</span>
+                      <span className="flex flex-grow justify-end">
+                        {tarea.priority === 4 && <BsCheck />}
+                      </span>
+                    </div>
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <span className="my-1 block h-px bg-white/10" />
+            <li>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      archived: !tarea.archived,
+                    },
+                  });
+                }}
+                className=""
+              >
+                <span>
+                  <BsArchive />
+                </span>
+                <span>{tarea.archived ? "Desarchivar" : "Archivar"}</span>
+              </button>
+            </li>
+            {tarea.archived && (
+              <li>
+                <button
+                  onClick={() => {
+                    onDeleteTask({
+                      taskId: tarea.id,
+                    });
+                  }}
+                  className=""
+                >
+                  <span>
+                    <VscTrash />
+                  </span>
+                  <span>Eliminar</span>
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
