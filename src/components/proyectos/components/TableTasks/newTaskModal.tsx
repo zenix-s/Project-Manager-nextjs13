@@ -53,22 +53,22 @@ const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
     CleanInputs();
   };
   return (
-    <div className="flex flex-col lg:flex-row w-full items-end justify-start gap-4 mt-4">
+    <div className="flex flex-col lg:flex-row w-full items-end justify-start gap-4">
       <input 
         type="text"
         id="TitleNewTaskInput"
-        className="input input-bordered"
+        className="input input-bordered px-2 py-2 h-min"
         placeholder="Nombre de la tarea"
         {...register("TitleNewTaskInput", { required: true })}
       />
 
-      <Button
+      <button 
         onClick={handleSubmit(onSubmit)}
-        loading={loading}
+        className="bg-primary rounded-md p-2"
         disabled={loading}
-        label={loading ? "Cargando..." : "Crear tarea"}
-        theme="primary"
-      />
+      >
+        {loading ? "Cargando..." : "Crear tarea"}
+      </button>
     </div>
   );
 };

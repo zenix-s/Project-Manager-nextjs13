@@ -22,6 +22,7 @@ import TeamSection from "./team/TeamSection";
 import TaskModal from "./TaskModal";
 import StateModal from "./StateModal";
 import { MdLabel } from "react-icons/md";
+import useTasksModal from "@/hooks/useTasksModal";
 
 const Tasks = ({
   idProject,

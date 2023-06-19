@@ -9,6 +9,11 @@ interface StatsProps {
   amountOfCompletedTasks: number;
   archivedTasks: number;
   averageTime: number;
+  noPriority: number;
+  lowPriority: number;
+  mediumPriority: number;
+  highPriority: number;
+  urgentPriority: number;
 }
 
 const Page = () => {
@@ -99,6 +104,34 @@ const Page = () => {
                   </div>
                 </div>
               </div>
+              {/* Seccion prioridades */}
+              <div className="flex h-min flex-col items-start gap-4 rounded-md  p-4 ">
+                <div className="w-full">
+                  <span className="text-3xl">Prioridades</span>
+                </div>
+                <div className="flex gap-4 flex-col">
+                  <div className="flex ">
+                    <span className="text-2xl">Sin prioridad</span>
+                    <span>{stats?.noPriority}</span>
+                  </div>
+                  <div className="flex">
+                    <span className="text-2xl">Baja</span>
+                    {stats?.lowPriority}
+                  </div>
+                  <div className="flex">
+                    <span className="text-2xl">Media</span>
+                    {stats?.mediumPriority}
+                  </div>
+                  <div className="flex">
+                    <span className="text-2xl">Alta</span>
+                    {stats?.highPriority}
+                  </div>
+                  <div className="flex">
+                    <span className="text-2xl">Urgente</span>
+                    {stats?.urgentPriority}
+                  </div>
+                </div>
+                </div>
             </div>
           </div>
         </div>
