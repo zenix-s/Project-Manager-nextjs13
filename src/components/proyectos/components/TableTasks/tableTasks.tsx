@@ -7,7 +7,8 @@ import NewTaskModal from "./newTaskModal";
 import axios from "axios";
 import { useState } from "react";
 import { BiDownArrow } from "react-icons/bi";
-import { BsArchive, BsCheckCircle, BsCircle } from "react-icons/bs";
+import { BsArchive, BsCheckCircle, BsCircle, BsCircleFill } from "react-icons/bs";
+import { getHexColor } from "@/actions/getColors";
 
 const TableTasks = ({
   tareas,
@@ -27,23 +28,35 @@ const TableTasks = ({
   onAddTask: ({ newTask }: { newTask: TaskProps }) => void;
 }) => {
   const [filter, setFilter] = useState(0);
+  const [stateFilter, setStateFilter] = useState(0);
 
   const tasks = () => {
+    let prevtareas = [...tareas];
     if (filter === 0) {
-      return tareas
+      prevtareas = prevtareas
         .filter((tarea) => tarea.completed === false)
         .filter((tarea) => tarea.archived === false);
     }
     if (filter === 1) {
-      return tareas
+      prevtareas = prevtareas
         .filter((tarea) => tarea.completed === true)
         .filter((tarea) => tarea.archived === false);
     }
     if (filter === 2) {
-      return tareas.filter((tarea) => tarea.archived === true);
+      prevtareas = prevtareas.filter((tarea) => tarea.archived === true);
     }
 
-    return tareas;
+    if (stateFilter !== 0) {
+      prevtareas = prevtareas.filter(
+        (tarea) => tarea.stateId === stateFilter
+      );
+    }
+
+    
+
+
+
+    return prevtareas;
   };
 
   return (
@@ -111,6 +124,57 @@ const TableTasks = ({
                   <span>Archivadas</span>
                 </button>
               </li>
+            </ul>
+          </div>
+          <div className="dropdown">
+            <label tabIndex={0} className="rounded-md p-2 flex gap-2 items-center">
+              {stateFilter === 0
+                ? "Todos"
+                : estados.filter((estado) => estado.id === stateFilter)[0]
+                    .name}
+              {/* <BiDownArrow /> */}
+              {
+                stateFilter === 0 ? <BsCircle /> : <BsCircleFill style={{
+                  color: getHexColor(estados.filter((estado) => estado.id === stateFilter)[0].color)
+                }} />
+              }
+            </label>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu w-52 rounded-md bg-base-100 shadow border border-white/10"
+            >
+              <li>
+                <button
+                  onClick={() => {
+                    setStateFilter(0);
+                  }
+                  }
+                >
+                  <span>
+                    <BsCircle />
+                  </span>
+                  <span>Todos</span>
+                </button>
+              </li>
+              {estados.map((estado) => {
+                return (
+                  <li key={estado.id}>
+                    <button
+                      onClick={() => {
+                        setStateFilter(estado.id);
+                      }}
+                    >
+                      <span style={{
+                        color: getHexColor(estado.color)
+                      }}>
+                        <BsCircleFill />
+                      </span>
+                      <span>{estado.name}</span>
+                    </button>
+                  </li>
+                );
+              }
+              )}
             </ul>
           </div>
         </div>

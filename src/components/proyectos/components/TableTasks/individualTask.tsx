@@ -5,7 +5,10 @@ import {
   MdOutlineSignalCellularAlt2Bar,
   MdOutlineSignalCellularAlt,
   MdPriorityHigh,
+  MdOutlineEditCalendar,
+  MdOutlineCalendarMonth,
 } from "react-icons/md";
+import { LuCalendarDays, LuCalendarX2 } from "react-icons/lu";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { use, useState } from "react";
 import {
@@ -18,7 +21,15 @@ import {
 import { getBgColor, getHexColor } from "@/actions/getColors";
 import Button from "@/components/button";
 import useTasksModal from "@/hooks/useTasksModal";
-import { BsArchive, BsCheck, BsCircle, BsCircleFill } from "react-icons/bs";
+import {
+  BsArchive,
+  BsCalendarXFill,
+  BsCheck,
+  BsCircle,
+  BsCircleFill,
+  BsFillCalendarFill,
+  BsPersonCircle,
+} from "react-icons/bs";
 import Link from "next/link";
 
 const IndividualTask = ({
@@ -312,15 +323,75 @@ const IndividualTask = ({
         </div>
       </div>
 
-      <Link 
-        className="ml-4 w-full"
+      <Link
+        className="min-w-52 ml-4 w-full overflow-hidden truncate"
         href={`/proyectos/${tarea.projectId}/${tarea.id}`}
       >
         <p>{tarea.name}</p>
       </Link>
 
-      <div className="w-24 flex">
-        <label htmlFor={`endDate${tarea.id}`} className={`
+      {tarea.userId && (
+        <div className="dropdown dropdown-end min-w-[60px] justify-center">
+          <label tabIndex={0} className="rounded-full border border-white p-1">
+            {
+              // just the first two letters
+              (teamMembers.find((member) => member.userId === tarea.userId)
+                ?.users.username || "").slice(0, 2)
+            }
+          </label>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
+          >
+            <li>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      userId: null,
+                    },
+                  });
+                }}
+              >
+                <span>
+                  <VscTrash />
+                </span>
+                <span>Eliminar asignación</span>
+              </button>
+            </li>
+            {teamMembers.map((member: TeamMemberProps) => (
+              <li key={member.id}>
+                <button
+                  onClick={() => {
+                    onChangeTask({
+                      updatedTask: {
+                        ...tarea,
+                        userId: member.userId,
+                      },
+                    });
+                  }}
+                  className={`
+                  ${tarea.userId === member.userId ? "bg-white/10" : ""}
+                `}
+                >
+                  <span className="capitalize">{member.users.username}</span>
+                  <span className="flex w-full justify-end">
+                    {tarea.userId === member.userId && <BsCheck />}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {
+        tarea.endDate !== null &&
+        <div className="dropdown dropdown-end min-w-[60px] justify-center items-center hidden sm:block">
+        <label
+          tabIndex={0}
+          className={`
           ${tarea.completed ? "text-white" : ""}
             
           ${
@@ -341,152 +412,147 @@ const IndividualTask = ({
           ${
             tarea.endDate !== null &&
             new Date(tarea.endDate).getTime() > new Date().getTime() &&
-            new Date(tarea.endDate).getTime() - new Date().getTime() >
-              259200000
+            new Date(tarea.endDate).getTime() - new Date().getTime() > 259200000
               ? "text-white/70"
               : ""
           }
-        `}>
-          {
-            tarea.endDate !== null &&
+          tooltip tooltip-bottom
+        `}
+          data-tip={`
+           Fecha de finalización: ${new Date(
+             tarea.endDate || new Date()
+           ).toLocaleDateString("es-ES")}
+
+          `}
+        >
+          {tarea.endDate !== null &&
             new Date(tarea.endDate).toLocaleDateString("es-ES", {
               month: "short",
               day: "numeric",
-            })
-          }
+            })}
         </label>
-      </div>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
+        >
+          <li>
+            <button
+              onClick={() => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    endDate: null,
+                  },
+                });
+              }}
+            >
+              <span>
+                <LuCalendarX2 />
+              </span>
+              <span>Eliminar fecha</span>
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    endDate: new Date(
+                      new Date(tarea.endDate || new Date()).getTime() + 86400000
+                    ),
+                  },
+                });
+              }}
+            >
+              <span>
+                <LuCalendarDays />
+              </span>
+              <span>Mañana</span>
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    endDate: new Date(
+                      new Date(tarea.endDate || new Date()).getTime() +
+                        604800000
+                    ),
+                  },
+                });
+              }}
+            >
+              <span>
+                <LuCalendarDays />
+              </span>
+              <span>Una semana</span>
+            </button>
+          </li>
+          <li>
+            <Link href={`/proyectos/${tarea.projectId}/${tarea.id}`}>
+              <span>
+                <MdOutlineEditCalendar />
+              </span>
+              <span>Personalizar</span>
+            </Link>
+          </li>
+          <li>
+            <input
+              type="date"
+              className="bg-base-100 text-white/70"
+              onChange={(e) => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    endDate: new Date(e.target.value),
+                  },
+                });
+              }}
+            />
+          </li>
+        </ul>
+      </div>}
 
-      <div>
-        <input
-          type="date"
-          id={`endDate${tarea.id}`}
-          // className="input-ghost input w-56"
-          className={`
-            input-ghost
-            input
-            w-56
-            ${tarea.completed ? "text-white" : ""}
-            
-            ${
-              tarea.endDate !== null &&
-              new Date(tarea.endDate).getTime() < new Date().getTime()
-                ? "text-error"
-                : ""
-            }
-            ${
-              tarea.endDate !== null &&
-              new Date(tarea.endDate).getTime() > new Date().getTime() &&
-              new Date(tarea.endDate).getTime() - new Date().getTime() <
-                259200000 &&
-              new Date(tarea.endDate).getTime() - new Date().getTime() > 0
-                ? "text-yellow-300"
-                : ""
-            }
-            ${
-              tarea.endDate !== null &&
-              new Date(tarea.endDate).getTime() > new Date().getTime() &&
-              new Date(tarea.endDate).getTime() - new Date().getTime() >
-                259200000
-                ? "text-white"
-                : ""
-            }
-            `}
-          defaultValue={defaultDate()}
-          disabled={tarea.completed}
-          onChange={(e) => {
-            onChangeTask({
-              updatedTask: {
-                ...tarea,
-                endDate: new Date(e.target.value),
-              },
-            });
-          }}
-        />
-      </div>
-
-      <div>
-        <div className="dropdown">
-          <label
-            tabIndex={0}
-            className="btn-ghost btn m-1 w-56 flex-row-reverse justify-start gap-2"
-          >
-            <VscAccount />
-            {tarea.userId
-              ? teamMembers.find((member) => member.userId === tarea.userId)
-                  ?.users.username
-              : "Sin asignar"}
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu rounded-box w-full bg-base-100 pt-2 shadow"
-          >
-            <li>
-              <button
-                onClick={() => {
-                  onChangeTask({
-                    updatedTask: {
-                      ...tarea,
-                      userId: null,
-                    },
-                  });
-                }}
-              >
-                Sin asignar
-              </button>
-            </li>
-            {teamMembers.map((member: TeamMemberProps) => (
-              <li key={member.id}>
-                <button
-                  onClick={() => {
-                    onChangeTask({
-                      updatedTask: {
-                        ...tarea,
-                        userId: member.userId,
-                      },
-                    });
-                  }}
-                >
-                  {member.users.username}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="flex w-24 text-gray-500 tooltip tooltip-bottom" data-tip={`
-        Creado ${new Date(tarea.createdDate).toLocaleDateString("es-ES")} ${new Date(tarea.createdDate).toLocaleTimeString("es-ES")}
-      `}>
+      <div
+        className="tooltip tooltip-bottom min-w-[60px] justify-center items-center text-gray-500 hidden sm:flex"
+        data-tip={`
+        Creado ${new Date(tarea.createdDate).toLocaleDateString(
+          "es-ES"
+        )} ${new Date(tarea.createdDate).toLocaleTimeString("es-ES")}
+      `}
+      >
         {new Date(tarea.createdDate).toLocaleDateString("es-ES", {
           month: "short",
           day: "numeric",
         })}
       </div>
       <div>
-        <div className="dropdown dropdown-bottom dropdown-end">
+        <div className="dropdown-start dropdown dropdown-left">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
             <VscKebabVertical />
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu mt-2 w-52 rounded-md bg-base-100 shadow"
+            className="dropdown-content menu menu-compact mt-2 w-52 rounded-md border border-white/10 bg-base-100 shadow"
           >
             <li>
-              <Button
-                label="Editar"
-                theme="ghost"
-                fullWidth
+              <button
                 onClick={() => {
                   TaskModal.onOpen(tarea);
                 }}
-                icon={VscEdit}
-              />
+                className=""
+              >
+                <span>
+                  <VscEdit />
+                </span>
+                <span>Editar</span>
+              </button>
             </li>
             <li>
-              <Button
-                label={tarea.archived ? "Desarchivar" : "Archivar"}
-                theme="ghost"
-                fullWidth
+              <button
                 onClick={() => {
                   onChangeTask({
                     updatedTask: {
@@ -495,21 +561,202 @@ const IndividualTask = ({
                     },
                   });
                 }}
-                icon={BsArchive}
-              />
+                className=""
+              >
+                <span>
+                  <BsArchive />
+                </span>
+                <span>{tarea.archived ? "Desarchivar" : "Archivar"}</span>
+              </button>
             </li>
             <li>
-              <Button
-                label="Eliminar"
-                theme="error"
-                fullWidth
+              <button
                 onClick={() => {
                   onDeleteTask({
                     taskId: tarea.id,
                   });
                 }}
-                icon={VscTrash}
-              />
+                className=""
+              >
+                <span>
+                  <VscTrash />
+                </span>
+                <span>Eliminar</span>
+              </button>
+            </li>
+            <li tabIndex={0} className="">
+              <span>
+                <span>
+                  <LuCalendarDays />
+                </span>
+                <span>Fecha límite</span>
+                <span>
+                  {
+                    tarea.endDate !== null &&
+                    new Date(tarea.endDate).toLocaleDateString("es-ES", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                </span>
+              </span>
+              <ul
+                className="!right-0 sm:!right-full top-10 sm:top-0 z-20 rounded-md border border-white/10 bg-base-100"
+                style={{
+                  left: "initial",
+                }}
+              >
+                <li>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          endDate: null,
+                        },
+                      });
+                    }}
+                  >
+                    <span>
+                      <LuCalendarX2 />
+                    </span>
+                    <span>Eliminar fecha</span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          endDate: new Date(
+                            new Date(tarea.endDate || new Date()).getTime() +
+                              86400000
+                          ),
+                        },
+                      });
+                    }}
+                  >
+                    <span>
+                      <LuCalendarDays />
+                    </span>
+                    <span>
+                      {/* Sumar un día */}
+                      {tarea.endDate !== null ? "Sumar un día" : "Mañana"}
+                    </span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          endDate: new Date(
+                            new Date(tarea.endDate || new Date()).getTime() +
+                              604800000
+                          ),
+                        },
+                      });
+                    }}
+                  >
+                    <span>
+                      <LuCalendarDays />
+                    </span>
+                    <span>
+                      {/* Sumar una semana */}
+                      {tarea.endDate !== null
+                        ? "Sumar una semana"
+                        : "Una semana"}
+                    </span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          endDate: new Date(
+                            new Date(tarea.endDate || new Date()).getTime() +
+                              2592000000
+                          ),
+                        },
+                      });
+                    }}
+                  >
+                    <span>
+                      <LuCalendarDays />
+                    </span>
+                    <span>
+                      {tarea.endDate !== null ? "Sumar un mes" : "Un mes"}
+                    </span>
+                  </button>
+                </li>
+              </ul>
+            </li>
+            <li
+              tabIndex={0}
+            >
+              <span>
+                <span>
+                  <BsPersonCircle />
+                </span>
+                <span>
+                  {
+                    teamMembers.find((member) => member.userId === tarea.userId)
+                      ?.users.username || "Asignar"
+                  }
+                </span>
+              </span>
+              <ul
+                className="!right-0 sm:!right-full top-10 sm:top-0 rounded-md border border-white/10 bg-base-100"
+                style={{
+                  left: "initial",
+                }}
+              >
+                <li>
+                  <button
+                    onClick={() => {
+                      onChangeTask({
+                        updatedTask: {
+                          ...tarea,
+                          userId: null,
+                        },
+                      });
+                    }}
+                  >
+                    <span>
+                      <VscTrash />
+                    </span>
+                    <span>Eliminar asignación</span>
+                  </button>
+                </li>
+                {teamMembers.map((member: TeamMemberProps) => (
+                  <li key={member.id}>
+                    <button
+                      onClick={() => {
+                        onChangeTask({
+                          updatedTask: {
+                            ...tarea,
+                            userId: member.userId,
+                          },
+                        });
+                      }}
+                      className={`
+                        ${tarea.userId === member.userId ? "bg-white/10" : ""}
+                      `}
+                    >
+                      <span className="capitalize">
+                        {member.users.username}
+                      </span>
+                      <span className="flex w-full justify-end">
+                        {tarea.userId === member.userId && <BsCheck />}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </li>
           </ul>
         </div>

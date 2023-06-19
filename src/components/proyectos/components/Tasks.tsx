@@ -478,7 +478,7 @@ const Tasks = ({
       <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">
         <div>
-          <div className="flex w-full gap-4 overflow-x-auto ">
+          <div className="flex w-full gap-4 overflow-x-auto border-b border-white/10">
             {Views.map((view, index) => {
               return (
                 <div
