@@ -472,7 +472,7 @@ const TableTasks = ({
                   <span>
                     <MdOutlineEditCalendar />
                   </span>
-                  <span>Fecha de finalización</span>
+                  <span>Finalización</span>
                 </button>
               </li>
               <li>
@@ -484,7 +484,7 @@ const TableTasks = ({
                   <span>
                     <MdOutlineCalendarMonth />
                   </span>
-                  <span>Fecha de creación</span>
+                  <span>Creación</span>
                 </button>
               </li>
               <li>

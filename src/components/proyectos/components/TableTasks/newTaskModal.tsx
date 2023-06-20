@@ -2,10 +2,6 @@
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { StateProps, TaskProps } from "@/types";
-import { useRouter } from "next/navigation";
-import Input from "@/components/inputs/input";
-import Button from "@/components/button";
-import { getHexColor } from "@/actions/getColors";
 
 interface NewTaskFormProps {
   idProject: number;
@@ -15,9 +11,6 @@ interface NewTaskFormProps {
 
 const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
   const [loading, setLoading] = useState(false);
-  const [TitleError, setTitleError] = useState(false);
-  const [StateError, setStateError] = useState(false);
-  const router = useRouter();
 
   const {
     register,
@@ -25,11 +18,16 @@ const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
     formState: { errors },
     setValue,
     getValues,
-  } = useForm<FieldValues>();
+  } = useForm<FieldValues>(
+    {
+      defaultValues: {
+        TitleNewTaskInput: "",
+      },
+    }
+  );
 
   const CleanInputs = () => {
     setValue("TitleNewTaskInput", "");
-    setValue("stateFormNewTask", "Selecciona un estado");
   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -41,7 +39,7 @@ const NewTaskModal = ({ idProject, estados, onAddTask }: NewTaskFormProps) => {
         description: null,
         endDate: null,
         completed: false,
-        stateId: parseInt(data.stateFormNewTask),
+        stateId: null,
         projectId: idProject,
         userId: null,
         archived: false,

@@ -39,11 +39,20 @@ export async function POST(request: Request) {
 
   const { name, description, deadline } = body;
 
+  const endDate = () => {
+    
+    if (deadline) {
+      return new Date(deadline);
+    }
+    return null;
+
+  };
+
   const newProject = await prisma.projects.create({
     data: {
       name: name,
-      description: description,
-      endDate: new Date(deadline),
+      description: description || null,
+      endDate: endDate(),
       creationDate: new Date(),
     },
   });
@@ -56,7 +65,11 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json(newProject);
+  return NextResponse.json({
+    status: 200,
+    message: "El proyecto ha sido creado",
+
+  });
 }
 
 export async function DELETE(request: Request) {

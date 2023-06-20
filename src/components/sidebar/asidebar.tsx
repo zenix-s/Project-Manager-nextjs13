@@ -63,31 +63,34 @@ const AsideBar = ({ user }: { user: any }) => {
               className="tooltip tooltip-right"
               data-tip={user?.name || "Usuario"}
             >
-              {/* <Button
-                label=""
-                theme="ghost"
-                icon={CiUser}
-                onClick={() => {}}
-                fontSize="lg"
-              /> */}
               <Link
                 href="/perfil"
-                className="btn-ghost tooltip tooltip-right btn flex text-lg justify-center items-center"
+                className="btn-ghost tooltip tooltip-right btn flex gap-2 text-lg justify-center items-center"
                 data-tip={user?.name || "Usuario"}
               >
-                <CiUser />
+                <span>
+                  <CiUser />
+                </span>
+                <span className="block sm:hidden">
+                  {user?.name || "Usuario"}
+                </span>
               </Link>
             </div>
             <div className="tooltip tooltip-right" data-tip="Cerrar sesion">
-              <Button
-                label=""
-                theme="ghost"
-                icon={CiLogout}
+              <button 
+                className="w-full btn btn-ghost text-lg flex gap-2 justify-center tooltip tooltip-right items-center"
+                data-tip="Cerrar sesion"
                 onClick={() => {
                   signOut();
                 }}
-                fontSize="lg"
-              />
+              >
+                <span>
+                  <CiLogout />
+                </span>
+                <span className="block sm:hidden">
+                  Cerrar sesion
+                </span>
+              </button>
             </div>
           </div>
           <div className={`absolute right-0 top-0 flex sm:hidden  `}>

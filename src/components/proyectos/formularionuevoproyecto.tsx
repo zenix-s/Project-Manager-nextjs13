@@ -3,6 +3,7 @@ import { useState } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import Button from "../button";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
@@ -24,18 +25,17 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
   });
 
   const [visibility, setVisibility] = useState(visible);
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const res = await axios
       .post("/api/proyectos", data)
       .then(() => {
         setVisibility(false);
-        window.location.reload();
+        router.refresh();
       })
-      .catch((error) => {
-      })
-      .finally(() => {
-      });
+      .catch((error) => {})
+      .finally(() => {});
   };
 
   return (
@@ -51,39 +51,8 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
           label="Nuevo Proyecto"
         />
       </div>
-      <div
-        className={`
-      absolute
-      left-0
-      top-0
-      h-full
-      w-full
-      ${visibility ? "flex" : "hidden"}
-      general-form-container
-      z-20
-      items-center
-      justify-center
-    `}
-        // onclick if if the user clicks outside the form, it closes
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            setVisibility(false);
-          }
-        }}
-      >
-        <div
-          className="
-        relative
-        h-full
-        w-full
-        rounded-xl
-        bg-neutral-800
-        p-6
-        shadow-xl
-        md:h-3/4
-        md:w-1/3
-      "
-        >
+      <div className={`modal ${visibility && "modal-open"}`}>
+        <div className="modal-box">
           <button
             onClick={() => setVisibility(false)}
             className="absolute right-4 top-4"
@@ -107,17 +76,17 @@ const NewProjectForm: React.FC<newProjectFormProps> = ({ visible }) => {
               <input
                 type="text"
                 id="description"
-                {...register("description", { required: true })}
+                {...register("description", { required: false })}
               />
               {errors.description && <span>Este campo es requerido</span>}
               <label htmlFor="deadline">Fecha de entrega</label>
               <input
                 type="date"
                 id="deadline"
-                {...register("deadline", { required: true })}
+                {...register("deadline", { required: false })}
               />
               {errors.deadline && <span>Este campo es requerido</span>}
-              
+
               <Button type="submit" theme="primary" label="Crear Proyecto" />
             </div>
           </form>

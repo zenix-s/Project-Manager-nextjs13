@@ -5,8 +5,10 @@ import axios from "axios";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../button";
 import Input from "../inputs/input";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const NewProjectForm = () => {
   const ProjectsModal = useProjectsModal();
@@ -18,13 +20,18 @@ const NewProjectForm = () => {
   } = useForm<FieldValues>();
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
     const res = await axios
       .post("/api/proyectos", data)
-      .then(() => {
-        window.location.reload();
+      .then((res) => {
+        if (res.data.status === 200){
+          router.refresh();
+          toast.success(res.data.message);
+        }
+
       })
       .catch((error) => {
       })
@@ -48,7 +55,7 @@ const NewProjectForm = () => {
         id="description"
         label="Descripción"
         type="text"
-        required
+        required={false}
         register={register}
         errors={errors}
       />

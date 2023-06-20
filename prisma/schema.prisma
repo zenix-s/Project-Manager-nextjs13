@@ -35,9 +35,9 @@ model states {
 model projects {
   id           Int           @id @default(autoincrement())
   name         String        @db.VarChar(50)
-  description  String        @db.VarChar(255)
+  description  String?       @db.VarChar(255)
   creationDate DateTime      @db.DateTime(0)
-  endDate      DateTime      @db.DateTime(0)
+  endDate      DateTime?     @db.DateTime(0)
   archived     Boolean       @default(false)
   assignments  assignments[]
   invitations  invitations[]

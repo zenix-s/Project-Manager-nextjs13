@@ -287,9 +287,6 @@ const IndividualTask = ({
                   `}
                 >
                   <button
-                    // style={{
-                    //   backgroundColor: getHexColor(estado.color),
-                    // }}
                     onClick={() => {
                       onChangeTask({
                         updatedTask: {
@@ -300,12 +297,6 @@ const IndividualTask = ({
                     }}
                   >
                     <div className="flex w-full items-center gap-2">
-                      {/* <span
-                        className="mr-2 inline-block h-5 w-5 rounded-full"
-                        style={{
-                          backgroundColor: getHexColor(estado.color),
-                        }}
-                      /> */}
                       <BsCircleFill
                         style={{
                           color: getHexColor(estado.color),
@@ -327,64 +318,6 @@ const IndividualTask = ({
       <div className="min-w-52 ml-4 w-full overflow-hidden truncate">
         <p>{tarea.name}</p>
       </div>
-
-      {tarea.userId && (
-        <div className="dropdown dropdown-end min-w-[60px] justify-center">
-          <label tabIndex={0} className="rounded-full border border-white p-1">
-            {
-              // just the first two letters
-              (
-                teamMembers.find((member) => member.userId === tarea.userId)
-                  ?.users.username || ""
-              ).slice(0, 2)
-            }
-          </label>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
-          >
-            <li>
-              <button
-                onClick={() => {
-                  onChangeTask({
-                    updatedTask: {
-                      ...tarea,
-                      userId: null,
-                    },
-                  });
-                }}
-              >
-                <span>
-                  <VscTrash />
-                </span>
-                <span>Eliminar asignación</span>
-              </button>
-            </li>
-            {teamMembers.map((member: TeamMemberProps) => (
-              <li key={member.id}>
-                <button
-                  onClick={() => {
-                    onChangeTask({
-                      updatedTask: {
-                        ...tarea,
-                        userId: member.userId,
-                      },
-                    });
-                  }}
-                  className={`
-                  ${tarea.userId === member.userId ? "bg-white/10" : ""}
-                `}
-                >
-                  <span className="capitalize">{member.users.username}</span>
-                  <span className="flex w-full justify-end">
-                    {tarea.userId === member.userId && <BsCheck />}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
 
       {tarea.endDate !== null && (
         <div className="dropdown dropdown-end hidden min-w-[60px] items-center justify-center sm:block">
@@ -468,7 +401,9 @@ const IndividualTask = ({
                 <span>
                   <LuCalendarDays />
                 </span>
-                <span>Mañana</span>
+                <span>
+                  Sumar un día
+                </span>
               </button>
             </li>
             <li>
@@ -488,16 +423,8 @@ const IndividualTask = ({
                 <span>
                   <LuCalendarDays />
                 </span>
-                <span>Una semana</span>
+                <span>Sumar una semana</span>
               </button>
-            </li>
-            <li>
-              <Link href={`/proyectos/${tarea.projectId}/${tarea.id}`}>
-                <span>
-                  <MdOutlineEditCalendar />
-                </span>
-                <span>Personalizar</span>
-              </Link>
             </li>
             <li>
               <input
@@ -530,6 +457,61 @@ const IndividualTask = ({
           day: "numeric",
         })}
       </div>
+
+      <div className="dropdown dropdown-end min-w-[60px] hidden sm:block justify-center">
+        <label tabIndex={0} className="w-min">
+          <div className="flex items-center justify-center rounded-full p-1 text-center">
+            {teamMembers
+              .find((member) => member.userId === tarea.userId)
+              ?.users.username.slice(0, 4) || <VscAccount />}
+          </div>
+        </label>
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu w-52 rounded-md border border-white/10 bg-base-100 shadow"
+        >
+          <li>
+            <button
+              onClick={() => {
+                onChangeTask({
+                  updatedTask: {
+                    ...tarea,
+                    userId: null,
+                  },
+                });
+              }}
+            >
+              <span>
+                <VscTrash />
+              </span>
+              <span>Eliminar asignación</span>
+            </button>
+          </li>
+          {teamMembers.map((member: TeamMemberProps) => (
+            <li key={member.id}>
+              <button
+                onClick={() => {
+                  onChangeTask({
+                    updatedTask: {
+                      ...tarea,
+                      userId: member.userId,
+                    },
+                  });
+                }}
+                className={`
+                  ${tarea.userId === member.userId ? "bg-white/10" : ""}
+                `}
+              >
+                <span className="capitalize">{member.users.username}</span>
+                <span className="flex w-full justify-end">
+                  {tarea.userId === member.userId && <BsCheck />}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div>
         <div className="dropdown-start dropdown dropdown-left">
           <label tabIndex={0} className="btn m-1 border-none bg-transparent">
@@ -567,11 +549,7 @@ const IndividualTask = ({
                 <span>
                   <BsCheckSquare />
                 </span>
-                <span>
-                  {tarea.completed
-                    ? "Descompletar"
-                    : "Completar"}
-                </span>
+                <span>{tarea.completed ? "Descompletar" : "Completar"}</span>
               </button>
             </li>
             <span className="my-1 block h-px bg-white/10" />
@@ -696,7 +674,7 @@ const IndividualTask = ({
                 </span>
               </span>
               <ul
-                className="!right-0 top-10 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
+                className="!right-0 top-10 z-20 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
                 style={{
                   left: "initial",
                 }}
@@ -763,7 +741,7 @@ const IndividualTask = ({
                 </span>
               </span>
               <ul
-                className="!right-0 top-10 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
+                className="!right-0 top-10 z-20 rounded-md border border-white/10 bg-base-100 sm:!right-full sm:top-0"
                 style={{
                   left: "initial",
                 }}

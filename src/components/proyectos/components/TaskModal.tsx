@@ -185,7 +185,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
       });
 
       onClose();
-
     }
 
     if (task.id > 0) {
@@ -214,8 +213,18 @@ const TaskModal: React.FC<TaskModalProps> = ({
     setValue("name", "");
     setValue("description", "");
     setValue("endDate", "");
+    setValue("stateId", 0);
+    setValue("priority", 0);
+    setValue("projectId", 0);
+    setValue("userId", 0);
+    setValue("completed", false);
+    setValue("archived", false);
+    setValue("createdDate", new Date());
+
     setTaskState(emptyState);
     setTaskUser(emptyUser);
+    setTaskEndDate(null);
+    setPriority(0);
 
     TaskModal.setTask(emptyTask);
 
@@ -230,23 +239,12 @@ const TaskModal: React.FC<TaskModalProps> = ({
         ${show ? "modal-open" : ""}
       `}
       >
-        <div className="modal-box relative w-11/12 max-w-4xl overflow-visible border border-white/30 p-0 sm:w-10/12 lg:w-7/12 ">
-          <div className="w-full flex justify-between px-2 sm:px-4 items-center border-b border-white/30">
+        <div className="w-12/12 modal-box relative max-w-4xl overflow-visible border border-white/30 p-0 sm:w-10/12 lg:w-7/12 ">
+          <div className="flex w-full items-center justify-between border-b border-white/30 px-2 sm:px-4">
             <div className="flex items-center gap-2">
-              <span>
-                {
-                  idProject
-                }
-              </span>
-              <span>
-                {" / "}
-              </span>
-              <span>
-                
-                {
-                  Task ? "Editar tarea" : "Nueva tarea"
-                }
-              </span>
+              <span>{idProject}</span>
+              <span>{" / "}</span>
+              <span>{Task ? "Editar tarea" : "Nueva tarea"}</span>
             </div>
             <Button
               theme="ghost"
@@ -263,7 +261,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
             className="flex flex-col gap-8"
             onSubmit={handleSubmit(onSubmit)}
           >
-
             <div className="flex flex-col gap-2 p-2 sm:p-4">
               <input
                 type="text"
@@ -272,16 +269,22 @@ const TaskModal: React.FC<TaskModalProps> = ({
                 {...register("name", { required: true })}
                 defaultValue={Task ? Task.name : ""}
               />
+              {Task ? (
+                <textarea
+                  className="mt-2 h-28 w-full bg-transparent outline-transparent focus:outline-none"
+                  placeholder="Descripción (opcional)"
+                  {...register("description", { required: false })}
+                  defaultValue={Task.description || ""}
+                />
+              ) : (
+                <textarea
+                  className="mt-2 h-28 w-full bg-transparent outline-transparent focus:outline-none"
+                  placeholder="Descripción (opcional)"
+                  {...register("description", { required: false })}
+                />
+              )}
 
-              <textarea
-                className="h-28 w-full mt-2 bg-transparent outline-transparent focus:outline-none"
-                placeholder="Descripción (opcional)"
-                {...register("description", { required: false })}
-              >
-                {Task ? Task.description : ""}
-              </textarea>
-
-              <div className="mt-2 flex w-full gap-2">
+              <div className="mt-2 flex w-full flex-wrap gap-2">
                 {/*  */}
                 <div className="dropdown-bottom dropdown">
                   <label tabIndex={0} className="">
@@ -498,7 +501,6 @@ const TaskModal: React.FC<TaskModalProps> = ({
                       </span>
 
                       <span className="text-sm">
-
                         {TaskEndDate !== null
                           ? TaskEndDate.toLocaleDateString("es-ES", {
                               month: "long",
@@ -547,8 +549,13 @@ const TaskModal: React.FC<TaskModalProps> = ({
                         <span>
                           <LuCalendarDays />
                         </span>
+                        <span>
+                          {TaskEndDate !== null ? "Sumar un día" : "Mañana"}
+                        </span>
                       </button>
                     </li>
+                    {/* al final de la semana */}
+
                     <li>
                       <button
                         onClick={() => {
@@ -615,7 +622,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
               </div>
             </div>
 
-            <div className="w-full border-t border-white/30 p-4 flex justify-center sm:justify-end">
+            <div className="flex w-full justify-center border-t border-white/30 p-4 sm:justify-end">
               {/* <Button
                 theme="primary"
                 type="submit"
@@ -624,7 +631,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
                 center
                 fontSize="lg"
               /> */}
-              <button className="rounded-lg border border-white/30 bg-primary w-full sm:w-max px-4 py-2 sm:px-2 sm:py-1">
+              <button className="w-full rounded-lg border border-white/30 bg-primary px-4 py-2 sm:w-max sm:px-2 sm:py-1">
                 <span className="text-md">{Task ? "Guardar" : "Crear"}</span>
               </button>
             </div>

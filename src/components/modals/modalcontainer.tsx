@@ -20,7 +20,7 @@ const ModalContainer: React.FC<FormContainerProps> = ({
 }) => {
   return (
     <section
-      className={`absolute left-0 top-0 z-[100] bg-neutral-500/30 
+      className={`absolute left-0 top-0 z-[100] bg-black/10
     ${visible ? "flex" : "hidden"}
     h-full w-full items-center justify-center`}
       onClick={(e) => {
@@ -29,13 +29,7 @@ const ModalContainer: React.FC<FormContainerProps> = ({
         }
       }}
     >
-      <div className="relative h-full w-full rounded-lg bg-slate-700 px-4 py-8 md:h-fit md:w-1/2  max-w-[600px]"
-        style={
-          {
-            boxShadow: "0px 0px 10px 0px rgba(255,255,255,0.75)"
-          }
-        }
-      >
+      <div className="relative h-full w-full rounded-lg bg-slate-700 px-4 py-8 md:h-fit md:w-1/2  max-w-[600px] border border-white/30">
         <div className="absolute right-0 top-0 p-4">
           <Button
             icon={CiCircleRemove}

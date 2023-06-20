@@ -1,6 +1,9 @@
 "use client";
 import { TeamMemberProps } from "@/types";
+import axios from "axios";
 import { VscKebabVertical, VscChromeMinimize } from "react-icons/vsc";
+import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 interface TeamMemberListProps {
   idProject: number;
@@ -13,7 +16,7 @@ interface TeamMemberListProps {
 }
 const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberListProps) => {
   const isOwner = teamMember.role === "owner";
-
+  const router = useRouter();
   const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onUpdateTeamMember({
       updatedTeamMember: {
@@ -22,6 +25,33 @@ const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberLis
       },
     });
   };
+
+  const onDeleteTeamMember = () => {
+    
+    axios
+      .delete(`/api/proyectos/team`, {
+        headers: {
+          projectId: idProject,
+          teamMemberId: teamMember.userId,
+        },
+      })
+      .then((res) => {
+        if (res.data.status === 200) {
+          toast.success(res.data.message);
+          router.refresh();
+        }
+        if (res.data.status !== 200) {
+          toast.error(res.data.message);
+        }
+        toast.success(res.data.message);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Error al eliminar el miembro del equipo");
+      });
+
+  };
+
 
   return (
     <tr>
@@ -45,7 +75,9 @@ const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberLis
       </td>
       <td >
         {!isOwner && (
-          <button className="btn-error btn w-36 items-center  gap-2">
+          <button className="btn-error btn w-36 items-center  gap-2"
+            onClick={onDeleteTeamMember}
+          >
             <VscChromeMinimize /> Eliminar
           </button>
         )}

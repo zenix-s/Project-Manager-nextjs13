@@ -75,7 +75,7 @@ const CardProyecto = ({
       <div
         className={`
       ${isDeleting ? "flex" : "hidden"} 
-      text-dark absolute left-0 top-0 h-full w-full items-center  justify-center bg-white`}
+      text-dark absolute left-0 top-0 h-full w-full items-center  justify-center bg-base-100`}
       >
         <Image src={loadingLogo} alt="Loading..." width={100} height={100} />
       </div>
@@ -85,21 +85,19 @@ const CardProyecto = ({
         </Link>
       </div>
 
-      <div className={`dropdown dropdown-end absolute right-2 top-2`}>
+      <div className={`dropdown-end dropdown absolute right-2 top-2`}>
         <label tabIndex={0} className="btn-ghost btn">
           <FiMenu />
         </label>
 
-        <ul className="dropdown-content menu flex w-52 flex-col bg-base-100 rounded-md border border-white/30">
+        <ul className="dropdown-content menu flex w-52 flex-col rounded-md border border-white/30 bg-base-100">
           {role === "admin" ||
             (role === "owner" && (
               <li>
-                <button
-                  onClick={() => {}}
-                >
+                <button onClick={() => {}}>
                   <span>
                     <BiEdit />
-                  </span> 
+                  </span>
                   <span>Editar</span>
                 </button>
               </li>
@@ -107,11 +105,10 @@ const CardProyecto = ({
           {role === "admin" ||
             (role === "owner" && (
               <li>
-                <button 
+                <button
                   onClick={() => {
                     deleteProject(archived === true ? "unarchive" : "archive");
                   }}
-                
                 >
                   <span>
                     <BsArchive />
@@ -128,7 +125,7 @@ const CardProyecto = ({
               <span>Ver</span>
             </Link>
           </li>
-          {role === "owner" && (
+          {(role === "owner" && archived) &&  (
             <li>
               <Button
                 label="Eliminar"
@@ -138,23 +135,21 @@ const CardProyecto = ({
                 }}
               />
             </li>
-          )} 
+          )}
         </ul>
       </div>
       <div className="w-full">
-        <h3 className="text-lg">
-          {name}
-        </h3>
-        <p className="w-full ">
-          {description}
-        </p>
+        <h3 className="text-xl">{name}</h3>
+        <p className="text-md w-full">{description}</p>
         <div>
           <p>Role: {role}</p>
         </div>
       </div>
-      <div className="">
-        <p>End Date: {endDate.toLocaleDateString("es-ES")}</p>
-      </div>
+      {endDate && (
+        <div className="">
+          <p>End Date: {endDate.toLocaleDateString("es-ES")}</p>
+        </div>
+      )}
     </div>
   );
 };
