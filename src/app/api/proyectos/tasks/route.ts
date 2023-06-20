@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 import getCurrentUser from "@/actions/getCurrentUser";
 
-
 export async function GET(request: NextRequest) {
   const id = request.headers.get("projectId");
   const user = await getCurrentUser();
@@ -50,21 +49,18 @@ export async function GET(request: NextRequest) {
     },
   });
 
-  return NextResponse.json(
-    {
-      tasks: tareas,
-      status: 200,
-      message: "Tareas Obtenidas",
-    }
-  );
-  
+  return NextResponse.json({
+    tasks: tareas,
+    status: 200,
+    message: "Tareas Obtenidas",
+  });
 }
-
 
 export async function POST(request: NextRequest) {
   const res = await request.json();
 
-  const { name, projectId, stateId, priority, description, endDate, userId } = res;
+  const { name, projectId, stateId, priority, description, endDate, userId } =
+    res;
 
   const nuevaTarea = await prisma.tasks.create({
     data: {
@@ -154,7 +150,8 @@ export async function PUT(request: NextRequest) {
         archived: archived,
       },
     });
-  } catch (e) {
+  } catch (e: any) {
+    console.log(e);
     return NextResponse.json({
       status: 400,
       message: "Error al Actualizar Tarea",
@@ -211,17 +208,6 @@ export async function DELETE(request: NextRequest) {
       projectId: tarea?.projectId,
     },
   });
-
-  if (
-    permisos?.role !== "owner" &&
-    permisos?.role !== "admin" &&
-    permisos?.role !== "member"
-  ) {
-    return NextResponse.json({
-      status: 401,
-      message: "No Autorizado",
-    });
-  }
 
   if (permisos?.role !== "owner" && permisos?.role !== "admin") {
     return NextResponse.json({

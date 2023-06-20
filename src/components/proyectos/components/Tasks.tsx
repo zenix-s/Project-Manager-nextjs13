@@ -475,6 +475,7 @@ const Tasks = ({
         States={states}
         idProject={idProject}
         onAddTask={onAddTask}
+        onChangeTask={onChangeTask}
       />
       <StateModal projectId={idProject} />
       <section className="flex h-full w-full flex-col">

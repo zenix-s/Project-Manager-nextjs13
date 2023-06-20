@@ -31,6 +31,7 @@ interface TaskModalProps {
   States: StateProps[];
   idProject: number;
   onAddTask: ({ newTask }: { newTask: TaskProps }) => void;
+  onChangeTask: ({ updatedTask }: { updatedTask: TaskProps }) => void;
 }
 
 const TaskModal: React.FC<TaskModalProps> = ({
@@ -38,6 +39,7 @@ const TaskModal: React.FC<TaskModalProps> = ({
   States,
   idProject,
   onAddTask,
+  onChangeTask,
 }) => {
   const TaskModal = useTasksModal();
   const Task = TaskModal.Task;
@@ -123,15 +125,28 @@ const TaskModal: React.FC<TaskModalProps> = ({
 
     if (Task) {
       const CurrentState = States.find((state) => state.id === Task.stateId);
-      if (CurrentState) setTaskState(CurrentState);
+      if (CurrentState) {
+        setTaskState(CurrentState);
+        setValue("stateId", CurrentState.id);
+      }
     }
 
     if (Task) {
       const CurrentUser = TeamMembers.find(
         (member) => member.userId === Task.userId
       );
-      if (CurrentUser) setTaskUser(CurrentUser);
+      if (CurrentUser) {
+        setTaskUser(CurrentUser);
+        setValue("userId", CurrentUser.userId);
+      }
+
     }
+
+    if (Task) {
+      setPriority(Task.priority);
+      setValue("priority", Task.priority);
+    }
+
   }, [TaskModal.isOpen, Task, setValue, States, TeamMembers, getValues]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -175,9 +190,9 @@ const TaskModal: React.FC<TaskModalProps> = ({
           description: data.description,
           endDate: new Date(data.endDate),
           stateId: stateId(),
-          priority: priority,
+          priority: data.priority,
           projectId: idProject,
-          userId: data.userId,
+          userId: data.userId !== 0 ? data.userId : null,
           completed: false,
           archived: false,
           createdDate: new Date(),
@@ -187,26 +202,30 @@ const TaskModal: React.FC<TaskModalProps> = ({
       onClose();
     }
 
-    if (task.id > 0) {
-      toast.success("Tarea actualizada correctamente");
+    if (task.id !== 0) {
+      const finalEndDate = () => {
+        if (data.endDate === "") return null;
+        else return new Date(data.endDate);
+      };
 
-      axios
-        .put("/api/proyectos/tasks", {
+
+      onChangeTask({
+        updatedTask: {
           id: Task.id,
           name: data.name,
-          stateId: TaskState.id,
+          description: data.description,
+          endDate: finalEndDate(),
+          stateId: TaskState.id !== 0 ? TaskState.id : null,
           priority: priority,
           projectId: idProject,
-          description: data.description,
-          endDate: new Date(data.endDate),
-          userId: data.userId,
-        })
-        .then((res) => {})
-        .finally(() => {
-          onClose();
-        });
+          userId: data.userId !== 0 ? data.userId : null,
+          completed: Task.completed,
+          archived: Task.archived,
+          createdDate: Task.createdDate,
+        },
+      });
+      onClose();
     }
-    router.refresh();
   };
 
   const onClose = () => {
