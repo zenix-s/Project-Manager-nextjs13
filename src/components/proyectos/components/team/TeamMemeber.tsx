@@ -78,7 +78,8 @@ const TeamMember = ({ idProject, teamMember, onUpdateTeamMember }: TeamMemberLis
           <button className="btn-error btn w-36 items-center  gap-2"
             onClick={onDeleteTeamMember}
           >
-            <VscChromeMinimize /> Eliminar
+            <VscChromeMinimize />
+            Eliminar 
           </button>
         )}
       </td>

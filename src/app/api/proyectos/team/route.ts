@@ -122,6 +122,23 @@ export async function DELETE(request: NextRequest) {
     },
   });
 
+  if (teamMemberId === permiso?.userId.toString()) {
+    
+    await prisma?.assignments.delete({
+      where: {
+        id: permiso?.id,
+      },
+    });
+
+    return NextResponse.json({
+      status: 200,
+      message: "Has salido del proyecto",
+    });
+
+
+
+  }
+
   if (permiso?.role !== "owner" && permiso?.role !== "admin") {
     return NextResponse.json({
       status: 401,

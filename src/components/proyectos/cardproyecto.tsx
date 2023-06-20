@@ -141,13 +141,13 @@ const CardProyecto = ({
       <div className="w-full">
         <h3 className="text-xl">{name}</h3>
         <p className="text-md w-full">{description}</p>
-        <div>
+        {/* <div>
           <p>Role: {role}</p>
-        </div>
+        </div> */}
       </div>
       {endDate && (
         <div className="">
-          <p>End Date: {endDate.toLocaleDateString("es-ES")}</p>
+          <p>Finalización: {endDate.toLocaleDateString("es-ES" , {year: 'numeric', month: 'long', day: 'numeric'})}</p>
         </div>
       )}
     </div>
