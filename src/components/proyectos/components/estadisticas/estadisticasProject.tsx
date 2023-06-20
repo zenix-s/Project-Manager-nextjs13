@@ -4,6 +4,7 @@ import TasksCompletedvsNoCompleted from "./stats/TasksCompletedvsNoCompleted";
 import TimeToCompleteATask from "./stats/TimeToCompleteATask";
 import TaskPerMember from "./stats/TaskPerMember";
 import TeamMember from "../team/TeamMemeber";
+import TasksPerPriority from "./stats/TasksPerPriority";
 interface EstadisticasProjectProps {
   tareas: TaskProps[];
   estados: StateProps[];
@@ -33,6 +34,9 @@ const EstadisticasProject = ({
         </div>
         <div className="flex w-full">
           <TaskPerMember tareas={tareas} estados={estados} teamMembers={teamMembers}  />
+        </div>
+        <div>
+          <TasksPerPriority tareas={tareas} estados={estados} />
         </div>
       </div>
     </div>

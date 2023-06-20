@@ -1,5 +1,6 @@
 import { StateProps, TaskProps, TeamMemberProps } from "@/types";
 import { getHexColor } from "@/actions/getColors";
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar } from "recharts";
 
 interface TasksPerStatusProps {
   tareas: TaskProps[];
@@ -7,10 +8,13 @@ interface TasksPerStatusProps {
   teamMembers: TeamMemberProps[];
 }
 
-const TaskPerMember = ({ tareas, estados, teamMembers }: TasksPerStatusProps) => {
-  
+const TaskPerMember = ({
+  tareas,
+  estados,
+  teamMembers,
+}: TasksPerStatusProps) => {
   const TaskPerMember = () => {
-    let teamMembers:{
+    let teamMembers: {
       [key: number]: number;
     } = {};
     tareas.forEach((tarea) => {
@@ -21,55 +25,51 @@ const TaskPerMember = ({ tareas, estados, teamMembers }: TasksPerStatusProps) =>
           teamMembers[tarea.userId] = 1;
         }
       }
-
     });
     return teamMembers;
-  }
-
+  };
+  const totalTasks = tareas.length;
   const TaskPerMembers = TaskPerMember();
-  
+
+  // const data = [
+  //   {
+  //     "name": memberName,
+  //     "value": tasksForMember
+  //   }
+  // ]
+
+  const data = Object.keys(TaskPerMembers).map((key) => {
+    const memberId = parseInt(key);
+    const tasksForMember = TaskPerMembers[memberId];
+    const member = teamMembers.find(
+      (teamMember) => teamMember.userId === memberId
+    );
+    const memberName = member ? member.users.username : "Unknown Member";
+    const taskPercentage = (tasksForMember / totalTasks) * 100;
+
+    return {
+      name: memberName,
+      tareasAsignadas: tasksForMember,
+    };
+  });
 
   return (
-    <div
-      className=" justify-between flex h-full w-full items-center rounded-xl bg-slate-900 px-8 py-4"
-      style={{
-        boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
-      }}
-    >
-      {
-        
-        Object.keys(TaskPerMembers).map((key) => {
-          return(
-            <div
-              key={key}
-
-            >
-              {
-                teamMembers.filter((teamMember) => teamMember.userId === parseInt(key)) 
-                .map((teamMember) => {
-                  return(
-                    <div
-                      key={teamMember.userId}
-                      className="flex flex-col text-2xl font-bold"
-                    >
-                      {teamMember.users.username}
-                    </div>
-                  )
-                }) 
-              }
-              <div>
-                {
-                  TaskPerMembers[
-                    parseInt(key)
-                  ]
-                }
-              </div>
-            </div>
-          )})
-        
-      }
-
-
+    <div className=" flex h-full flex-col w-full items-center justify-between rounded-xl border border-white/30 px-8 py-4">
+      <h2 className="text-xl mb-2">
+        Tareas asignadas por miembro
+      </h2>
+      <div>
+        <BarChart width={
+          data.length * 300
+        } height={450} data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="tareasAsignadas" fill="#8884d8" />
+        </BarChart>
+      </div>
     </div>
   );
 };

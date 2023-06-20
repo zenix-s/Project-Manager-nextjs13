@@ -11,9 +11,9 @@ const ProfileSection = ({ user }: ProfileSectionProps) => {
   const [isEditMode, setIsEditMode] = useState(false);
 
   return (
-    <div className="bg-white/5 h-full p-1 lg:p-4 rounded-lg">
-      <HeaderProfile isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
-      <div>
+    <div className="border border-white/10 h-full p-1 lg:p-4 rounded-lg">
+      {/* <HeaderProfile isEditMode={isEditMode} setIsEditMode={setIsEditMode} /> */}
+      {/* <div>
         {isEditMode ? (
           <div className="w-full">
             <h1>edit mode</h1>
@@ -23,7 +23,7 @@ const ProfileSection = ({ user }: ProfileSectionProps) => {
             <h1>view mode</h1>
           </div>
         )}
-      </div>
+      </div> */}
       <div className="flex flex-col ">
         <div className="">
           {isEditMode ? (

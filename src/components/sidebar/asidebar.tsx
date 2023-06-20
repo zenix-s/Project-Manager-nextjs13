@@ -21,11 +21,11 @@ interface AsideBarProps {
 }
 
 const links: NavBarLinkProps[] = [
-  {
-    label: "Home",
-    href: "/",
-    icon: CiHome,
-  },
+  // {
+  //   label: "Home",
+  //   href: "/",
+  //   icon: CiHome,
+  // },
   {
     label: "Proyectos",
     href: "/proyectos",

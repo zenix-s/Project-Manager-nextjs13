@@ -17,31 +17,6 @@ interface Props {
 }
 
 const TasksCompletedvsNoCompleted = ({ tareas, estados }: Props) => {
-  // const data = [
-  //   {
-  //     name: 'Page A',
-  //     uv: 4000,
-  //     pv: 2400,
-  //     amt: 2400,
-  //   },
-  //   {
-  //     name: 'Page B',
-  //     uv: 3000,
-  //     pv: 1398,
-  //     amt: 2210,
-  //   },
-  //   {
-  //     name: 'Page C',
-  //     uv: 2000,
-  //     pv: 9800,
-  //     amt: 2290,
-  //   },
-  // ];
-
-  // name = nombre del estado
-  // value = cantidad de tareas en ese estado
-  // completed = cantidad de tareas completadas en ese estado
-  // noCompleted = cantidad de tareas no completadas en ese estado
   const data = [
     ...estados.map((estado) => {
       return {
@@ -60,7 +35,7 @@ const TasksCompletedvsNoCompleted = ({ tareas, estados }: Props) => {
 
   return (
     <div
-      className=" flex w-full h-full flex-col items-center justify-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" flex w-full h-full flex-col items-center justify-center rounded-xl border border-white/30 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}

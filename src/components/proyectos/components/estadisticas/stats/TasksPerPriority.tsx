@@ -2,22 +2,54 @@ import { StateProps, TaskProps } from "@/types";
 import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from "recharts";
 import { getHexColor } from "@/actions/getColors";
 
-interface TasksPerStatusProps {
+interface TasksPerPriorityProps {
   tareas: TaskProps[];
   estados: StateProps[];
 }
 
-const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
+const TasksPerPriority = ({ tareas, estados }: TasksPerPriorityProps) => {
+
+  const prioridades = [
+    {
+      id: 0,
+      name: "Sin Prioridad",
+    },
+    {
+      id: 1,
+      name: "Baja",
+    },
+    {
+      id: 2,
+      name: "Media",
+    },
+    {
+      id: 3,
+      name: "Alta",
+    },
+    {
+      id: 4,
+      name: "Urgente",
+    }
+  ]
+
   const data: any = [
-    ...estados.map((estado) => {
+    ...prioridades.map((prioridad) => {
       return {
-        name: estado.name,
-        value: tareas.filter((tarea) => tarea.stateId === estado.id).length,
+        name: prioridad.name,
+        value: tareas.filter((tarea) => tarea.priority === prioridad.id).length,
       };
     }),
   ];
   // get the colors of the states
-  const COLORS = estados.map((estado) => getHexColor(estado.color));
+  const COLORS = [
+    "#88E0EF",
+    "#3DB2FF",
+    "#5463FF",
+    "#F9D923",
+    "#F15412",
+    "#FF1818",
+
+  ]
 
   return (
     <div
@@ -48,17 +80,19 @@ const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
       </div>
       <div className="flex items-center justify-center">
         <div>
-          {estados.map((estado) => {
+          {prioridades.map((prioridad) => {
             return (
-              <div className="flex items-center gap-2" key={estado.id}>
+              <div className="flex items-center gap-2" key={prioridad.id}>
                 <div
                   className={`h-3 w-3 rounded-full`}
-                  style={{ backgroundColor: getHexColor(estado.color) }}
+                  style={{
+                    backgroundColor: COLORS[prioridad.id],
+                  }}
                 ></div>
                 <p>
-                  {estado.name} -{" "}
+                  {prioridad.name} -{" "}
                   {
-                    tareas.filter((tarea) => tarea.stateId === estado.id)
+                    tareas.filter((tarea) => tarea.priority === prioridad.id)
                       .length
                   }
                 </p>
@@ -71,4 +105,4 @@ const TasksPerStatus = ({ tareas, estados }: TasksPerStatusProps) => {
   );
 };
 
-export default TasksPerStatus;
+export default TasksPerPriority;

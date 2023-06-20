@@ -33,7 +33,7 @@ const TimeToCompleteATask = ({ tareas, estados }: TasksPerStatusProps) => {
 
   return (
     <div
-      className=" justify-between flex h-full w-full items-center rounded-xl bg-slate-900 px-8 py-4"
+      className=" justify-between flex h-full w-full items-center rounded-xl border border-white/30 px-8 py-4"
       style={{
         boxShadow: "0px 0px 10px 0px rgba(51,65,85,0.50)",
       }}
