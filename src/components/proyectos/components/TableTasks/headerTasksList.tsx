@@ -34,19 +34,21 @@ const HeaderTasksList = ({
 
 
   return (
-    <div className="flex flex-col items-end justify-between gap-4 lg:flex-row mt-2">
-      <div>
+    <div className="flex flex-row items-end justify-between gap-4 mt-2">
+      <div className="w-full md:w-max">
         <NewTaskModal idProject={idProject} estados={estados} onAddTask={onAddTask} />
       </div>
-      <button
-        onClick={() => TaskModal.onOpen()}
-        className="p-2 rounded-md bg-primary flex items-center gap-2"
-      >
-        <span>
-          <VscAdd />
-        </span>
-        <span>Nueva tarea</span>
-      </button>
+      <div className="hidden sm:block">
+        <button
+          onClick={() => TaskModal.onOpen()}
+          className="p-2 rounded-md bg-primary flex items-center gap-2"
+        >
+          <span>
+            <VscAdd />
+          </span>
+          <span>Nueva tarea</span>
+        </button>
+      </div>
     </div>
   );
 };

@@ -146,7 +146,7 @@ const TableTasks = ({
           idProject={idProject}
           onAddTask={onAddTask}
         />
-        <div className="mt-2 flex items-center gap-2">
+        <div className="mt-2 hidden sm:flex items-center gap-2">
           <label>Filtro:</label>
           <div className="dropdown">
             <label

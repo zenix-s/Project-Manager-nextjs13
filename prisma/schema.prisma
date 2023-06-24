@@ -47,7 +47,7 @@ model projects {
 
 model tasks {
   id          Int       @id @default(autoincrement())
-  name        String    @db.VarChar(50)
+  name        String    @db.VarChar(255)
   description String?   @db.VarChar(255)
   endDate     DateTime? @db.DateTime(0)
   completed   Boolean   @default(false)
